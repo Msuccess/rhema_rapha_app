@@ -84,7 +84,7 @@ class RouterPath {
 
       case RoutePaths.DoctorDetails:
         return PageTransition(
-          child: DoctorDetailsPage(),
+          child: DoctorDetailsPage(arguments: settings.arguments),
           type: PageTransitionType.leftToRightWithFade,
         );
         break;

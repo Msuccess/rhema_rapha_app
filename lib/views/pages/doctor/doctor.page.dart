@@ -32,6 +32,7 @@ class _DoctorPageState extends State<DoctorPage> {
           appBar: AppBar(
             elevation: 0,
             backgroundColor: AppColors.whiteShade2,
+          
           ),
           body: SafeArea(
             child: CustomScrollView(
