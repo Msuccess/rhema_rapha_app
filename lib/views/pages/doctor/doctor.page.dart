@@ -3,7 +3,6 @@ import 'package:rhema_rapha_app/assets/styles/colors.dart';
 
 import 'package:rhema_rapha_app/assets/styles/text_style.dart';
 import 'package:rhema_rapha_app/core/models/doctor.model.dart';
-
 import 'package:rhema_rapha_app/core/view_models/doctor.viewmode.dart';
 import 'package:rhema_rapha_app/views/widgets/base.widget.dart';
 import 'package:rhema_rapha_app/views/widgets/doctortile.widget.dart';
