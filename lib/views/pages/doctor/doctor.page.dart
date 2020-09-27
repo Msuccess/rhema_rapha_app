@@ -30,9 +30,11 @@ class _DoctorPageState extends State<DoctorPage> {
       builder: (BuildContext context, DoctorViewModel model, Widget child) {
         return Scaffold(
           appBar: AppBar(
-            elevation: 0,
+            elevation: 2.0,
             backgroundColor: AppColors.whiteShade2,
-          
+            iconTheme: IconThemeData(
+              color: AppColors.primaryColor, //change your color here
+            ),
           ),
           body: SafeArea(
             child: CustomScrollView(
@@ -49,7 +51,7 @@ class _DoctorPageState extends State<DoctorPage> {
       delegate: SliverChildListDelegate(
         [
           Padding(
-            padding: EdgeInsets.symmetric(horizontal: 20,vertical: 20),
+            padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
