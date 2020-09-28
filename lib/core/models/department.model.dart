@@ -13,6 +13,9 @@ class Department {
     this.name,
     this.description,
   });
+  Department.initial()
+      : name = "",
+        description = "";
 
   factory Department.fromJson(Map<String, dynamic> data) =>
       _$DepartmentFromJson(data);

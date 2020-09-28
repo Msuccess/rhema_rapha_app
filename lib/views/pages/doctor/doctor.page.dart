@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:rhema_rapha_app/assets/styles/colors.dart';
 
 import 'package:rhema_rapha_app/assets/styles/text_style.dart';
@@ -22,7 +23,9 @@ class _DoctorPageState extends State<DoctorPage> {
   @override
   Widget build(BuildContext context) {
     return BaseWidget<DoctorViewModel>(
-      model: DoctorViewModel(),
+      model: DoctorViewModel(
+        departmentService: Provider.of(context),
+      ),
       onModelReady: (DoctorViewModel model) async {
         doctors = widget.arguments;
       },

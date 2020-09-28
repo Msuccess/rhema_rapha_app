@@ -5,6 +5,8 @@ import 'package:rhema_rapha_app/core/message/result.model.dart';
 import 'package:rhema_rapha_app/core/models/department.model.dart';
 import 'package:rhema_rapha_app/core/services/base.service.dart';
 
+import '../models/department.model.dart';
+
 class DepartmentService extends BaseService {
   Future<Result<List<Department>>> getDepartments() async {
     var url = EndPoints.getDepartmentUrl();
@@ -36,7 +38,7 @@ class DepartmentService extends BaseService {
     );
   }
 
-  Future<Result> getDepartmentsById(String id) async {
+  Future<Result<Department>> getDepartmentsById(String id) async {
     var url = EndPoints.getDepartmentUrl();
 
     var res = await getRequest('$url/$id');

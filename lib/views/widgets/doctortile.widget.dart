@@ -44,7 +44,7 @@ class DoctorTile extends StatelessWidget {
         child: ListTile(
             contentPadding: EdgeInsets.all(0),
             leading: ClipRRect(
-              borderRadius: BorderRadius.all(Radius.circular(13)),
+              borderRadius: BorderRadius.all(Radius.circular(13),),
               child: model.avatar != null
                   ? Container(
                       height: 55,

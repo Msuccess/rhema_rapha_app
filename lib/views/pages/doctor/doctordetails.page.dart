@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_feather_icons/flutter_feather_icons.dart';
+import 'package:provider/provider.dart';
 import 'package:rhema_rapha_app/assets/styles/colors.dart';
 import 'package:rhema_rapha_app/assets/styles/sizes.dart';
 import 'package:rhema_rapha_app/assets/styles/text_style.dart';
@@ -6,7 +8,13 @@ import 'package:rhema_rapha_app/core/models/doctor.model.dart';
 import 'package:rhema_rapha_app/core/view_models/doctor.viewmode.dart';
 import 'package:rhema_rapha_app/views/widgets/appbar.widget.dart';
 import 'package:rhema_rapha_app/views/widgets/base.widget.dart';
+import 'package:rhema_rapha_app/views/widgets/detailstile.widget.dart';
 import 'package:rhema_rapha_app/views/widgets/random_color.widget.dart';
+
+import '../../../assets/styles/colors.dart';
+import '../../../core/models/department.model.dart';
+import '../../../core/models/department.model.dart';
+import '../../../core/models/doctor.model.dart';
 
 class DoctorDetailsPage extends StatefulWidget {
   final arguments;
@@ -18,15 +26,20 @@ class DoctorDetailsPage extends StatefulWidget {
 }
 
 class _DoctorDetailsPageState extends State<DoctorDetailsPage> {
-  Doctor doctor;
+  Doctor doctor = Doctor.initial();
+  Department department;
+  String initials;
 
   @override
   Widget build(BuildContext context) {
-    var initials = AppBarWidget.getInitials(name: doctor.fullName, limitTo: 2);
     return BaseWidget<DoctorViewModel>(
-      model: DoctorViewModel(),
+      model: DoctorViewModel(
+        departmentService: Provider.of(context),
+      ),
       onModelReady: (DoctorViewModel model) async {
         doctor = widget.arguments;
+        await model.getDepartment(widget.arguments['departmentId']);
+        initials = AppBarWidget.getInitials(name: doctor.fullName, limitTo: 2);
       },
       builder: (BuildContext context, DoctorViewModel model, Widget child) {
         return Scaffold(
@@ -36,127 +49,83 @@ class _DoctorDetailsPageState extends State<DoctorDetailsPage> {
             iconTheme: IconThemeData(
               color: AppColors.primaryColor, //change your color here
             ),
+            title: Text(
+              doctor.fullName,
+              style: TextStyle(color: AppColors.primaryColor),
+            ),
           ),
-          body: SafeArea(
-            bottom: false,
+          body: Padding(
+            padding:
+                const EdgeInsets.symmetric(vertical: 50.0, horizontal: 20.0),
             child: Stack(
-              children: <Widget>[
-                CircleAvatar(
-                  backgroundColor: randomColor(),
-                  child: Text(
-                    initials,
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.w500,
+              children: [
+                Positioned(
+                  child: SingleChildScrollView(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: <Widget>[
+                        CircleAvatar(
+                          maxRadius: 60.0,
+                          backgroundColor: randomColor(),
+                          child: Text(
+                            initials,
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                        ),
+                        SizedBox(
+                          height: 20.0,
+                        ),
+                        DetailsTilleWidget(
+                          data: doctor.fullName,
+                          iconData: FeatherIcons.user,
+                          title: "Full Name",
+                        ),
+                        DetailsTilleWidget(
+                          data: doctor.email,
+                          iconData: FeatherIcons.mail,
+                          title: "Email Address",
+                        ),
+                        DetailsTilleWidget(
+                          data: doctor.address,
+                          iconData: FeatherIcons.map,
+                          title: "Email Address",
+                        ),
+                        DetailsTilleWidget(
+                          data: doctor.daysAvailable,
+                          iconData: FeatherIcons.calendar,
+                          title: "Day Available",
+                        ),
+                        DetailsTilleWidget(
+                          data: doctor.timesAvailable,
+                          iconData: FeatherIcons.clock,
+                          title: "Day Time",
+                        ),
+                        DetailsTilleWidget(
+                          data: doctor.phonenumber,
+                          iconData: FeatherIcons.phone,
+                          title: "Phone Number",
+                        ),
+                        DetailsTilleWidget(
+                          data: model.department.name,
+                          iconData: FeatherIcons.box,
+                          title: "Department",
+                        )
+                      ],
                     ),
                   ),
-                ), // ignore: missing_required_param
-                DraggableScrollableSheet(
-                  maxChildSize: .8,
-                  initialChildSize: .6,
-                  minChildSize: .6,
-                  builder: (BuildContext context,
-                      ScrollController scrollController) {
-                    return Container(
-                      height: AppSizes.fullHeight(context) * 5,
-                      padding: EdgeInsets.only(left: 19, right: 19, top: 16),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.only(
-                            topLeft: Radius.circular(30),
-                            topRight: Radius.circular(30)),
-                        color: Colors.white,
-                      ),
-                      child: SingleChildScrollView(
-                        physics: BouncingScrollPhysics(),
-                        controller: scrollController,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: <Widget>[
-                            ListTile(
-                              contentPadding: EdgeInsets.all(0),
-                              title: Row(
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: <Widget>[
-                                  Text(
-                                    doctor.fullName,
-                                    style: AppTexts.title,
-                                  ),
-                                  SizedBox(
-                                    width: 10.0,
-                                  ),
-                                  Icon(
-                                    Icons.check_circle,
-                                    size: 18,
-                                    color: Theme.of(context).primaryColor,
-                                  ),
-                                  Spacer(),
-                                ],
-                              ),
-                              subtitle: Text(
-                            doctor.phonenumber,
-                            style: AppTexts.normalText,
-                          ),
-                            ),
-                             Divider(
-                          thickness: .3,
-                          color: AppColors.grey,
-                        ),
-                        Row(
-                        
-                        ), Divider(
-                          thickness: .3,
-                          color: AppColors.grey,
-                        ),Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Text("About", style: AppTexts.title),
-                        ),
-                        Text(
-                        doctor.timesAvailable,
-                          style: AppTexts.inputText
-                        ),
-                         Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: <Widget>[
-                            Container(
-                              height: 45,
-                              width: 45,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(10),
-                                color: LightColor.grey.withAlpha(150)
-                              ),
-                              child: Icon(Icons.call, color: Colors.white,),
-                            ).ripple((){}, borderRadius:BorderRadius.circular(10), ),
-                            SizedBox(
-                              width: 10,
-                            ),
-                            Container(
-                              height: 45,
-                              width: 45,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(10),
-                                color: LightColor.grey.withAlpha(150)
-                              ),
-                              child: Icon(Icons.chat_bubble, color: Colors.white,),
-                            ).ripple((){}, borderRadius:BorderRadius.circular(10), ),
-                            SizedBox(
-                              width: 10,
-                            ),
-                            FlatButton(
-                              color: Theme.of(context).primaryColor,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(10)
-                              ),
-                              onPressed: () {},
-                              child: Text("Make an appointment", style: TextStyles.titleNormal.white,).p(10),
-                            ),
-                          ],
-                        )
-                          ],
-                        ),
-                      ),
-                    );
-                  },
                 ),
+                Positioned(
+                  child: Align(
+                    alignment: Alignment.bottomCenter,
+                    child: FlatButton(
+                      onPressed: null,
+                      child: Text("data"),
+                    ),
+                  ),
+                )
               ],
             ),
           ),

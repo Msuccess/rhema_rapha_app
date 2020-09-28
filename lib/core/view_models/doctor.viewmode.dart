@@ -1,18 +1,26 @@
 
+import 'package:flutter/material.dart';
 import 'package:rhema_rapha_app/core/message/result.model.dart';
-import 'package:rhema_rapha_app/core/models/doctor.model.dart';
-import 'package:rhema_rapha_app/core/services/doctor.service.dart';
 import 'package:rhema_rapha_app/core/view_models/base.viewmodel.dart';
 
-class DoctorViewModel extends BaseViewModel {
-  DoctorService _doctorService;
-  List<Doctor> doctors = List<Doctor>();
+import '../models/department.model.dart';
+import '../services/department.service.dart';
 
-  Future<Result> getDoctors() async {
+class DoctorViewModel extends BaseViewModel {
+  DepartmentService _departmentService;
+  
+   DoctorViewModel(
+      { @required DepartmentService departmentService})
+      : _departmentService = departmentService;
+
+  Department department =  Department.initial();
+
+   Future<Result> getDepartment(String id) async {
     setBusy(true);
-    Result<List<Doctor>> result = await _doctorService.getDoctors();
-    doctors = result.isSuccessful ? result.data : new Doctor();
+    Result<Department> result = await _departmentService.getDepartmentsById(id);
+    department = result.isSuccessful ? result.data : new Department();
     setBusy(false);
     return result;
   }
+  
 }

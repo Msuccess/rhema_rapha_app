@@ -19,7 +19,8 @@ class Doctor {
   String avatar;
   Department department;
 
-  Doctor({this.id,
+  Doctor(
+      {this.id,
       this.email,
       this.fullName,
       this.phonenumber,
@@ -33,6 +34,20 @@ class Doctor {
       this.avatar,
       this.department});
 
+  Doctor.initial()
+      : id = "",
+        email = "",
+        fullName = "",
+        phonenumber = "",
+        password = "",
+        role = "",
+        dateOfBirth = "",
+        departmentId = "",
+        daysAvailable = "",
+        address = "",
+        timesAvailable = "",
+        avatar = "";
+        
   factory Doctor.fromJson(Map<String, dynamic> data) => _$DoctorFromJson(data);
 
   Map<String, dynamic> toJson() => _$DoctorToJson(this);
