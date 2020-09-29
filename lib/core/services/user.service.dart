@@ -1,1 +1,5 @@
-class UserService{}
+class UserService{
+  getUserDetails() {}
+
+  getPatientDetails() {}
+}

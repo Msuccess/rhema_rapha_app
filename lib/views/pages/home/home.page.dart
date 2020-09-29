@@ -1,16 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:provider/provider.dart';
-import 'package:rhema_rapha_app/assets/styles/colors.dart';
 import 'package:rhema_rapha_app/assets/styles/text_style.dart';
 import 'package:rhema_rapha_app/core/models/doctor.model.dart';
 import 'package:rhema_rapha_app/core/routes/routes.dart';
 import 'package:rhema_rapha_app/core/view_models/home.viewmodel.dart';
 import 'package:rhema_rapha_app/views/pages/home/home.widget.dart';
-import 'package:rhema_rapha_app/views/widgets/appbar.widget.dart';
 import 'package:rhema_rapha_app/views/widgets/base.widget.dart';
 import 'package:rhema_rapha_app/views/widgets/doctortile.widget.dart';
-import 'package:rhema_rapha_app/views/widgets/random_color.widget.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -42,7 +38,7 @@ class _HomePageState extends State<HomePage> {
                     [
                       HeaderWidget(name: fullname),
                       SearchWidgets(),
-                      Departments(),
+                      Departments(departments: model.departments),
                     ],
                   ),
                 ),

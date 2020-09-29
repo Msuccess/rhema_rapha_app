@@ -70,6 +70,7 @@ class AuthService {
           await SharedPreferences.getInstance();
       sharedPreferences.setString(TOKEN, jsonEncode(data['token']));
       sharedPreferences.setString(AUTHDATA, jsonEncode(data['dbUser']));
+      sharedPreferences.setString(USERID, jsonEncode(data['dbUser']['id']));
 
       return Result(
           isSuccessful: true, data: data, message: 'Signin successful');

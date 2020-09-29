@@ -5,8 +5,9 @@ import 'package:rhema_rapha_app/assets/styles/colors.dart';
 import 'package:rhema_rapha_app/assets/styles/sizes.dart';
 import 'package:rhema_rapha_app/assets/styles/text_style.dart';
 import 'package:rhema_rapha_app/core/constants/menu_items.dart';
+import 'package:rhema_rapha_app/core/models/department.model.dart';
 import 'package:rhema_rapha_app/core/routes/routes.dart';
-
+import 'package:rhema_rapha_app/views/widgets/random_color.widget.dart';
 
 class HeaderWidget extends StatelessWidget {
   final String name;
@@ -71,6 +72,10 @@ class SearchWidgets extends StatelessWidget {
 }
 
 class Departments extends StatelessWidget {
+  final List<Department> departments;
+
+  const Departments({Key key, this.departments}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -101,21 +106,18 @@ class Departments extends StatelessWidget {
         SizedBox(
           height: AppSizes.fullHeight(context) * .28,
           width: AppSizes.fullWidth(context),
-          child: ListView(
-            scrollDirection: Axis.horizontal,
-            children: <Widget>[
-              departmentCard(context, "Chemist & Drugist", "350 + Stores",
-                  color: AppColors.green, lightColor: AppColors.greenShade1),
-              departmentCard(context, "Covid - 19 Specilist", "899 Doctors",
-                  color: AppColors.seaBlue1, lightColor: AppColors.lightBlue),
-              departmentCard(
-                  context, "Cardiologists Specilist", "500 + Doctors",
-                  color: AppColors.orange, lightColor: AppColors.orangeShade4),
-              departmentCard(
-                  context, "Cardiologists Specilist", "500 + Doctors",
-                  color: AppColors.orange, lightColor: AppColors.orangeShade4)
-            ],
-          ),
+          child: ListView.builder(
+              scrollDirection: Axis.horizontal,
+              padding: const EdgeInsets.all(8),
+              itemCount: departments.length,
+              itemBuilder: (BuildContext context, int index) {
+                return departmentCard(
+                  context,
+                  departments[index].name,
+                  departments[index].description,
+                 color: AppColors.green, lightColor: AppColors.greenShade1,
+                );
+              }),
         ),
       ],
     );
@@ -217,4 +219,3 @@ class ButtomTabBar extends StatelessWidget {
     );
   }
 }
-

@@ -3,4 +3,5 @@ const TOKEN = "TOKEN";
 const PLAN_ID = "PLAN_ID";
 const AUTHDATA = "AUTHDATA";
 const PLAN_NAME = "PLAN_NAME";
-
+const PROFILE_UPDATE = "PROFILE_UPDATE";
+const USERID = "USERID";

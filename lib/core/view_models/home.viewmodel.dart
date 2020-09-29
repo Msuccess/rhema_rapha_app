@@ -44,7 +44,7 @@ class HomeViewModel extends BaseViewModel {
 
   Future<Result> getDepartmentById(String id) async {
     setBusy(true);
-    Result result = await _departmentService.getDepartmentsById(id);
+    Result result = await _departmentService.getDepartmentById(id);
     departments = result.data;
     setBusy(false);
     return result;

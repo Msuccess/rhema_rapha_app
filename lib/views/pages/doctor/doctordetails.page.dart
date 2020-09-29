@@ -2,19 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:provider/provider.dart';
 import 'package:rhema_rapha_app/assets/styles/colors.dart';
-import 'package:rhema_rapha_app/assets/styles/sizes.dart';
-import 'package:rhema_rapha_app/assets/styles/text_style.dart';
 import 'package:rhema_rapha_app/core/models/doctor.model.dart';
-import 'package:rhema_rapha_app/core/view_models/doctor.viewmode.dart';
+import 'package:rhema_rapha_app/core/view_models/doctordetails.viewmodel.dart';
 import 'package:rhema_rapha_app/views/widgets/appbar.widget.dart';
 import 'package:rhema_rapha_app/views/widgets/base.widget.dart';
 import 'package:rhema_rapha_app/views/widgets/detailstile.widget.dart';
 import 'package:rhema_rapha_app/views/widgets/random_color.widget.dart';
-
-import '../../../assets/styles/colors.dart';
-import '../../../core/models/department.model.dart';
-import '../../../core/models/department.model.dart';
-import '../../../core/models/doctor.model.dart';
 
 class DoctorDetailsPage extends StatefulWidget {
   final arguments;
@@ -27,21 +20,24 @@ class DoctorDetailsPage extends StatefulWidget {
 
 class _DoctorDetailsPageState extends State<DoctorDetailsPage> {
   Doctor doctor = Doctor.initial();
-  Department department;
   String initials;
 
   @override
   Widget build(BuildContext context) {
-    return BaseWidget<DoctorViewModel>(
-      model: DoctorViewModel(
+    return BaseWidget<DoctorDetailsViewModel>(
+      model: DoctorDetailsViewModel(
         departmentService: Provider.of(context),
       ),
-      onModelReady: (DoctorViewModel model) async {
+      onModelReady: (DoctorDetailsViewModel model) async {
         doctor = widget.arguments;
-        await model.getDepartment(widget.arguments['departmentId']);
+
+        var id = widget.arguments.departmentId;
+
         initials = AppBarWidget.getInitials(name: doctor.fullName, limitTo: 2);
+        await model.getDepartment(id);
       },
-      builder: (BuildContext context, DoctorViewModel model, Widget child) {
+      builder:
+          (BuildContext context, DoctorDetailsViewModel model, Widget child) {
         return Scaffold(
           appBar: AppBar(
             elevation: 2.0,
@@ -93,12 +89,12 @@ class _DoctorDetailsPageState extends State<DoctorDetailsPage> {
                           iconData: FeatherIcons.map,
                           title: "Email Address",
                         ),
-                        DetailsTilleWidget(
+                        DetailsTilleWidget2(
                           data: doctor.daysAvailable,
                           iconData: FeatherIcons.calendar,
                           title: "Day Available",
                         ),
-                        DetailsTilleWidget(
+                        DetailsTilleWidget2(
                           data: doctor.timesAvailable,
                           iconData: FeatherIcons.clock,
                           title: "Day Time",
@@ -109,10 +105,16 @@ class _DoctorDetailsPageState extends State<DoctorDetailsPage> {
                           title: "Phone Number",
                         ),
                         DetailsTilleWidget(
-                          data: model.department.name,
+                          data: model.department == null
+                              ? ""
+                              : model.department.name,
                           iconData: FeatherIcons.box,
                           title: "Department",
-                        )
+                        ),
+                        SizedBox(
+                          height: 50.0,
+                        ),
+                        
                       ],
                     ),
                   ),
@@ -120,9 +122,17 @@ class _DoctorDetailsPageState extends State<DoctorDetailsPage> {
                 Positioned(
                   child: Align(
                     alignment: Alignment.bottomCenter,
-                    child: FlatButton(
-                      onPressed: null,
-                      child: Text("data"),
+                    child: Container(
+                      width: MediaQuery.of(context).size.width,
+                      height: 50.0,
+                      child: FlatButton(
+                        onPressed: () => {},
+                        child: Text(
+                          "Make Appointment",
+                          style: TextStyle(color: Colors.white),
+                        ),
+                        color: AppColors.primaryColor,
+                      ),
                     ),
                   ),
                 )
