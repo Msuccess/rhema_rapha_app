@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:rhema_rapha_app/assets/styles/colors.dart';
 
-
 class ButtonWidget extends StatelessWidget {
   final Function onPressed;
   final busy;
   final text;
+  final bool invert;
   final String imageName;
-  final Color color;
   final Color disabledColor;
 
   ButtonWidget({
@@ -15,9 +14,9 @@ class ButtonWidget extends StatelessWidget {
     this.busy = false,
     this.onPressed,
     this.text,
-    this.color,
     this.imageName,
     this.disabledColor,
+    this.invert = false,
   }) : super(key: key);
 
   @override
@@ -28,7 +27,7 @@ class ButtonWidget extends StatelessWidget {
         height: 50.0,
         child: FlatButton(
           onPressed: busy ? null : () => onPressed(),
-          color: color == null ? AppColors.primaryColor : color,
+          color: invert ? AppColors.white : AppColors.primaryColor,
           disabledColor: AppColors.primaryDisableColor,
           child: Center(
             child: busy
@@ -40,7 +39,7 @@ class ButtonWidget extends StatelessWidget {
                 : Text(
                     text,
                     style: TextStyle(
-                      color: AppColors.white,
+                      color: invert ? AppColors.primaryColor : AppColors.white,
                       fontSize: 16.0,
                       fontWeight: FontWeight.bold,
                     ),

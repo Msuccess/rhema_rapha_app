@@ -3,7 +3,7 @@ import 'dart:collection';
 import 'package:flutter/material.dart';
 import 'package:rhema_rapha_app/core/services/authservice.dart';
 import 'package:rhema_rapha_app/core/view_models/base.viewmodel.dart';
-import 'package:rhema_rapha_app/views/pages/appointment/appointment.page.dart';
+import 'package:rhema_rapha_app/views/pages/appointment/appointments.page.dart';
 import 'package:rhema_rapha_app/views/pages/home/home.page.dart';
 import 'package:rhema_rapha_app/views/pages/profile/profile.page.dart';
 import 'package:rhema_rapha_app/views/widgets/animatedindex_widget_state.dart';

@@ -7,7 +7,6 @@ import 'package:rhema_rapha_app/views/pages/home/home.widget.dart';
 import 'package:rhema_rapha_app/views/widgets/appbar.widget.dart';
 import 'package:rhema_rapha_app/views/widgets/base.widget.dart';
 
-
 class TabsPage extends StatefulWidget {
   @override
   _TabsPageState createState() => _TabsPageState();
@@ -19,19 +18,19 @@ class _TabsPageState extends State<TabsPage> {
   Widget build(BuildContext context) {
     return BaseWidget<TabsViewModel>(
       model: TabsViewModel(
-         authService: Provider.of(context),
+        authService: Provider.of(context),
       ),
       onModelReady: (TabsViewModel model) async {
         model.init();
       },
       builder: (BuildContext context, TabsViewModel model, Widget child) {
-        var fullname = model.userDetails['fullName'];
+        var fullName = model.userDetails['fullName'];
         var avatar = model.userDetails['avatar'];
         return Scaffold(
-          appBar:  AppBarWidget.appBarWidget(fullname, avatar,context),
+          appBar: AppBarWidget.appBarWidget(fullName, avatar, context),
           body: model.buildPage(model.selectedIndex),
           backgroundColor: AppColors.whiteShade2,
-          bottomNavigationBar: ButtomTabBar(
+          bottomNavigationBar: BottomTabBar(
             index: model.selectedIndex,
             onItemTap: (value) {
               model.onItemTap(value);

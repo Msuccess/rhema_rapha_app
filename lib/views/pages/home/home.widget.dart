@@ -104,7 +104,7 @@ class Departments extends StatelessWidget {
           ),
         ),
         SizedBox(
-          height: AppSizes.fullHeight(context) * .28,
+          height: AppSizes.fullHeight(context) * .35,
           width: AppSizes.fullWidth(context),
           child: ListView.builder(
               scrollDirection: Axis.horizontal,
@@ -115,7 +115,8 @@ class Departments extends StatelessWidget {
                   context,
                   departments[index].name,
                   departments[index].description,
-                 color: AppColors.green, lightColor: AppColors.greenShade1,
+                  color: AppColors.green,
+                  lightColor: AppColors.greenShade1,
                 );
               }),
         ),
@@ -132,7 +133,7 @@ class Departments extends StatelessWidget {
       aspectRatio: 6 / 8,
       child: Container(
         height: 280,
-        width: AppSizes.fullWidth(context) * .3,
+        width: AppSizes.fullWidth(context) * .5,
         margin: EdgeInsets.only(left: 10, right: 10, bottom: 20, top: 10),
         decoration: BoxDecoration(
           color: color,
@@ -180,10 +181,7 @@ class Departments extends StatelessWidget {
                       Flexible(
                         child: Padding(
                           padding: EdgeInsets.symmetric(horizontal: 8),
-                          child: Text(
-                            subtitle,
-                            style: subtitleStyle,
-                          ),
+                          child: Text(subtitle, style: subtitleStyle),
                         ),
                       ),
                     ],
@@ -198,10 +196,10 @@ class Departments extends StatelessWidget {
   }
 }
 
-class ButtomTabBar extends StatelessWidget {
+class BottomTabBar extends StatelessWidget {
   final int index;
   final Function onItemTap;
-  ButtomTabBar({this.index, this.onItemTap});
+  BottomTabBar({this.index, this.onItemTap});
 
   @override
   Widget build(BuildContext context) {

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
+import 'package:rhema_rapha_app/views/pages/appointment/new_appoitment.page.dart';
 import 'package:rhema_rapha_app/views/pages/auth/login.dart';
 import 'package:rhema_rapha_app/views/pages/auth/register.dart';
 import 'package:rhema_rapha_app/views/pages/department/department.page.dart';
@@ -21,11 +22,19 @@ class RoutePaths {
   static const Doctor = "Doctor";
   static const Tabs = "Tabs";
   static const DoctorDetails = "DoctorDetails";
+  static const NewAppointment = "NewAppointment";
 }
 
 class RouterPath {
   static Route<dynamic> generateRoute(RouteSettings settings) {
     switch (settings.name) {
+      case RoutePaths.NewAppointment:
+        return PageTransition(
+          child: NewAppointmentPage(),
+          type: PageTransitionType.leftToRightWithFade,
+        );
+        break;
+
       case RoutePaths.Splash:
         return PageTransition(
           child: SplashScreen(),
