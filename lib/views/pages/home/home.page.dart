@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:rhema_rapha_app/assets/styles/colors.dart';
 import 'package:rhema_rapha_app/assets/styles/text_style.dart';
 import 'package:rhema_rapha_app/core/models/doctor.model.dart';
 import 'package:rhema_rapha_app/core/routes/routes.dart';
@@ -27,25 +28,36 @@ class _HomePageState extends State<HomePage> {
         model.init();
       },
       builder: (BuildContext context, HomeViewModel model, Widget child) {
+         if (model.userDetails.isEmpty) return SizedBox.shrink();
+
         var fullname = model.userDetails['fullName'];
         doctors = model.doctors;
         return SafeArea(
-          child: Scaffold(
-            body: CustomScrollView(
-              slivers: <Widget>[
-                SliverList(
-                  delegate: SliverChildListDelegate(
-                    [
-                      HeaderWidget(name: fullname),
-                      SearchWidgets(),
-                      Departments(departments: model.departments),
+          child: model.busy
+              ? Align(
+                alignment: Alignment.center,
+                child: CircularProgressIndicator(
+                    valueColor: new AlwaysStoppedAnimation<Color>(
+                      AppColors.primaryColor,
+                    ),
+                  ),
+              )
+              : Scaffold(
+                  body: CustomScrollView(
+                    slivers: <Widget>[
+                      SliverList(
+                        delegate: SliverChildListDelegate(
+                          [
+                            HeaderWidget(name: fullname),
+                            SearchWidgets(),
+                            Departments(departments: model.departments),
+                          ],
+                        ),
+                      ),
+                      buildDoctorList()
                     ],
                   ),
                 ),
-                buildDoctorList()
-              ],
-            ),
-          ),
         );
       },
     );

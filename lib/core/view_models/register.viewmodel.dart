@@ -20,6 +20,7 @@ class RegisterViewModel extends BaseViewModel{
   Future<Result> signup(User user) async {
     setBusy(true);
     Result result = await _authenticationService.signup(user);
+    
     setBusy(false);
     return result;
   }

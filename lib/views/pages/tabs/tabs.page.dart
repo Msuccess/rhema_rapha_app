@@ -21,13 +21,15 @@ class _TabsPageState extends State<TabsPage> {
         authService: Provider.of(context),
       ),
       onModelReady: (TabsViewModel model) async {
-        model.init();
+        model.getUserDetail();
       },
       builder: (BuildContext context, TabsViewModel model, Widget child) {
-        var fullName = model.userDetails['fullName'];
+        if (model.userDetails.isEmpty) return SizedBox.shrink();
+
+        var fullname = model.userDetails['fullName'];
         var avatar = model.userDetails['avatar'];
         return Scaffold(
-          appBar: AppBarWidget.appBarWidget(fullName, avatar, context),
+          appBar: AppBarWidget.appBarWidget(fullname, avatar, context),
           body: model.buildPage(model.selectedIndex),
           backgroundColor: AppColors.whiteShade2,
           bottomNavigationBar: BottomTabBar(
