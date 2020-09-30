@@ -7,7 +7,6 @@ import 'package:rhema_rapha_app/assets/styles/text_style.dart';
 import 'package:rhema_rapha_app/core/constants/menu_items.dart';
 import 'package:rhema_rapha_app/core/models/department.model.dart';
 import 'package:rhema_rapha_app/core/routes/routes.dart';
-import 'package:rhema_rapha_app/views/widgets/random_color.widget.dart';
 
 class HeaderWidget extends StatelessWidget {
   final String name;

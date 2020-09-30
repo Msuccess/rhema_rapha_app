@@ -37,12 +37,8 @@ class TabsViewModel extends BaseViewModel {
     );
   }
 
-  void getUserDetails() async {
+  void getUserDetail() async {
     userDetails = await _authService.getUserDetails();
     notifyListeners();
-  }
-
-  void init() {
-    getUserDetails();
   }
 }

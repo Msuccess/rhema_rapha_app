@@ -92,6 +92,8 @@ class AuthService {
 
   Future<Map<String, dynamic>> getUserDetails() async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    print(sharedPreferences.getString(AUTHDATA));
+    
     var user = sharedPreferences.getString(AUTHDATA);
     var patient = jsonDecode(user);
     return patient;
