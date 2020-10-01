@@ -29,7 +29,7 @@ class HomeViewModel extends BaseViewModel {
   Future<Result> getDoctors() async {
     setBusy(true);
     Result<List<Doctor>> result = await _doctorService.getDoctors();
-    doctors = result.isSuccessful ? result.data : new Doctor();
+    doctors = result.data;
     setBusy(false);
     return result;
   }
@@ -60,5 +60,4 @@ class HomeViewModel extends BaseViewModel {
     getUserDetails();
     getDoctors();
   }
-
 }

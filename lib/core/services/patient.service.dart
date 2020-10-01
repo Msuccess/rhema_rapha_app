@@ -7,40 +7,42 @@ import 'package:rhema_rapha_app/core/models/patient.model.dart';
 import 'package:rhema_rapha_app/core/services/base.service.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-
 class PatientService extends BaseService {
   Future<Result> getPatientsById() async {
     var url = EndPoints.getPatientUrl();
 
     var res = await getRequest('$url');
-    
-        if (res != null && res.statusCode == 200) {
-          var data = jsonDecode(res.body);
-    
-          var parsedPatient = Patient.fromJson(data);
-          return Result(
-              data: parsedPatient, isSuccessful: true, message: data['message']);
-        }
-    
-        if (res != null && res.statusCode == 400) {
-          var data = jsonDecode(res.body);
-          return Result(isSuccessful: false, message: data['message']);
-        }
-    
-        return Result(
-          isSuccessful: false,
-          message: 'Something went wrong',
-        );
-      }
 
+    if (res != null && res.statusCode == 200) {
+      var decodedData = jsonDecode(res.body);
+      var data = decodedData['data'];
 
-    Future<Result> updatePatient(Patient newPatient) async {
-       SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+      var parsedPatient = Patient.fromJson(data);
+
+      var sharedPreferences = await SharedPreferences.getInstance();
+      sharedPreferences.setString(USERID, parsedPatient.id);
+
+      return Result(
+          data: parsedPatient, isSuccessful: true, message: data['message']);
+    }
+
+    if (res != null && res.statusCode == 400) {
+      var data = jsonDecode(res.body);
+      return Result(isSuccessful: false, message: data['message']);
+    }
+
+    return Result(
+      isSuccessful: false,
+      message: 'Something went wrong',
+    );
+  }
+
+  Future<Result> updatePatient(Patient newPatient) async {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     var userId = sharedPreferences.getString(USERID);
     var url = EndPoints.getPatientUrl();
 
     var res = await putRequest("$url/$userId", newPatient.toJson());
-   
 
     if (res != null && res.statusCode == 200) {
       var decodedData = jsonDecode(res.body);
@@ -48,7 +50,7 @@ class PatientService extends BaseService {
 
       SharedPreferences sharedPreferences =
           await SharedPreferences.getInstance();
-       
+
       sharedPreferences.setString(AUTHDATA, jsonEncode(data));
       sharedPreferences.setString(USERID, jsonEncode(data['id']));
       return Result(
@@ -68,5 +70,4 @@ class PatientService extends BaseService {
 
     return Result(isSuccessful: false, message: 'Something went wrong');
   }
-
 }

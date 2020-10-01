@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:rhema_rapha_app/core/constants/localkeys.dart';
 import 'package:rhema_rapha_app/core/message/result.model.dart';
 import 'package:rhema_rapha_app/core/models/patient.model.dart';
+import 'package:rhema_rapha_app/core/routes/routes.dart';
 import 'package:rhema_rapha_app/core/services/authservice.dart';
 import 'package:rhema_rapha_app/core/services/patient.service.dart';
 import 'package:rhema_rapha_app/core/services/util.service.dart';
@@ -61,7 +62,7 @@ class ProfileViewModel extends BaseViewModel {
     return result;
   }
 
-  Future<Result> updatePatient(BuildContext context) async {
+  Future updatePatient(BuildContext context) async {
     isBusy = true;
     notifyListeners();
 
@@ -73,21 +74,25 @@ class ProfileViewModel extends BaseViewModel {
         address: _addressController.value.text,
         bloodPressure: _bloodPressureController.value.text,
         bloodType: _bloodTypeController.value.text,
-        height: _heightController.value.text);
+        height: _heightController.value.text,
+        gender: _genderController.text,
+        avatar: "");
 
     Result result = await _patientService.updatePatient(newPatient);
     if (result.isSuccessful == true) {
       var sharedPreferences = await SharedPreferences.getInstance();
       sharedPreferences.setBool(PROFILE_UPDATE, true);
 
-      // await Navigator.pushNamedAndRemoveUntil(
-      //   context,
-      //   SigninScreen.id,
-      //   (_) => false,
-      // );
+     return await Navigator.pushNamedAndRemoveUntil(
+        context,
+        RoutePaths.Tabs,
+        (_) => false,
+      );
     } else {
+       isBusy = false;
       UtilService.showErrorToast('Error updating profile');
     }
+      isBusy = false;
   }
 
   void init() {

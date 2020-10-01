@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
+import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:provider/provider.dart';
 
 import 'package:rhema_rapha_app/assets/styles/text_style.dart';
@@ -9,6 +10,7 @@ import 'package:rhema_rapha_app/views/widgets/base.widget.dart';
 import 'package:rhema_rapha_app/views/widgets/button.widget.dart';
 import 'package:rhema_rapha_app/views/widgets/datepicker.widget.dart';
 import 'package:rhema_rapha_app/views/widgets/input.widget.dart';
+import 'package:rhema_rapha_app/views/widgets/selectInput.widget.dart';
 
 class ProfilePage extends StatefulWidget {
   @override
@@ -83,7 +85,7 @@ class _ProfilePageState extends State<ProfilePage> {
           padding: EdgeInsets.symmetric(vertical: 10.0),
           child: Text(
             'Update profile',
-            style: AppTexts.h1,
+            style: AppTexts.h20,
           ),
         ),
       ],
@@ -99,7 +101,6 @@ class _ProfilePageState extends State<ProfilePage> {
       inputType: TextInputType.emailAddress,
       controller: model.email,
       onSaved: (String email) {
-        
         return model.email.text = email;
       },
       validator: (String email) {
@@ -158,7 +159,7 @@ class _ProfilePageState extends State<ProfilePage> {
 
   Widget _builBloodTypeField(ProfileViewModel model) {
     return InputWidget(
-      text: 'Height',
+      text: 'Blood Type',
       iconSize: 15.0,
       controller: model.bloodType,
       inputPrefixIcon: FeatherIcons.droplet,
@@ -170,7 +171,7 @@ class _ProfilePageState extends State<ProfilePage> {
 
   Widget _buildAddressField(ProfileViewModel model) {
     return InputWidget(
-      text: 'Height',
+      text: 'Address',
       iconSize: 15.0,
       controller: model.address,
       inputPrefixIcon: FeatherIcons.mapPin,
@@ -198,6 +199,7 @@ class _ProfilePageState extends State<ProfilePage> {
       onSaved: (DateTime dateOfBirth) {
         model.dateOfBirth.text = dateOfBirth.toString();
       },
+      currentDate: DateTime.parse(model.dateOfBirth.text),
       validator: (DateTime dateOfBirth) {
         if (dateOfBirth == null) return 'Date of Birth is required';
         return null;
@@ -206,53 +208,11 @@ class _ProfilePageState extends State<ProfilePage> {
   }
 
   Widget _builGenderField(ProfileViewModel model) {
-    int _character;
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: <Widget>[
-        Text(
-          "Sex",
-          style: AppTexts.title,
-        ),
-        Row(
-          children: [
-            Row(
-              children: [
-                Text('Male'),
-                Radio(
-                  value: 0,
-                  groupValue: _character,
-                  onChanged: (newValue) {
-                    setState(
-                      () {
-                        print(newValue);
-                        _character = newValue;
-                      },
-                    );
-                  },
-                ),
-              ],
-            ),
-          ],
-        ),
-        Row(
-          children: [
-            Text('Female'),
-            Radio(
-              value: 1,
-              groupValue: _character,
-              onChanged: (newValue) {
-                print(newValue);
-                setState(
-                  () {
-                    _character = newValue;
-                  },
-                );
-              },
-            ),
-          ],
-        ),
-      ],
+    return SelectInputField(
+      text: "Gender",
+      onSaved: (String gender) {
+        return model.gender.text = gender;
+      },
     );
   }
 

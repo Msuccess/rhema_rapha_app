@@ -2,19 +2,13 @@ import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
+import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:rhema_rapha_app/assets/styles/colors.dart';
-import 'package:intl/intl.dart';
 
-class InputDateTimeField extends StatelessWidget {
-  final DateTime currentDate;
-  final Function suffixIconOnPressed;
-  final bool isTextArea;
+class SelectInputField extends StatelessWidget {
   final bool visibility;
-  final Function validator;
   final Function onSaved;
   final Function onTap;
-  final double iconSize;
-  final bool isPassword;
   final bool showKeyboard;
   final String text;
   final String newValue;
@@ -22,42 +16,30 @@ class InputDateTimeField extends StatelessWidget {
   final bool disabled;
   final IconData inputPrefixIcon;
 
-  InputDateTimeField({
+  SelectInputField({
     Key key,
     @required this.text,
     this.onSaved,
     this.onTap,
     this.showKeyboard,
-    this.currentDate,
-    this.iconSize = 0,
-    this.validator,
-    this.isPassword,
     this.visibility,
-    this.suffixIconOnPressed,
     this.inputPrefixIcon,
     this.inputType,
     this.newValue,
     this.disabled = false,
-    this.isTextArea = false,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final format = DateFormat("yyyy-MM-dd");
-
-    return DateTimeField(
-      format: format,
-      onShowPicker: (context, currentDate) {
-        return showDatePicker(
-          context: context,
-          firstDate: DateTime(1800),
-          initialDate: currentDate ?? DateTime.now(),
-          lastDate: DateTime(2200),
-        );
-      },
-      cursorColor: AppColors.primaryText,
-      enabled: !disabled,
-      maxLines: isTextArea ? 3 : 1,
+    return FormBuilderDropdown(
+      attribute: "gender",
+      // initialValue: 'Male',
+      hint: Text('Select Gender'),
+      validators: [FormBuilderValidators.required()],
+      items: ['Male', 'Female']
+          .map((gender) =>
+              DropdownMenuItem(value: gender, child: Text("$gender")))
+          .toList(),
       decoration: InputDecoration(
         border: OutlineInputBorder(),
         labelText: text,
@@ -72,7 +54,7 @@ class InputDateTimeField extends StatelessWidget {
           borderSide: BorderSide(color: AppColors.dangerColor, width: 2),
         ),
         prefixIcon: Icon(
-          FeatherIcons.calendar,
+          FeatherIcons.users,
           size: 20.0,
         ),
       ),
@@ -80,10 +62,6 @@ class InputDateTimeField extends StatelessWidget {
         color: disabled ? AppColors.primaryText : AppColors.primaryText,
         fontWeight: FontWeight.w400,
       ),
-      obscureText: isPassword == null ? false : isPassword,
-      autocorrect: false,
-      keyboardType: inputType,
-      validator: (value) => validator(value),
       onSaved: (value) => onSaved(value),
     );
   }

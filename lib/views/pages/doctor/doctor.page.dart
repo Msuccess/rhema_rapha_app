@@ -32,6 +32,7 @@ class _DoctorPageState extends State<DoctorPage> {
       builder: (BuildContext context, DoctorViewModel model, Widget child) {
         return Scaffold(
           appBar: AppBar(
+            title: Text("Doctors Available"),
             elevation: 2.0,
             backgroundColor: AppColors.whiteShade2,
             iconTheme: IconThemeData(
