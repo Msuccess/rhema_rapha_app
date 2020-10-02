@@ -28,20 +28,20 @@ class _HomePageState extends State<HomePage> {
         model.init();
       },
       builder: (BuildContext context, HomeViewModel model, Widget child) {
-         if (model.userDetails.isEmpty) return SizedBox.shrink();
+        if (model.userDetails.isEmpty) return SizedBox.shrink();
 
         var fullname = model.userDetails['fullName'];
         doctors = model.doctors;
         return SafeArea(
           child: model.busy
               ? Align(
-                alignment: Alignment.center,
-                child: CircularProgressIndicator(
+                  alignment: Alignment.center,
+                  child: CircularProgressIndicator(
                     valueColor: new AlwaysStoppedAnimation<Color>(
                       AppColors.primaryColor,
                     ),
                   ),
-              )
+                )
               : Scaffold(
                   body: CustomScrollView(
                     slivers: <Widget>[
@@ -49,8 +49,8 @@ class _HomePageState extends State<HomePage> {
                         delegate: SliverChildListDelegate(
                           [
                             HeaderWidget(name: fullname),
-                            SearchWidgets(),
-                            Departments(departments: model.departments),
+                            HomeBottomWidgets(),
+                            DepartmentsWidget(departments: model.departments),
                           ],
                         ),
                       ),

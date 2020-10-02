@@ -15,12 +15,14 @@ Patient _$PatientFromJson(Map<String, dynamic> json) {
     dateOfBirth: json['dateOfBirth'] as String,
     address: json['address'] as String,
     avatar: json['avatar'] as String,
-    appointment: json['appointment'] == null
-        ? null
-        : Appointment.fromJson(json['appointment'] as Map<String, dynamic>),
+    appointment: (json['appointment'] as List)
+        ?.map((e) =>
+            e == null ? null : Appointment.fromJson(e as Map<String, dynamic>))
+        ?.toList(),
     bloodPressure: json['bloodPressure'] as String,
     height: json['height'] as String,
     bloodType: json['bloodType'] as String,
+    gender: json['gender'] as String,
   );
 }
 
@@ -35,5 +37,6 @@ Map<String, dynamic> _$PatientToJson(Patient instance) => <String, dynamic>{
       'address': instance.address,
       'bloodPressure': instance.bloodPressure,
       'avatar': instance.avatar,
-      'appointment': instance.appointment?.toJson(),
+      'gender': instance.gender,
+      'appointment': instance.appointment?.map((e) => e?.toJson())?.toList(),
     };

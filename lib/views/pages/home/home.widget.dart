@@ -33,47 +33,31 @@ class HeaderWidget extends StatelessWidget {
   }
 }
 
-class SearchWidgets extends StatelessWidget {
+class HomeBottomWidgets extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: 55,
-      margin: EdgeInsets.symmetric(horizontal: 16, vertical: 10),
-      width: MediaQuery.of(context).size.width,
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.all(Radius.circular(13)),
-        boxShadow: <BoxShadow>[
-          BoxShadow(
-            color: AppColors.greyShade8,
-            blurRadius: 15,
-            offset: Offset(5, 5),
-          )
-        ],
-      ),
-      child: TextField(
-        decoration: InputDecoration(
-          contentPadding: EdgeInsets.symmetric(horizontal: 16, vertical: 16),
-          border: InputBorder.none,
-          hintText: "Search",
-          hintStyle: AppTexts.normalText,
-          suffixIcon: SizedBox(
-            width: 50,
-            child: Icon(
-              FeatherIcons.search,
-              color: AppColors.purple,
-            ),
-          ),
+    return Padding(
+      padding: EdgeInsets.only(top: 16, right: 16, left: 16, bottom: 16),
+      child: FlatButton(
+        onPressed: () => Navigator.pushNamed(
+          context,
+          RoutePaths.NewAppointment,
         ),
+        child: Text(
+          "Book Appointment",
+          style: TextStyle(color: Colors.white),
+        ),
+        color: AppColors.primaryColor,
       ),
     );
   }
 }
 
-class Departments extends StatelessWidget {
+class DepartmentsWidget extends StatelessWidget {
   final List<Department> departments;
 
-  const Departments({Key key, this.departments}) : super(key: key);
+  const DepartmentsWidget({Key key, @required this.departments})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -84,7 +68,7 @@ class Departments extends StatelessWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
-              Text("Sections", style: AppTexts.title),
+              Text("Services", style: AppTexts.title),
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 8),
                 child: FlatButton(
@@ -103,35 +87,34 @@ class Departments extends StatelessWidget {
           ),
         ),
         SizedBox(
-          height: AppSizes.fullHeight(context) * .35,
+          height: AppSizes.fullHeight(context) * .34,
           width: AppSizes.fullWidth(context),
           child: ListView.builder(
-              scrollDirection: Axis.horizontal,
-              padding: const EdgeInsets.all(8),
-              itemCount: departments.length,
-              itemBuilder: (BuildContext context, int index) {
-                return departmentCard(
-                  context,
-                  departments[index].name,
-                  departments[index].description,
-                  color: AppColors.green,
-                  lightColor: AppColors.greenShade1,
-                );
-              }),
+            scrollDirection: Axis.horizontal,
+            padding: const EdgeInsets.all(8),
+            itemCount: departments.length,
+            itemBuilder: (BuildContext context, int index) {
+              return departmentCard(
+                context,
+                departments[index].name,
+                color: AppColors.green,
+                lightColor: AppColors.greenShade1,
+              );
+            },
+          ),
         ),
       ],
     );
   }
 
-  Widget departmentCard(BuildContext context, String title, String subtitle,
+  Widget departmentCard(BuildContext context, String title,
       {Color color, Color lightColor}) {
     TextStyle titleStyle = AppTexts.titleLight;
-    TextStyle subtitleStyle = AppTexts.subTitleLight;
 
     return AspectRatio(
       aspectRatio: 6 / 8,
       child: Container(
-        height: 280,
+        height: 200,
         width: AppSizes.fullWidth(context) * .5,
         margin: EdgeInsets.only(left: 10, right: 10, bottom: 20, top: 10),
         decoration: BoxDecoration(
@@ -174,15 +157,6 @@ class Departments extends StatelessWidget {
                           child: Text(title, style: titleStyle),
                         ),
                       ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      Flexible(
-                        child: Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 8),
-                          child: Text(subtitle, style: subtitleStyle),
-                        ),
-                      ),
                     ],
                   ),
                 ),
@@ -204,7 +178,7 @@ class BottomTabBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return BottomNavigationBar(
       showSelectedLabels: true,
-      showUnselectedLabels: false,
+      showUnselectedLabels: true,
       backgroundColor: Colors.white,
       type: BottomNavigationBarType.shifting,
       unselectedIconTheme: IconThemeData(color: AppColors.primaryDisableColor),

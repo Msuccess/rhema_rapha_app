@@ -17,7 +17,7 @@ class Patient {
   String bloodPressure;
   String avatar;
    String gender;
-  Appointment appointment;
+  List<Appointment> appointment;
 
 
 
@@ -44,7 +44,7 @@ class Patient {
         dateOfBirth = "",
         address = "",
         avatar = "",
-        appointment = new Appointment(),
+        appointment = [],
         bloodPressure = "",
         height = "",
         bloodType = "",
