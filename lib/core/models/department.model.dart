@@ -1,17 +1,20 @@
 import 'package:json_annotation/json_annotation.dart';
+import 'package:rhema_rapha_app/core/models/doctor.model.dart';
 
 part 'department.model.g.dart';
 
-@JsonSerializable()
+@JsonSerializable(explicitToJson: true)
 class Department {
   String id;
   String name;
   String description;
+  List<Doctor> doctor;
 
   Department({
     this.id,
     this.name,
     this.description,
+    this.doctor
   });
   Department.initial()
       : name = "",

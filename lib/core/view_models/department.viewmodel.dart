@@ -9,6 +9,7 @@ class DepartmentViewModel extends BaseViewModel{
 
   DepartmentViewModel({@required DepartmentService departmentService})
       : _departmentService = departmentService;
+      
   Department department;
 
   Future<Result> getDepartment(String id) async {

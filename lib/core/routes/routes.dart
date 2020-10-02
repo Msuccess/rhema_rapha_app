@@ -4,6 +4,7 @@ import 'package:rhema_rapha_app/views/pages/appointment/new_appoitment.page.dart
 import 'package:rhema_rapha_app/views/pages/auth/login.dart';
 import 'package:rhema_rapha_app/views/pages/auth/register.dart';
 import 'package:rhema_rapha_app/views/pages/department/department.page.dart';
+import 'package:rhema_rapha_app/views/pages/department/departmentdetails.page.dart';
 import 'package:rhema_rapha_app/views/pages/doctor/doctor.page.dart';
 import 'package:rhema_rapha_app/views/pages/doctor/doctordetails.page.dart';
 import 'package:rhema_rapha_app/views/pages/home/home.page.dart';
@@ -23,6 +24,7 @@ class RoutePaths {
   static const Tabs = "Tabs";
   static const DoctorDetails = "DoctorDetails";
   static const NewAppointment = "NewAppointment";
+  static const DepartmentDetails = "DepartmentDetails";
 }
 
 class RouterPath {
@@ -87,6 +89,13 @@ class RouterPath {
       case RoutePaths.Doctor:
         return PageTransition(
           child: DoctorPage(arguments: settings.arguments),
+          type: PageTransitionType.leftToRightWithFade,
+        );
+        break;
+
+        case RoutePaths.Doctor:
+        return PageTransition(
+          child: DepartmentDetailsPage(arguments: settings.arguments),
           type: PageTransitionType.leftToRightWithFade,
         );
         break;
