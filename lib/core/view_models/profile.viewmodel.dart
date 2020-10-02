@@ -63,7 +63,7 @@ class ProfileViewModel extends BaseViewModel {
   }
 
   Future updatePatient(BuildContext context) async {
-    isBusy = true;
+    setBusy(true);
     notifyListeners();
 
     final newPatient = Patient(
@@ -75,24 +75,23 @@ class ProfileViewModel extends BaseViewModel {
         bloodPressure: _bloodPressureController.value.text,
         bloodType: _bloodTypeController.value.text,
         height: _heightController.value.text,
-        gender: _genderController.text,
-        avatar: "");
+        gender: _genderController.text);
 
     Result result = await _patientService.updatePatient(newPatient);
     if (result.isSuccessful == true) {
       var sharedPreferences = await SharedPreferences.getInstance();
       sharedPreferences.setBool(PROFILE_UPDATE, true);
 
-     return await Navigator.pushNamedAndRemoveUntil(
+      return await Navigator.pushNamedAndRemoveUntil(
         context,
         RoutePaths.Tabs,
         (_) => false,
       );
     } else {
-       isBusy = false;
+      setBusy(false);
       UtilService.showErrorToast('Error updating profile');
     }
-      isBusy = false;
+   setBusy(false);
   }
 
   void init() {
