@@ -87,7 +87,7 @@ class DepartmentsWidget extends StatelessWidget {
           ),
         ),
         SizedBox(
-          height: AppSizes.fullHeight(context) * .34,
+          height: AppSizes.fullHeight(context) * .3,
           width: AppSizes.fullWidth(context),
           child: ListView.builder(
             scrollDirection: Axis.horizontal,
@@ -112,9 +112,8 @@ class DepartmentsWidget extends StatelessWidget {
     TextStyle titleStyle = AppTexts.titleLight;
 
     return AspectRatio(
-      aspectRatio: 6 / 8,
+      aspectRatio: 6 / 6,
       child: Container(
-        height: 200,
         width: AppSizes.fullWidth(context) * .5,
         margin: EdgeInsets.only(left: 10, right: 10, bottom: 20, top: 10),
         decoration: BoxDecoration(
@@ -147,9 +146,9 @@ class DepartmentsWidget extends StatelessWidget {
                   ),
                 ),
                 Padding(
-                  padding: EdgeInsets.symmetric(vertical: 16),
+                  padding: EdgeInsets.symmetric(vertical: 20),
                   child: Column(
-                    mainAxisAlignment: MainAxisAlignment.end,
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
                       Flexible(
                         child: Padding(
