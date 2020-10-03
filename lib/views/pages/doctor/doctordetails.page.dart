@@ -111,10 +111,6 @@ class _DoctorDetailsPageState extends State<DoctorDetailsPage> {
                           iconData: FeatherIcons.box,
                           title: "Department",
                         ),
-                        SizedBox(
-                          height: 50.0,
-                        ),
-                        
                       ],
                     ),
                   ),

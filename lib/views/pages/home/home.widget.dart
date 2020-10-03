@@ -39,13 +39,14 @@ class HomeBottomWidgets extends StatelessWidget {
     return Padding(
       padding: EdgeInsets.only(top: 16, right: 16, left: 16, bottom: 16),
       child: FlatButton(
+        height: AppSizes.fullHeight(context) * .06,
         onPressed: () => Navigator.pushNamed(
           context,
           RoutePaths.NewAppointment,
         ),
         child: Text(
           "Book Appointment",
-          style: TextStyle(color: Colors.white),
+          style: AppTexts.homeButtomText,
         ),
         color: AppColors.primaryColor,
       ),
@@ -78,16 +79,15 @@ class DepartmentsWidget extends StatelessWidget {
                         .copyWith(color: Theme.of(context).primaryColor),
                   ),
                   onPressed: () => Navigator.pushNamed(
-                    context,
-                    RoutePaths.Department,
-                  ),
+                      context, RoutePaths.Department,
+                      arguments: departments),
                 ),
               ),
             ],
           ),
         ),
         SizedBox(
-          height: AppSizes.fullHeight(context) * .3,
+          height: AppSizes.fullHeight(context) * .2,
           width: AppSizes.fullWidth(context),
           child: ListView.builder(
             scrollDirection: Axis.horizontal,
@@ -97,6 +97,7 @@ class DepartmentsWidget extends StatelessWidget {
               return departmentCard(
                 context,
                 departments[index].name,
+                departments[index],
                 color: AppColors.green,
                 lightColor: AppColors.greenShade1,
               );
@@ -107,14 +108,19 @@ class DepartmentsWidget extends StatelessWidget {
     );
   }
 
-  Widget departmentCard(BuildContext context, String title,
+  Widget departmentCard(
+      BuildContext context, String name, Department department,
       {Color color, Color lightColor}) {
     TextStyle titleStyle = AppTexts.titleLight;
 
-    return AspectRatio(
-      aspectRatio: 6 / 6,
+    return GestureDetector(
+      onTap: () => Navigator.pushNamed(
+        context,
+        RoutePaths.DepartmentDetails,
+        arguments: department,
+      ),
       child: Container(
-        width: AppSizes.fullWidth(context) * .5,
+        width: AppSizes.fullWidth(context) * .3,
         margin: EdgeInsets.only(left: 10, right: 10, bottom: 20, top: 10),
         decoration: BoxDecoration(
           color: color,
@@ -153,7 +159,7 @@ class DepartmentsWidget extends StatelessWidget {
                       Flexible(
                         child: Padding(
                           padding: EdgeInsets.symmetric(horizontal: 8),
-                          child: Text(title, style: titleStyle),
+                          child: Text(name, style: titleStyle),
                         ),
                       ),
                     ],
@@ -177,10 +183,14 @@ class BottomTabBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return BottomNavigationBar(
       showSelectedLabels: true,
-      showUnselectedLabels: true,
+      selectedLabelStyle: TextStyle(
+        fontWeight: FontWeight.w600,
+      ),
       backgroundColor: Colors.white,
       type: BottomNavigationBarType.shifting,
-      unselectedIconTheme: IconThemeData(color: AppColors.primaryDisableColor),
+      unselectedIconTheme: IconThemeData(
+        color: AppColors.primaryDisableColor,
+      ),
       items: MenuItems.menItems,
       currentIndex: index,
       selectedItemColor: AppColors.primaryColor,

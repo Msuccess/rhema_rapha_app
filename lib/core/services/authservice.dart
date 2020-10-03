@@ -11,6 +11,22 @@ import 'package:shared_preferences/shared_preferences.dart';
 class AuthService {
   static const timeoutSeconds = 10;
 
+  Future<bool> signout() async {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    var email = await getUserLoggedEmail();
+    sharedPreferences.clear();
+    sharedPreferences.setBool(ONBOARDING, true);
+    sharedPreferences.setString(EMAIL, email);
+    return true;
+  }
+
+   static Future<bool> isOnboarded() async {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    var onboarding = sharedPreferences.getBool(ONBOARDING);
+    if (onboarding == null) return false;
+    return onboarding;
+  }
+
   Future<Result> signin(SignIn user) async {
     try {
       var baseurl = EndPoints.getBaseUrl();
@@ -47,7 +63,7 @@ class AuthService {
         return Result(isSuccessful: false, data: data, message: errorMessage);
       }
 
-      return Result(isSuccessful: false, message: 'Something went wrong');
+      return Result(isSuccessful: false, message: 'Connection Failed');
     } catch (e) {
       print(e);
       return null;

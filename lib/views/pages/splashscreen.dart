@@ -1,9 +1,9 @@
-
 import 'dart:async';
 import 'package:flutter/material.dart';
 
 import 'package:rhema_rapha_app/assets/styles/colors.dart';
 import 'package:rhema_rapha_app/core/routes/routes.dart';
+import 'package:rhema_rapha_app/core/services/authservice.dart';
 import 'package:rhema_rapha_app/views/widgets/logowidget.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -37,9 +37,9 @@ class _SplashScreenState extends State<SplashScreen> {
               child: Center(
                 child: Column(
                   children: <Widget>[
-                   CircularProgressIndicator(
-                      valueColor:
-                          new AlwaysStoppedAnimation<Color>(AppColors.primaryColor),
+                    CircularProgressIndicator(
+                      valueColor: new AlwaysStoppedAnimation<Color>(
+                          AppColors.primaryColor),
                     ),
                     SizedBox(height: 10.0),
                     Text(
@@ -70,33 +70,23 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   _gotoNextScreen() async {
-    Navigator.pushNamed(
-          context,
-          RoutePaths.OnBoarding,
-        );
-    // var isOnboarded = await AuthenticationService.isOnboarded();
-    // if (!isOnboarded) {
-    //   Navigator.pushNamedAndRemoveUntil(
-    //     context,
-    //     OnBoardingScreen.id,
-    //     (_) => false,
-    //   );
-    //   return;
-    // }
+    var isOnboarded = await AuthService.isOnboarded();
+    if (!isOnboarded) {
+      Navigator.pushNamedAndRemoveUntil(
+        context,
+        RoutePaths.OnBoarding,
+        (_) => false,
+      );
+      return;
+    }
 
-    // if (isOnboarded) {
-    //   Navigator.pushNamedAndRemoveUntil(
-    //     context,
-    //     SigninScreen.id,
-    //     (_) => false,
-    //   );
-    //   return;
-    // }
+    if (isOnboarded) {
+      Navigator.pushNamedAndRemoveUntil(
+        context,
+        RoutePaths.Login,
+        (_) => false,
+      );
+      return;
+    }
   }
 }
-
-
- 
-
-
-                    

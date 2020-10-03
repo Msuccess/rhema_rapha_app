@@ -10,15 +10,12 @@ class Department {
   String description;
   List<Doctor> doctor;
 
-  Department({
-    this.id,
-    this.name,
-    this.description,
-    this.doctor
-  });
+  Department({this.id, this.name, this.description, this.doctor});
+  
   Department.initial()
       : name = "",
-        description = "";
+        description = "",
+        doctor = [];
 
   factory Department.fromJson(Map<String, dynamic> data) =>
       _$DepartmentFromJson(data);
