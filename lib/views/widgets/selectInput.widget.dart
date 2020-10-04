@@ -10,58 +10,60 @@ class SelectInputField extends StatelessWidget {
   final Function onTap;
   final bool showKeyboard;
   final String text;
-  final String newValue;
+  final String selectedValue;
+  final String dropdownValue;
   final TextInputType inputType;
   final bool disabled;
   final IconData inputPrefixIcon;
+  final String valuee;
 
-  SelectInputField({
-    Key key,
-    @required this.text,
-    this.onSaved,
-    this.onTap,
-    this.showKeyboard,
-    this.visibility,
-    this.inputPrefixIcon,
-    this.inputType,
-    this.newValue,
-    this.disabled = false,
-  }) : super(key: key);
+  SelectInputField(
+      {Key key,
+      @required this.text,
+      this.onSaved,
+      this.onTap,
+      this.showKeyboard,
+      this.visibility,
+      this.inputPrefixIcon,
+      this.inputType,
+      this.disabled = false,
+      this.valuee,
+      this.dropdownValue, this.selectedValue})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return FormBuilderDropdown(
-      attribute: "gender",
-      // initialValue: 'Male',
-      hint: Text('Select Gender'),
-      validators: [FormBuilderValidators.required()],
-      items: ['Male', 'Female']
-          .map((gender) =>
-              DropdownMenuItem(value: gender, child: Text("$gender")))
-          .toList(),
-      decoration: InputDecoration(
-        border: OutlineInputBorder(),
-        labelText: text,
-        labelStyle: TextStyle(
-          color: AppColors.primaryText,
-          fontSize: 15,
-          fontWeight: FontWeight.w300,
+        attribute: "gender",
+        initialValue: selectedValue,
+        hint: Text('Select Gender'),
+        validators: [FormBuilderValidators.required()],
+        items: ['Male', 'Female']
+            .map((gender) =>
+                DropdownMenuItem(value: gender, child: Text("$gender")))
+            .toList(),
+        decoration: InputDecoration(
+          border: OutlineInputBorder(),
+          labelText: text,
+          labelStyle: TextStyle(
+            color: AppColors.primaryText,
+            fontSize: 15,
+            fontWeight: FontWeight.w300,
+          ),
+          fillColor: AppColors.whiteShade2,
+          errorBorder: OutlineInputBorder(
+            gapPadding: 3,
+            borderSide: BorderSide(color: AppColors.dangerColor, width: 2),
+          ),
+          prefixIcon: Icon(
+            FeatherIcons.users,
+            size: 20.0,
+          ),
         ),
-        fillColor: AppColors.whiteShade2,
-        errorBorder: OutlineInputBorder(
-          gapPadding: 3,
-          borderSide: BorderSide(color: AppColors.dangerColor, width: 2),
+        style: TextStyle(
+          color: disabled ? AppColors.primaryText : AppColors.primaryText,
+          fontWeight: FontWeight.w400,
         ),
-        prefixIcon: Icon(
-          FeatherIcons.users,
-          size: 20.0,
-        ),
-      ),
-      style: TextStyle(
-        color: disabled ? AppColors.primaryText : AppColors.primaryText,
-        fontWeight: FontWeight.w400,
-      ),
-      onSaved: (value) => onSaved(value),
-    );
+        onChanged: (value) => onSaved(value));
   }
 }

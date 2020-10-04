@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:provider/provider.dart';
+import 'package:rhema_rapha_app/assets/styles/sizes.dart';
 
 import 'package:rhema_rapha_app/assets/styles/text_style.dart';
 import 'package:rhema_rapha_app/core/constants/regex.constants.dart';
@@ -206,24 +207,12 @@ class _ProfilePageState extends State<ProfilePage> {
   }
 
   Widget _builGenderField(ProfileViewModel model) {
-    // return SelectInputField(
-
-    //   text: "Gender",
-    //   onSaved: (String gender) {
-    //     print(gender);
-    //     return model.gender.text = gender;
-    //   },
-    // );
-    return FormBuilderDropdown(
-      attribute: "gender",
-      decoration: InputDecoration(labelText: "Gender"),
-      initialValue: model.gender,
-      hint: Text('Select Gender'),
-      validators: [FormBuilderValidators.required()],
-      items: ['Male', 'Female', 'Other']
-          .map((gender) =>
-              DropdownMenuItem(value: gender, child: Text("$gender")))
-          .toList(),
+    return SelectInputField(
+      text: "Gender",
+      onSaved: (String gender) {
+        print(gender);
+        return model.gender.text = gender;
+      },
     );
   }
 

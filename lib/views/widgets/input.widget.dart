@@ -57,7 +57,7 @@ class InputWidget extends StatelessWidget {
         fillColor: AppColors.whiteShade2,
         errorBorder: OutlineInputBorder(
           gapPadding: 3,
-          borderSide: BorderSide(color: AppColors.dangerColor, width: 2),
+          borderSide: BorderSide(color: AppColors.dangerColor, width: 2,),
         ),
         prefixIcon: Icon(
           inputPrefixIcon,

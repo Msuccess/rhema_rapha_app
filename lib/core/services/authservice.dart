@@ -55,7 +55,7 @@ class AuthService {
         print(message['message']);
 
         var errorMessage = message['message'] == null
-            ? "Error Signing in"
+            ? "Please Check Your Connection"
             : message['message'];
 
         var data = jsonDecode(res.body);
@@ -63,7 +63,7 @@ class AuthService {
         return Result(isSuccessful: false, data: data, message: errorMessage);
       }
 
-      return Result(isSuccessful: false, message: 'Connection Failed');
+      return Result(isSuccessful: false, message: 'Please Check Your Connection');
     } catch (e) {
       print(e);
       return null;
@@ -103,7 +103,7 @@ class AuthService {
 
       return Result(isSuccessful: false, data: data, message: errorMessage);
     }
-    return Result(isSuccessful: false, message: 'Something went wrong');
+    return Result(isSuccessful: false, message: 'Please Check Your Connection');
   }
 
   Future<Map<String, dynamic>> getUserDetails() async {
@@ -177,19 +177,11 @@ class AuthService {
     var tempEmail = sharedPreferences.getString(EMAIL);
     var email = jsonDecode(tempEmail);
 
-    return null;
+    return email;
   }
 
-  // static Future<bool> isOnboarded() async {
-  //   SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-  //   var onboarding = sharedPreferences.getBool(ONBOARDING);
-  //   if (onboarding == null) return false;
-  //   // return onboarding;
-  //   return false;
-  // }
 
   onTimeout() {
     print('************* Connection Failed');
-    // UtilService.showErrorToast('Connection Failed');
   }
 }

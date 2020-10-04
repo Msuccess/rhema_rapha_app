@@ -34,7 +34,7 @@ class PatientService extends BaseService {
 
     return Result(
       isSuccessful: false,
-      message: 'Something went wrong',
+      message: 'Please Check Your Connection',
     );
   }
 
@@ -69,6 +69,6 @@ class PatientService extends BaseService {
       );
     }
 
-    return Result(isSuccessful: false, message: 'Something went wrong');
+    return Result(isSuccessful: false, message: 'Please Check Your Connection');
   }
 }
