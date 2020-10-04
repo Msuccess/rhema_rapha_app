@@ -38,15 +38,30 @@ class HomeBottomWidgets extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: EdgeInsets.only(top: 16, right: 16, left: 16, bottom: 16),
-      child: FlatButton(
-        height: AppSizes.fullHeight(context) * .06,
+      child: RaisedButton(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(8.0),
+        ),
+        padding: EdgeInsets.all(15.0),
         onPressed: () => Navigator.pushNamed(
           context,
           RoutePaths.NewAppointment,
         ),
-        child: Text(
-          "Book Appointment",
-          style: AppTexts.homeButtomText,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(
+              FeatherIcons.calendar,
+              color: Colors.white,size: 20.0,
+            ),
+            SizedBox(
+              width: 8.0,
+            ),
+            Text(
+              "Book Appointment",
+              style: AppTexts.homeButtomText,
+            ),
+          ],
         ),
         color: AppColors.primaryColor,
       ),
@@ -183,9 +198,11 @@ class BottomTabBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return BottomNavigationBar(
       showSelectedLabels: true,
+       showUnselectedLabels: true,
       selectedLabelStyle: TextStyle(
         fontWeight: FontWeight.w600,
       ),
+      unselectedItemColor: AppColors.primaryDisableColor,
       backgroundColor: Colors.white,
       type: BottomNavigationBarType.shifting,
       unselectedIconTheme: IconThemeData(
