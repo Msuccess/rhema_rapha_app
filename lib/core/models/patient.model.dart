@@ -15,7 +15,6 @@ class Patient {
   String height;
   String address;
   String bloodPressure;
-  String avatar;
    String gender;
   List<Appointment> appointment;
 
@@ -28,7 +27,6 @@ class Patient {
       this.phonenumber,
       this.dateOfBirth,
       this.address,
-      this.avatar,
       this.appointment,
       this.bloodPressure,
       this.height,
@@ -43,7 +41,6 @@ class Patient {
         phonenumber = "",
         dateOfBirth = "",
         address = "",
-        avatar = "",
         appointment = [],
         bloodPressure = "",
         height = "",

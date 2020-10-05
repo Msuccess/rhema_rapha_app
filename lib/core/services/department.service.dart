@@ -59,7 +59,7 @@ class DepartmentService extends BaseService {
 
     return Result(
       isSuccessful: false,
-      message: 'Something went wrong',
+      message: 'Please Check Your Connection',
     );
   }
 }

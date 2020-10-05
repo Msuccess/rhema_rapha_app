@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:rhema_rapha_app/core/constants/localkeys.dart';
 import 'package:rhema_rapha_app/core/message/result.model.dart';
+import 'package:rhema_rapha_app/core/models/patient.dto.dart';
 import 'package:rhema_rapha_app/core/models/patient.model.dart';
 import 'package:rhema_rapha_app/core/routes/routes.dart';
 import 'package:rhema_rapha_app/core/services/authservice.dart';
@@ -16,7 +17,6 @@ class ProfileViewModel extends BaseViewModel {
   PatientService _patientService;
   AuthService _authService;
   Patient patient;
-  SingingCharacter _character;
 
   TextEditingController _fullNameController = TextEditingController();
   TextEditingController _dateOfBirthController = TextEditingController();
@@ -62,20 +62,22 @@ class ProfileViewModel extends BaseViewModel {
     return result;
   }
 
-  Future updatePatient(BuildContext context) async {
+  Future updatePatientDetails(BuildContext context) async {
     setBusy(true);
     notifyListeners();
 
-    final newPatient = Patient(
-        fullName: _fullNameController.value.text,
-        dateOfBirth: _dateOfBirthController.value.text,
-        phonenumber: _phonenumberController.value.text,
-        email: _emailController.value.text,
-        address: _addressController.value.text,
-        bloodPressure: _bloodPressureController.value.text,
-        bloodType: _bloodTypeController.value.text,
-        height: _heightController.value.text,
-        gender: _genderController.text);
+    final newPatient = PatientDto(
+      fullName: _fullNameController.value.text,
+      dateOfBirth: _dateOfBirthController.value.text,
+      phonenumber: _phonenumberController.value.text,
+      email: _emailController.value.text,
+      address: _addressController.value.text,
+      bloodPressure: _bloodPressureController.value.text,
+      bloodType: _bloodTypeController.value.text,
+      height: _heightController.value.text,
+      gender: _genderController.text,
+    );
+
 
     Result result = await _patientService.updatePatient(newPatient);
     if (result.isSuccessful == true) {
@@ -84,14 +86,14 @@ class ProfileViewModel extends BaseViewModel {
 
       return await Navigator.pushNamedAndRemoveUntil(
         context,
-        RoutePaths.Tabs,
+        RoutePaths.Home,
         (_) => false,
       );
     } else {
       setBusy(false);
       UtilService.showErrorToast('Error updating profile');
     }
-   setBusy(false);
+    setBusy(false);
   }
 
   void init() {

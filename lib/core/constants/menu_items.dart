@@ -5,17 +5,17 @@ class MenuItems {
   static const menItems = <BottomNavigationBarItem>[
     BottomNavigationBarItem(
       icon: Icon(FeatherIcons.home),
-      title: Text('Home'),
+      label: 'Home',
     ),
 
     BottomNavigationBarItem(
       icon: Icon(FeatherIcons.calendar),
-      title: Text('Appointment'),
+      label: 'Appointment',
     ),
 
     BottomNavigationBarItem(
       icon: Icon(FeatherIcons.user),
-      title: Text('Profile'),
+      label: 'Profile',
     ),
     
   ];

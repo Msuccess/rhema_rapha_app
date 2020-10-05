@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:rhema_rapha_app/core/constants/endpoints.dart';
 import 'package:rhema_rapha_app/core/constants/localkeys.dart';
 import 'package:rhema_rapha_app/core/message/result.model.dart';
+import 'package:rhema_rapha_app/core/models/patient.dto.dart';
 import 'package:rhema_rapha_app/core/models/patient.model.dart';
 import 'package:rhema_rapha_app/core/services/base.service.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -33,16 +34,16 @@ class PatientService extends BaseService {
 
     return Result(
       isSuccessful: false,
-      message: 'Something went wrong',
+      message: 'Please Check Your Connection',
     );
   }
 
-  Future<Result> updatePatient(Patient newPatient) async {
+  Future<Result> updatePatient(PatientDto newPatient) async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     var userId = sharedPreferences.getString(USER_ID);
     var url = EndPoints.getPatientUrl();
 
-    var res = await putRequest("$url/$userId", newPatient.toJson());
+    var res = await putRequest("$url/$userId", newPatient.patientDtoToJson(newPatient));
 
     if (res != null && res.statusCode == 200) {
       var decodedData = jsonDecode(res.body);
@@ -68,6 +69,6 @@ class PatientService extends BaseService {
       );
     }
 
-    return Result(isSuccessful: false, message: 'Something went wrong');
+    return Result(isSuccessful: false, message: 'Please Check Your Connection');
   }
 }

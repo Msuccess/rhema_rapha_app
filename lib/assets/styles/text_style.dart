@@ -8,7 +8,7 @@ class AppTexts {
     fontSize: AppSizes.TEXT_SIZE_36,
     fontWeight: FontWeight.bold,
   );
- static const TextStyle h6 = TextStyle(
+  static const TextStyle h6 = TextStyle(
     color: AppColors.primaryText,
     fontSize: AppSizes.TEXT_SIZE_12,
     fontWeight: FontWeight.bold,
@@ -26,13 +26,13 @@ class AppTexts {
     fontWeight: FontWeight.w300,
   );
 
-   static const TextStyle titleLight = TextStyle(
+  static const TextStyle titleLight = TextStyle(
     color: AppColors.white,
-    fontSize: AppSizes.TEXT_SIZE_20,
+    fontSize: AppSizes.TEXT_SIZE_16,
     fontWeight: FontWeight.w500,
   );
 
-static const TextStyle subTitleLight = TextStyle(
+  static const TextStyle subTitleLight = TextStyle(
     color: AppColors.white,
     letterSpacing: .5,
     fontSize: AppSizes.TEXT_SIZE_16,
@@ -82,5 +82,12 @@ static const TextStyle subTitleLight = TextStyle(
     color: AppColors.blackShade2,
     fontWeight: FontWeight.w500,
     fontSize: AppSizes.TEXT_SIZE_16,
+  );
+
+  static const TextStyle homeButtomText = TextStyle(
+    color: AppColors.white,
+    fontSize: AppSizes.TEXT_SIZE_16,
+    fontWeight: FontWeight.bold,
+    fontFamily: 'OpenSans',
   );
 }

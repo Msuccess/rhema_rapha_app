@@ -38,14 +38,30 @@ class HomeBottomWidgets extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: EdgeInsets.only(top: 16, right: 16, left: 16, bottom: 16),
-      child: FlatButton(
+      child: RaisedButton(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(8.0),
+        ),
+        padding: EdgeInsets.all(15.0),
         onPressed: () => Navigator.pushNamed(
           context,
           RoutePaths.NewAppointment,
         ),
-        child: Text(
-          "Book Appointment",
-          style: TextStyle(color: Colors.white),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(
+              FeatherIcons.calendar,
+              color: Colors.white,size: 20.0,
+            ),
+            SizedBox(
+              width: 8.0,
+            ),
+            Text(
+              "Book Appointment",
+              style: AppTexts.homeButtomText,
+            ),
+          ],
         ),
         color: AppColors.primaryColor,
       ),
@@ -78,16 +94,15 @@ class DepartmentsWidget extends StatelessWidget {
                         .copyWith(color: Theme.of(context).primaryColor),
                   ),
                   onPressed: () => Navigator.pushNamed(
-                    context,
-                    RoutePaths.Department,
-                  ),
+                      context, RoutePaths.Department,
+                      arguments: departments),
                 ),
               ),
             ],
           ),
         ),
         SizedBox(
-          height: AppSizes.fullHeight(context) * .34,
+          height: AppSizes.fullHeight(context) * .2,
           width: AppSizes.fullWidth(context),
           child: ListView.builder(
             scrollDirection: Axis.horizontal,
@@ -97,6 +112,7 @@ class DepartmentsWidget extends StatelessWidget {
               return departmentCard(
                 context,
                 departments[index].name,
+                departments[index],
                 color: AppColors.green,
                 lightColor: AppColors.greenShade1,
               );
@@ -107,15 +123,19 @@ class DepartmentsWidget extends StatelessWidget {
     );
   }
 
-  Widget departmentCard(BuildContext context, String title,
+  Widget departmentCard(
+      BuildContext context, String name, Department department,
       {Color color, Color lightColor}) {
     TextStyle titleStyle = AppTexts.titleLight;
 
-    return AspectRatio(
-      aspectRatio: 6 / 8,
+    return GestureDetector(
+      onTap: () => Navigator.pushNamed(
+        context,
+        RoutePaths.DepartmentDetails,
+        arguments: department,
+      ),
       child: Container(
-        height: 200,
-        width: AppSizes.fullWidth(context) * .5,
+        width: AppSizes.fullWidth(context) * .3,
         margin: EdgeInsets.only(left: 10, right: 10, bottom: 20, top: 10),
         decoration: BoxDecoration(
           color: color,
@@ -147,14 +167,14 @@ class DepartmentsWidget extends StatelessWidget {
                   ),
                 ),
                 Padding(
-                  padding: EdgeInsets.symmetric(vertical: 16),
+                  padding: EdgeInsets.symmetric(vertical: 20),
                   child: Column(
-                    mainAxisAlignment: MainAxisAlignment.end,
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
                       Flexible(
                         child: Padding(
                           padding: EdgeInsets.symmetric(horizontal: 8),
-                          child: Text(title, style: titleStyle),
+                          child: Text(name, style: titleStyle),
                         ),
                       ),
                     ],
@@ -178,10 +198,16 @@ class BottomTabBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return BottomNavigationBar(
       showSelectedLabels: true,
-      showUnselectedLabels: true,
+       showUnselectedLabels: true,
+      selectedLabelStyle: TextStyle(
+        fontWeight: FontWeight.w600,
+      ),
+      unselectedItemColor: AppColors.primaryDisableColor,
       backgroundColor: Colors.white,
       type: BottomNavigationBarType.shifting,
-      unselectedIconTheme: IconThemeData(color: AppColors.primaryDisableColor),
+      unselectedIconTheme: IconThemeData(
+        color: AppColors.primaryDisableColor,
+      ),
       items: MenuItems.menItems,
       currentIndex: index,
       selectedItemColor: AppColors.primaryColor,

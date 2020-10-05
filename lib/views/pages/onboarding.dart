@@ -3,7 +3,9 @@ import 'package:introduction_screen/introduction_screen.dart';
 
 import 'package:rhema_rapha_app/assets/styles/colors.dart';
 import 'package:rhema_rapha_app/assets/styles/sizes.dart';
+import 'package:rhema_rapha_app/core/constants/localkeys.dart';
 import 'package:rhema_rapha_app/core/routes/routes.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class OnBoardingPage extends StatefulWidget {
   @override
@@ -27,6 +29,17 @@ void _onIntroEnd(context) {
 
 class _OnBoardingPageState extends State<OnBoardingPage> {
   final introKey = GlobalKey<IntroductionScreenState>();
+
+  @override
+  void initState() {
+    _setOnboarding();
+    super.initState();
+  }
+
+  _setOnboarding() async {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    sharedPreferences.setBool(ONBOARDING, true);
+  }
 
   @override
   Widget build(BuildContext context) {

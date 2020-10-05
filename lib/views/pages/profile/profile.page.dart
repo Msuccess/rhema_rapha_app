@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
+import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:provider/provider.dart';
+import 'package:rhema_rapha_app/assets/styles/sizes.dart';
 
 import 'package:rhema_rapha_app/assets/styles/text_style.dart';
 import 'package:rhema_rapha_app/core/constants/regex.constants.dart';
@@ -62,10 +64,7 @@ class _ProfilePageState extends State<ProfilePage> {
                       SizedBox(height: 20.0),
                       _builBloodPressureField(model),
                       SizedBox(height: 30.0),
-                     
-                      model.busy
-                          ? SizedBox.shrink()
-                          : _buildCallToAction(model),
+                      _buildCallToAction(model),
                     ],
                   ),
                 ),
@@ -211,6 +210,7 @@ class _ProfilePageState extends State<ProfilePage> {
     return SelectInputField(
       text: "Gender",
       onSaved: (String gender) {
+        print(gender);
         return model.gender.text = gender;
       },
     );
@@ -219,8 +219,8 @@ class _ProfilePageState extends State<ProfilePage> {
   Widget _buildCallToAction(ProfileViewModel model) {
     return ButtonWidget(
       text: 'Save changes',
-      busy: model.isBusy,
-      onPressed: () => model.updatePatient(context),
+      busy: model.busy,
+      onPressed: () => model.updatePatientDetails(context),
     );
   }
 }

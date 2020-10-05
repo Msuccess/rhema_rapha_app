@@ -52,8 +52,6 @@ class DetailsTilleWidget2 extends StatelessWidget {
   final String data;
   final IconData iconData;
   final String title;
- 
-
 
   const DetailsTilleWidget2({
     Key key,
@@ -65,7 +63,7 @@ class DetailsTilleWidget2 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (title == null || data == null) return Container();
-
+  
     return ListTile(
       leading: Container(
         padding: EdgeInsets.all(10.0),
@@ -92,7 +90,18 @@ class DetailsTilleWidget2 extends StatelessWidget {
         title,
         style: AppTexts.normalText,
       ),
-     subtitle: Text(data, style: AppTexts.titleNormal),
+      subtitle: Row(
+        children: <Widget>[
+          formatAppointmentTime(),
+        ],
+      ),
     );
+  }
+
+  formatAppointmentTime() {
+    return Text(data, style: AppTexts.titleNormal);
+    // data.split(',').map((element) {
+      
+    // }).toList();
   }
 }

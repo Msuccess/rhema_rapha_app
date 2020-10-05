@@ -102,7 +102,7 @@ class RouterPath {
         );
         break;
 
-      case RoutePaths.Doctor:
+      case RoutePaths.DepartmentDetails:
         return PageTransition(
           child: DepartmentDetailsPage(arguments: settings.arguments),
           type: PageTransitionType.leftToRightWithFade,
