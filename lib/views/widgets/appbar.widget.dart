@@ -45,7 +45,7 @@ class AppBarWidget {
   }
 
   static String getInitials({String name, int limitTo}) {
-    if (name == null) return null;
+    if (name == null || name == '') return '';
     var buffer = StringBuffer();
     var split = name.split(' ');
     for (var i = 0; i < (limitTo ?? split.length); i++) {

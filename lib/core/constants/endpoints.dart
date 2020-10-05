@@ -15,7 +15,7 @@ class EndPoints {
     return 'https://rhema-rapha-api.herokuapp.com/api/department';
   }
 
-   static String getAppointmentUrl() {
+  static String getAppointmentUrl() {
     return 'https://rhema-rapha-api.herokuapp.com/api/appointment';
   }
 }

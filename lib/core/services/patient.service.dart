@@ -20,7 +20,7 @@ class PatientService extends BaseService {
       var parsedPatient = Patient.fromJson(data);
 
       var sharedPreferences = await SharedPreferences.getInstance();
-      sharedPreferences.setString(USERID, parsedPatient.id);
+      sharedPreferences.setString(USER_ID, parsedPatient.id);
 
       return Result(
           data: parsedPatient, isSuccessful: true, message: data['message']);
@@ -39,7 +39,7 @@ class PatientService extends BaseService {
 
   Future<Result> updatePatient(Patient newPatient) async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-    var userId = sharedPreferences.getString(USERID);
+    var userId = sharedPreferences.getString(USER_ID);
     var url = EndPoints.getPatientUrl();
 
     var res = await putRequest("$url/$userId", newPatient.toJson());
@@ -52,7 +52,7 @@ class PatientService extends BaseService {
           await SharedPreferences.getInstance();
 
       sharedPreferences.setString(AUTHDATA, jsonEncode(data));
-      sharedPreferences.setString(USERID, jsonEncode(data['id']));
+      sharedPreferences.setString(USER_ID, jsonEncode(data['id']));
       return Result(
         isSuccessful: true,
         data: data,

@@ -10,16 +10,21 @@ class Appointment {
   String appointmentTime;
   String type;
   String appointmentDay;
+  String doctorId;
+  String patientId;
 
-  Appointment(
-      {this.id,
-      this.description,
-      this.date,
-      this.appointmentTime,
-      this.type,
-      this.appointmentDay});
+  Appointment({
+    this.id,
+    this.description,
+    this.date,
+    this.appointmentTime,
+    this.type,
+    this.appointmentDay,
+    this.doctorId,
+    this.patientId,
+  });
 
-       factory Appointment.fromJson(Map<String, dynamic> data) =>
+  factory Appointment.fromJson(Map<String, dynamic> data) =>
       _$AppointmentFromJson(data);
 
   Map<String, dynamic> toJson() => _$AppointmentToJson(this);

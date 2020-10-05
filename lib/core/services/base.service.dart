@@ -13,7 +13,7 @@ class BaseService {
     var sharedPreferences = await SharedPreferences.getInstance();
     var apiToken = sharedPreferences.getString(TOKEN);
     var token = jsonDecode(apiToken);
-
+    print('Bearer ' + token["token"]);
     return token["token"];
   }
 
