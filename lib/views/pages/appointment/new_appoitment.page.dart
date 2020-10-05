@@ -54,9 +54,6 @@ class _NewAppointmentPageState extends State<NewAppointmentPage> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               SizedBox(height: 10),
-              model.busy
-                  ? Center(child: CircularProgressIndicator())
-                  : Container(),
               Text('Doctor'),
               SizedBox(height: 10),
               GestureDetector(
@@ -214,6 +211,7 @@ class _NewAppointmentPageState extends State<NewAppointmentPage> {
               ),
               SizedBox(height: 30),
               ButtonWidget(
+                busy: model.busy,
                 text: 'Submit',
                 onPressed: () {
                   model.onAppointmentSubmit(context);

@@ -10,7 +10,9 @@ class AppointmentService extends BaseService {
     var res = await getRequest(EndPoints.getAppointmentUrl());
 
     if (res != null && res.statusCode == 200) {
+
       var data = jsonDecode(res.body);
+      
       var appointments = data['data'] as List<dynamic>;
       var parsedAppointments = appointments
           .map((appointment) => Appointment.fromJson(appointment))
@@ -62,7 +64,7 @@ class AppointmentService extends BaseService {
     var res =
         await getRequest(EndPoints.getAppointmentUrl() + '/' + appointmentId);
 
-    if (res != null && res.statusCode == 200) {
+    if (res != null && (res.statusCode == 200 || res.statusCode == 201)) {
       var data = jsonDecode(res.body);
       var appointment = data['data'] as dynamic;
       var parsedAppointment = Appointment.fromJson(appointment);

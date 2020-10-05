@@ -35,27 +35,4 @@ class DoctorService extends BaseService {
       message: 'Please Check Your Connection',
     );
   }
-
-  // Future<Result> getDoctorsById(String id) async {
-  //   var url = EndPoints.getDoctorUrl();
-  //   var res = await getRequest('$url/$id');
-
-  //   if (res != null && res.statusCode == 200) {
-  //     var data = jsonDecode(res.body);
-
-  //     var parsedDoctor = Doctor.fromJson(data);
-  //     return Result(
-  //         data: parsedDoctor, isSuccessful: true, message: data['message']);
-  //   }
-
-  //   if (res != null && res.statusCode == 400) {
-  //     var data = jsonDecode(res.body);
-  //     return Result(isSuccessful: false, message: data['message']);
-  //   }
-
-  //   return Result(
-  //     isSuccessful: false,
-  //     message: 'Something went wrong',
-  //   );
-  // }
 }

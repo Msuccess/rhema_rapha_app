@@ -142,7 +142,7 @@ class AppointmentTile extends StatelessWidget {
           ),
           child: ListTile(
             title: Text(
-              appointment.id,
+              appointment.doctor?.fullName,
               style: TextStyle(
                 fontSize: 18.0,
                 fontWeight: FontWeight.bold,
@@ -153,11 +153,18 @@ class AppointmentTile extends StatelessWidget {
               children: [
                 SizedBox(height: 10.0),
                 Text(
-                  'Medical Doctor',
+                  appointment.doctor?.phonenumber,
                   style: TextStyle(fontSize: 12.0),
                 ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 8.0),
+                  child: Text(
+                    appointment.appointmentTime,
+                    style: TextStyle(fontSize: 15.0),
+                  ),
+                ),
                 Text(
-                  appointment.appointmentTime,
+                  appointment.date,
                   style: TextStyle(fontSize: 15.0),
                 ),
               ],

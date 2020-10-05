@@ -45,7 +45,7 @@ class PatientService extends BaseService {
 
     var res = await putRequest("$url/$userId", newPatient.patientDtoToJson(newPatient));
 
-    if (res != null && res.statusCode == 200) {
+    if (res != null && (res.statusCode == 200 || res.statusCode == 201)) {
       var decodedData = jsonDecode(res.body);
       var data = decodedData['data'];
 

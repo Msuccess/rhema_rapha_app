@@ -40,7 +40,7 @@ class HomeBottomWidgets extends StatelessWidget {
       padding: EdgeInsets.only(top: 16, right: 16, left: 16, bottom: 16),
       child: RaisedButton(
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(8.0),
+          borderRadius: BorderRadius.circular(1.0),
         ),
         padding: EdgeInsets.all(15.0),
         onPressed: () => Navigator.pushNamed(

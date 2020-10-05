@@ -16,6 +16,12 @@ Appointment _$AppointmentFromJson(Map<String, dynamic> json) {
     appointmentDay: json['appointmentDay'] as String,
     doctorId: json['doctorId'] as String,
     patientId: json['patientId'] as String,
+    patient: json['patient'] == null
+        ? null
+        : Patient.fromJson(json['patient'] as Map<String, dynamic>),
+    doctor: json['doctor'] == null
+        ? null
+        : Doctor.fromJson(json['doctor'] as Map<String, dynamic>),
   );
 }
 
@@ -29,4 +35,6 @@ Map<String, dynamic> _$AppointmentToJson(Appointment instance) =>
       'appointmentDay': instance.appointmentDay,
       'doctorId': instance.doctorId,
       'patientId': instance.patientId,
+      'patient': instance.patient?.toJson(),
+      'doctor': instance.doctor?.toJson(),
     };

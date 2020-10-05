@@ -86,7 +86,7 @@ class ProfileViewModel extends BaseViewModel {
 
       return await Navigator.pushNamedAndRemoveUntil(
         context,
-        RoutePaths.Home,
+        RoutePaths.Tabs,
         (_) => false,
       );
     } else {
