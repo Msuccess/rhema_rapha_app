@@ -8,6 +8,7 @@ import 'package:rhema_rapha_app/views/pages/appointment/appointments.page.dart';
 import 'package:rhema_rapha_app/views/widgets/appbar.widget.dart';
 import 'package:rhema_rapha_app/views/widgets/base.widget.dart';
 import 'package:rhema_rapha_app/views/widgets/button.widget.dart';
+import 'package:rhema_rapha_app/core/services/util.service.dart';
 
 class NewAppointmentPage extends StatefulWidget {
   @override
@@ -164,7 +165,7 @@ class _NewAppointmentPageState extends State<NewAppointmentPage> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        model.formatDate(model.date),
+                        UtilService.formatDate(model.date),
                         style: TextStyle(fontSize: 15),
                       ),
                       Icon(Icons.keyboard_arrow_down)

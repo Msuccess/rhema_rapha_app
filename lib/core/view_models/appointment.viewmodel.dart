@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
+
 import 'package:rhema_rapha_app/core/constants/localkeys.dart';
 import 'package:rhema_rapha_app/core/message/result.model.dart';
 import 'package:rhema_rapha_app/core/models/appointment.model.dart';
@@ -88,7 +88,7 @@ class AppointmentViewModel extends BaseViewModel {
     var sp = await SharedPreferences.getInstance();
     var userId = sp.getString(USER_ID);
     var appointment = Appointment(
-      appointmentDay: getDay(date),
+      appointmentDay: UtilService.getDay(date),
       appointmentTime: time,
       date: date.toIso8601String(),
       description: '',
@@ -108,15 +108,4 @@ class AppointmentViewModel extends BaseViewModel {
     setBusy(false);
   }
 
-  String formatDate(DateTime date) {
-    if (date == null) date = DateTime.now();
-    final formatter = new DateFormat('EEEE, MMMM dd, yyyy');
-    return formatter.format(date);
-  }
-
-  String getDay(DateTime date) {
-    if (date == null) date = DateTime.now();
-    final formatter = new DateFormat('EEEE');
-    return formatter.format(date);
-  }
 }

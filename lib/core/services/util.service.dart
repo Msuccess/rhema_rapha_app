@@ -3,11 +3,12 @@ import 'dart:convert';
 import 'dart:core';
 import 'dart:ui';
 
+import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
 import 'package:oktoast/oktoast.dart';
 import 'package:rhema_rapha_app/assets/styles/colors.dart';
 import 'package:rhema_rapha_app/assets/styles/sizes.dart';
-import 'package:rhema_rapha_app/main.dart';
+
 
 class UtilService {
   Future<Map<String, dynamic>> decodeJwtToken(String token) async {
@@ -51,5 +52,19 @@ class UtilService {
         fontWeight: FontWeight.w300,
       ),
     );
+  }
+
+
+  
+  static String formatDate(DateTime date) {
+    if (date == null) date = DateTime.now();
+    final formatter = new DateFormat('EEEE, MMMM dd, yyyy');
+    return formatter.format(date);
+  }
+
+  static String getDay(DateTime date) {
+    if (date == null) date = DateTime.now();
+    final formatter = new DateFormat('EEEE');
+    return formatter.format(date);
   }
 }

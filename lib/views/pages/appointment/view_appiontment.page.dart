@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:provider/provider.dart';
-import 'package:intl/intl.dart';
 
 import 'package:rhema_rapha_app/assets/styles/colors.dart';
 import 'package:rhema_rapha_app/core/models/appointment.model.dart';
@@ -59,104 +58,100 @@ class ViewAppointmentPage extends StatelessWidget {
                     ),
                   ),
                 )
-              : Container(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      SizedBox(height: 30),
-                      Padding(
-                        padding: const EdgeInsets.only(left: 20.0),
-                        child: Text('Voice call appointment'),
-                      ),
-                      Container(
-                        margin: EdgeInsets.symmetric(vertical: 1),
-                        child: ListTile(
-                          leading: CircleAvatar(
-                            child: Text(
-                              AppBarWidget.getInitials(
-                                  name: doctor?.fullName, limitTo: 2),
-                            ),
-                          ),
-                          title: Text(doctor?.fullName),
+              : SingleChildScrollView(
+                              child: Container(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        SizedBox(height: 30),
+                        Padding(
+                          padding: const EdgeInsets.only(left: 20.0),
+                          child: Text('Voice call appointment'),
                         ),
-                      ),
-                      SizedBox(height: 30),
-                      Container(
-                        padding: EdgeInsets.all(30),
-                        decoration: BoxDecoration(
-                          color: AppColors.primaryColor,
-                          borderRadius: BorderRadius.only(
-                            topLeft: Radius.circular(40),
-                            topRight: Radius.circular(40),
+                        Container(
+                          margin: EdgeInsets.symmetric(vertical: 1),
+                          child: ListTile(
+                            leading: CircleAvatar(
+                              child: Text(
+                                AppBarWidget.getInitials(
+                                    name: doctor?.fullName, limitTo: 2),
+                              ),
+                            ),
+                            title: Text(doctor?.fullName),
                           ),
                         ),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Container(
-                              padding: EdgeInsets.all(20),
-                              decoration: BoxDecoration(
-                                color: getAppointmentType(appointment?.type) ==
-                                        'call'
-                                    ? AppColors.primaryColor
-                                    : AppColors.primaryDisableColor,
-                                borderRadius: BorderRadius.all(
-                                  Radius.circular(12),
-                                ),
-                              ),
-                              child: Icon(
-                                FeatherIcons.phone,
-                                color: AppColors.white,
-                              ),
-                            ),
-                            SizedBox(width: 10),
-                            Container(
-                              padding: EdgeInsets.all(20),
-                              decoration: BoxDecoration(
-                                color: getAppointmentType(appointment.type) ==
-                                        'walk'
-                                    ? AppColors.primaryColor
-                                    : AppColors.primaryDisableColor,
-                                borderRadius: BorderRadius.all(
-                                  Radius.circular(12),
-                                ),
-                              ),
-                              child: Icon(
-                                FeatherIcons.user,
-                                color: AppColors.white,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      Container(
-                        width: MediaQuery.of(context).size.width,
-                        decoration: BoxDecoration(
-                          color: AppColors.primaryColor,
-                        ),
-                        child: Container(
+                        SizedBox(height: 30),
+                        Container(
+                          padding: EdgeInsets.all(30),
                           decoration: BoxDecoration(
-                            color: AppColors.white,
+                            color: AppColors.primaryColor,
                             borderRadius: BorderRadius.only(
-                              topLeft: Radius.circular(70),
-                              topRight: Radius.circular(70),
+                              topLeft: Radius.circular(40),
+                              topRight: Radius.circular(40),
                             ),
                           ),
-                          child: SizedBox(height: 30),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Container(
+                                padding: EdgeInsets.all(20),
+                                decoration: BoxDecoration(
+                                  color: getAppointmentType(appointment?.type) ==
+                                          'call'
+                                      ? AppColors.primaryColor
+                                      : AppColors.primaryDisableColor,
+                                  borderRadius: BorderRadius.all(
+                                    Radius.circular(12),
+                                  ),
+                                ),
+                                child: Icon(
+                                  FeatherIcons.phone,
+                                  color: AppColors.white,
+                                ),
+                              ),
+                              SizedBox(width: 10),
+                              Container(
+                                padding: EdgeInsets.all(20),
+                                decoration: BoxDecoration(
+                                  color: getAppointmentType(appointment.type) ==
+                                          'walk'
+                                      ? AppColors.primaryColor
+                                      : AppColors.primaryDisableColor,
+                                  borderRadius: BorderRadius.all(
+                                    Radius.circular(12),
+                                  ),
+                                ),
+                                child: Icon(
+                                  FeatherIcons.user,
+                                  color: AppColors.white,
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
-                      ),
-                      SingleChildScrollView(
-                        child: Column(
-                          children: [
-                            buildVisitingTimeSection(appointment),
-                            buildPatientInfoTimeSection(patient),
-                            buildDescriptionSection(context, appointment),
-                          ],
+                        Container(
+                          width: MediaQuery.of(context).size.width,
+                          decoration: BoxDecoration(
+                            color: AppColors.primaryColor,
+                          ),
+                          child: Container(
+                            decoration: BoxDecoration(
+                              color: AppColors.white,
+                              borderRadius: BorderRadius.only(
+                                topLeft: Radius.circular(70),
+                                topRight: Radius.circular(70),
+                              ),
+                            ),
+                            child: SizedBox(height: 30),
+                          ),
                         ),
-                      ),
-                    ],
+                        buildVisitingTimeSection(appointment),
+                        buildPatientInfoTimeSection(patient),
+                        buildDescriptionSection(context, appointment),
+                      ],
+                    ),
                   ),
-                ),
+              ),
         );
       },
     );
