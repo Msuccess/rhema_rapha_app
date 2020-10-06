@@ -23,20 +23,7 @@ class AppointmentViewModel extends BaseViewModel {
   List<Appointment> appointments = List<Appointment>();
   List<Doctor> doctors = List<Doctor>();
 
-  List<String> appointmentTimes = [
-    '8:00AM',
-    '10:00AM',
-    '12:00PM',
-    '2:00PM',
-    '4:00PM',
-    '6:00PM',
-    '8:00PM',
-    '10:00PM',
-    '12:00AM',
-    '2:00AM',
-    '4:00AM',
-    '6:00AM',
-  ];
+  List<String> appointmentTimes = [];
 
   AppointmentViewModel({
     @required AppointmentService appointmentService,
@@ -57,6 +44,7 @@ class AppointmentViewModel extends BaseViewModel {
     Result<List<Doctor>> result = await _doctorService.getDoctors();
     doctors = result.data;
     doctor = doctor.fullName == '' ? doctors[0] : Doctor.initial();
+    appointmentTimes = doctor.timesAvailable.split(',').toList();
     setBusy(false);
     return result;
   }
@@ -80,6 +68,7 @@ class AppointmentViewModel extends BaseViewModel {
 
   void onDoctorSelected(Doctor newDoctor) {
     doctor = newDoctor;
+    appointmentTimes = newDoctor.timesAvailable.split(',').toList();
     notifyListeners();
   }
 
@@ -107,5 +96,4 @@ class AppointmentViewModel extends BaseViewModel {
     }
     setBusy(false);
   }
-
 }

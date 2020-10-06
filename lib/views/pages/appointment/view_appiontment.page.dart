@@ -59,99 +59,91 @@ class ViewAppointmentPage extends StatelessWidget {
                   ),
                 )
               : SingleChildScrollView(
-                              child: Container(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        SizedBox(height: 30),
-                        Padding(
-                          padding: const EdgeInsets.only(left: 20.0),
-                          child: Text('Voice call appointment'),
-                        ),
-                        Container(
-                          margin: EdgeInsets.symmetric(vertical: 1),
-                          child: ListTile(
-                            leading: CircleAvatar(
-                              child: Text(
-                                AppBarWidget.getInitials(
-                                    name: doctor?.fullName, limitTo: 2),
-                              ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      SizedBox(height: 30),
+                      Padding(
+                        padding: const EdgeInsets.only(left: 20.0),
+                        child: Text('Voice call appointment'),
+                      ),
+                      Container(
+                        margin: EdgeInsets.symmetric(vertical: 1),
+                        child: ListTile(
+                          leading: CircleAvatar(
+                            child: Text(
+                              AppBarWidget.getInitials(
+                                  name: doctor?.fullName, limitTo: 2),
                             ),
-                            title: Text(doctor?.fullName),
+                          ),
+                          title: Text(doctor?.fullName),
+                        ),
+                      ),
+                      SizedBox(height: 30),
+                      Container(
+                        padding: EdgeInsets.all(30),
+                        decoration: BoxDecoration(
+                          color: AppColors.primaryColor,
+                          borderRadius: BorderRadius.only(
+                            topLeft: Radius.circular(40),
+                            topRight: Radius.circular(40),
                           ),
                         ),
-                        SizedBox(height: 30),
-                        Container(
-                          padding: EdgeInsets.all(30),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Container(
+                              padding: EdgeInsets.all(20),
+                              decoration: BoxDecoration(
+                                color: AppColors.primaryDisableColor,
+                                borderRadius: BorderRadius.all(
+                                  Radius.circular(12),
+                                ),
+                              ),
+                              child: Icon(
+                                FeatherIcons.phone,
+                                color: AppColors.white,
+                              ),
+                            ),
+                            SizedBox(width: 10),
+                            Container(
+                              padding: EdgeInsets.all(20),
+                              decoration: BoxDecoration(
+                                color: AppColors.primaryDisableColor,
+                                borderRadius: BorderRadius.all(
+                                  Radius.circular(12),
+                                ),
+                              ),
+                              child: Icon(
+                                FeatherIcons.user,
+                                color: AppColors.white,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      Container(
+                        width: MediaQuery.of(context).size.width,
+                        decoration: BoxDecoration(
+                          color: AppColors.primaryColor,
+                        ),
+                        child: Container(
                           decoration: BoxDecoration(
-                            color: AppColors.primaryColor,
+                            color: AppColors.white,
                             borderRadius: BorderRadius.only(
-                              topLeft: Radius.circular(40),
-                              topRight: Radius.circular(40),
+                              topLeft: Radius.circular(70),
+                              topRight: Radius.circular(70),
                             ),
                           ),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Container(
-                                padding: EdgeInsets.all(20),
-                                decoration: BoxDecoration(
-                                  color: getAppointmentType(appointment?.type) ==
-                                          'call'
-                                      ? AppColors.primaryColor
-                                      : AppColors.primaryDisableColor,
-                                  borderRadius: BorderRadius.all(
-                                    Radius.circular(12),
-                                  ),
-                                ),
-                                child: Icon(
-                                  FeatherIcons.phone,
-                                  color: AppColors.white,
-                                ),
-                              ),
-                              SizedBox(width: 10),
-                              Container(
-                                padding: EdgeInsets.all(20),
-                                decoration: BoxDecoration(
-                                  color: getAppointmentType(appointment.type) ==
-                                          'walk'
-                                      ? AppColors.primaryColor
-                                      : AppColors.primaryDisableColor,
-                                  borderRadius: BorderRadius.all(
-                                    Radius.circular(12),
-                                  ),
-                                ),
-                                child: Icon(
-                                  FeatherIcons.user,
-                                  color: AppColors.white,
-                                ),
-                              ),
-                            ],
-                          ),
+                          child: SizedBox(height: 30),
                         ),
-                        Container(
-                          width: MediaQuery.of(context).size.width,
-                          decoration: BoxDecoration(
-                            color: AppColors.primaryColor,
-                          ),
-                          child: Container(
-                            decoration: BoxDecoration(
-                              color: AppColors.white,
-                              borderRadius: BorderRadius.only(
-                                topLeft: Radius.circular(70),
-                                topRight: Radius.circular(70),
-                              ),
-                            ),
-                            child: SizedBox(height: 30),
-                          ),
-                        ),
-                        buildVisitingTimeSection(appointment),
-                        buildPatientInfoTimeSection(patient),
-                        buildDescriptionSection(context, appointment),
-                      ],
-                    ),
+                      ),
+                      buildVisitingTimeSection(appointment),
+                      buildPatientInfoTimeSection(patient),
+                      buildDescriptionSection(context, appointment),
+                    ],
                   ),
-              ),
+                ),
         );
       },
     );
@@ -162,33 +154,27 @@ class ViewAppointmentPage extends StatelessWidget {
       padding: const EdgeInsets.all(20.0),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Icon(FeatherIcons.user, color: Colors.transparent),
-              Padding(
-                padding: const EdgeInsets.only(left: 10.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'Discription',
-                      style:
-                          TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
-                    ),
-                    SizedBox(height: 10),
-                    Container(
-                      width: MediaQuery.of(context).size.width * .7,
-                      child: Flexible(
-                        child: Text(appointment.description),
-                      ),
-                    ),
-                  ],
+          Icon(FeatherIcons.user, color: Colors.transparent),
+          Padding(
+            padding: const EdgeInsets.only(left: 10.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  'Discription',
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 20,
+                  ),
                 ),
-              ),
-            ],
+                SizedBox(height: 10),
+                Container(
+                  width: MediaQuery.of(context).size.width * .7,
+                  child: Text(appointment.description),
+                ),
+              ],
+            ),
           ),
         ],
       ),
@@ -310,13 +296,11 @@ class ViewAppointmentPage extends StatelessWidget {
     );
   }
 
-  String getAppointmentType(String type) {
-    if (type.toLowerCase() == 'voice call') {
-      return 'call';
-    } else {
-      return 'walk';
-    }
-  }
-
- 
+  // String getAppointmentType(String type) {
+  //   if (type.toLowerCase() == 'voice call') {
+  //     return 'call';
+  //   } else {
+  //     return 'walk';
+  //   }
+  // }
 }
