@@ -32,7 +32,7 @@ class AppointmentPage extends StatelessWidget {
           },
           child: Icon(FeatherIcons.plus),
         ),
-        backgroundColor: Color(0xFFE5E5E5),
+      
         body: Container(
           width: MediaQuery.of(context).size.width,
           height: MediaQuery.of(context).size.height,

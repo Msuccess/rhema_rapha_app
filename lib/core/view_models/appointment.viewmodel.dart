@@ -11,6 +11,7 @@ import 'package:rhema_rapha_app/core/services/doctor.service.dart';
 import 'package:rhema_rapha_app/core/services/util.service.dart';
 import 'package:rhema_rapha_app/core/view_models/base.viewmodel.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class AppointmentViewModel extends BaseViewModel {
   AppointmentService _appointmentService;
@@ -23,20 +24,7 @@ class AppointmentViewModel extends BaseViewModel {
   List<Appointment> appointments = List<Appointment>();
   List<Doctor> doctors = List<Doctor>();
 
-  List<String> appointmentTimes = [
-    '8:00AM',
-    '10:00AM',
-    '12:00PM',
-    '2:00PM',
-    '4:00PM',
-    '6:00PM',
-    '8:00PM',
-    '10:00PM',
-    '12:00AM',
-    '2:00AM',
-    '4:00AM',
-    '6:00AM',
-  ];
+  List<String> appointmentTimes = [];
 
   AppointmentViewModel({
     @required AppointmentService appointmentService,
@@ -52,14 +40,33 @@ class AppointmentViewModel extends BaseViewModel {
     return result;
   }
 
+  Future<void> makePhoneCall(String phoneNumber) async {
+    try {
+      if (await canLaunch('tel:$phoneNumber')) {
+        await launch(phoneNumber);
+      }
+    } catch (e) {
+      throw 'Could not launch $e';
+    }
+  }
+
   Future<Result> getDoctors() async {
     setBusy(true);
     Result<List<Doctor>> result = await _doctorService.getDoctors();
     doctors = result.data;
     doctor = doctor.fullName == '' ? doctors[0] : Doctor.initial();
+    appointmentTimes = doctor.timesAvailable.split(',').toList();
     setBusy(false);
     return result;
   }
+
+  Future<Result> cancelBookedAppointment(String id) async {
+    setBusy(true);
+    var result = await _appointmentService.cancelAppointment(id);
+    setBusy(false);
+    return result;
+  }
+
 
   onTimeSelect(String newTime) {
     time = newTime;
@@ -80,6 +87,7 @@ class AppointmentViewModel extends BaseViewModel {
 
   void onDoctorSelected(Doctor newDoctor) {
     doctor = newDoctor;
+    appointmentTimes = newDoctor.timesAvailable.split(',').toList();
     notifyListeners();
   }
 
@@ -107,5 +115,4 @@ class AppointmentViewModel extends BaseViewModel {
     }
     setBusy(false);
   }
-
 }

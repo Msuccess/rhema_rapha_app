@@ -17,7 +17,8 @@ class InputWidget extends StatelessWidget {
   final String newValue;
   final TextInputType inputType;
   final bool disabled;
-  final IconData inputPrefixIcon;
+  final IconData inputPrefixIcon; 
+   final int maxlines;
 
   InputWidget({
     Key key,
@@ -34,8 +35,9 @@ class InputWidget extends StatelessWidget {
     this.inputPrefixIcon,
     this.inputType,
     this.newValue,
+    this.maxlines = 1,
     this.disabled = false,
-    this.isTextArea = false,
+    this.isTextArea = false, 
   }) : super(key: key);
 
   @override
@@ -57,7 +59,10 @@ class InputWidget extends StatelessWidget {
         fillColor: AppColors.whiteShade2,
         errorBorder: OutlineInputBorder(
           gapPadding: 3,
-          borderSide: BorderSide(color: AppColors.dangerColor, width: 2,),
+          borderSide: BorderSide(
+            color: AppColors.dangerColor,
+            width: 2,
+          ),
         ),
         prefixIcon: Icon(
           inputPrefixIcon,
@@ -96,6 +101,7 @@ class InputOnchangedWidget extends StatelessWidget {
   final TextInputType inputType;
   final bool isAmount;
 
+
   InputOnchangedWidget(
       {Key key,
       @required this.text,
@@ -104,7 +110,7 @@ class InputOnchangedWidget extends StatelessWidget {
       this.validator,
       this.onChanged,
       this.isAmount = false,
-      this.inputType})
+      this.inputType, })
       : super(key: key);
 
   @override
