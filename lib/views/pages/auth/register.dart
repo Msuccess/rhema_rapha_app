@@ -28,8 +28,6 @@ class _RegistrationPageState extends State<RegistrationPage> {
   String _dateOfBirth;
   final GlobalKey<FormState> _formkey = GlobalKey<FormState>();
 
-  final PageController _pageController = PageController(initialPage: 0);
-
   @override
   Widget build(BuildContext context) {
     return BaseWidget<RegisterViewModel>(
@@ -216,8 +214,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
             (_) => false,
           );
         } else {
-          UtilService.showErrorToast(
-              result.message);
+          UtilService.showErrorToast(result.message);
         }
       },
     );

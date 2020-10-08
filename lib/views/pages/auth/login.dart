@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
-import 'package:oktoast/oktoast.dart';
 import 'package:provider/provider.dart';
 
 import 'package:rhema_rapha_app/assets/styles/colors.dart';
@@ -8,7 +7,6 @@ import 'package:rhema_rapha_app/assets/styles/text_style.dart';
 import 'package:rhema_rapha_app/core/constants/regex.constants.dart';
 import 'package:rhema_rapha_app/core/message/result.model.dart';
 import 'package:rhema_rapha_app/core/models/signin.model.dart';
-import 'package:rhema_rapha_app/core/models/user.model.dart';
 import 'package:rhema_rapha_app/core/routes/routes.dart';
 import 'package:rhema_rapha_app/core/services/util.service.dart';
 import 'package:rhema_rapha_app/core/view_models/login.viewmodel.dart';

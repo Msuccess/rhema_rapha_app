@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'package:http/http.dart' as http;
 
 import 'package:rhema_rapha_app/core/constants/endpoints.dart';
 import 'package:rhema_rapha_app/core/message/result.model.dart';

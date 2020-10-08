@@ -7,7 +7,6 @@ import 'package:rhema_rapha_app/core/routes/routes.dart';
 import 'package:rhema_rapha_app/core/services/util.service.dart';
 import 'package:rhema_rapha_app/core/view_models/appointment.viewmodel.dart';
 import 'package:rhema_rapha_app/views/widgets/base.widget.dart';
-import 'package:rhema_rapha_app/views/widgets/button.widget.dart';
 
 class AppointmentPage extends StatelessWidget {
   @override

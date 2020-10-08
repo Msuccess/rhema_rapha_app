@@ -10,9 +10,8 @@ class AppointmentService extends BaseService {
     var res = await getRequest(EndPoints.getAppointmentUrl());
 
     if (res != null && res.statusCode == 200) {
-
       var data = jsonDecode(res.body);
-      
+
       var appointments = data['data'] as List<dynamic>;
       var parsedAppointments = appointments
           .map((appointment) => Appointment.fromJson(appointment))
@@ -53,7 +52,7 @@ class AppointmentService extends BaseService {
       var data = jsonDecode(res.body);
       return Result(
           isSuccessful: false,
-          data: null,
+          data: data,
           message: 'Appointment failed to save');
     }
 
@@ -116,9 +115,9 @@ class AppointmentService extends BaseService {
     return Result(isSuccessful: false, message: 'Something went wrong');
   }
 
- Future<Result<Appointment>> cancelAppointment(String appointmentId) async{
-    var res = await getRequest(
-        EndPoints.getAppointmentUrl() + '/' + appointmentId);
+  Future<Result<Appointment>> cancelAppointment(String appointmentId) async {
+    var res =
+        await getRequest(EndPoints.getAppointmentUrl() + '/' + appointmentId);
 
     if (res != null && res.statusCode == 200) {
       return Result<Appointment>(
@@ -131,6 +130,5 @@ class AppointmentService extends BaseService {
     }
 
     return Result(isSuccessful: false, message: 'Something went wrong');
- }
-
+  }
 }

@@ -61,6 +61,8 @@ class AppointmentViewModel extends BaseViewModel {
     departments = result.data;
 
     department = department.name == '' ? departments[0] : Department.initial();
+
+    getDepartmentDoctors(department.doctor);
     setBusy(false);
 
     return result;

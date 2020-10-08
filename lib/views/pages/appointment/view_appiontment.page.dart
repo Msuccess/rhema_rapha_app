@@ -25,6 +25,7 @@ class ViewAppointmentPage extends StatelessWidget {
       model: AppointmentViewModel(
         appointmentService: Provider.of(context),
         doctorService: Provider.of(context),
+        departmentService: Provider.of(context),
       ),
       onModelReady: (AppointmentViewModel model) async {
         appointment = arguments['appointment'];
@@ -129,7 +130,6 @@ class ViewAppointmentPage extends StatelessWidget {
                           ],
                         ),
                       ),
-                      
                       Container(
                         width: MediaQuery.of(context).size.width,
                         decoration: BoxDecoration(

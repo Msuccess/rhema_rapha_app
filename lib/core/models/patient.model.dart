@@ -1,4 +1,3 @@
-import 'package:flutter/src/widgets/editable_text.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:rhema_rapha_app/core/models/appointment.model.dart';
 
@@ -15,10 +14,8 @@ class Patient {
   String height;
   String address;
   String bloodPressure;
-   String gender;
+  String gender;
   List<Appointment> appointment;
-
-
 
   Patient(
       {this.id,
@@ -31,8 +28,7 @@ class Patient {
       this.bloodPressure,
       this.height,
       this.bloodType,
-      this.gender
-      });
+      this.gender});
 
   Patient.initial()
       : id = "",
@@ -45,7 +41,7 @@ class Patient {
         bloodPressure = "",
         height = "",
         bloodType = "",
-        gender="";
+        gender = "";
 
   factory Patient.fromJson(Map<String, dynamic> data) =>
       _$PatientFromJson(data);
