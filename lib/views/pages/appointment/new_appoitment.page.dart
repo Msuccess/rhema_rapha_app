@@ -3,6 +3,7 @@ import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:provider/provider.dart';
 
 import 'package:rhema_rapha_app/assets/styles/colors.dart';
+import 'package:rhema_rapha_app/core/models/department.model.dart';
 import 'package:rhema_rapha_app/core/models/doctor.model.dart';
 import 'package:rhema_rapha_app/core/view_models/appointment.viewmodel.dart';
 import 'package:rhema_rapha_app/views/pages/appointment/appointments.page.dart';
@@ -22,11 +23,12 @@ class _NewAppointmentPageState extends State<NewAppointmentPage> {
   Widget build(BuildContext context) {
     return BaseWidget<AppointmentViewModel>(
       model: AppointmentViewModel(
+        departmentService: Provider.of(context),
         appointmentService: Provider.of(context),
         doctorService: Provider.of(context),
       ),
       onModelReady: (AppointmentViewModel model) async {
-        await model.getDoctors();
+        await model.getDepartments();
       },
       builder: (
         BuildContext context,
@@ -58,81 +60,13 @@ class _NewAppointmentPageState extends State<NewAppointmentPage> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 SizedBox(height: 10),
+                Text('Description'),
+                SizedBox(height: 10),
+                _buildDepartmentSelectField(context, model),
+                SizedBox(height: 10),
                 Text('Doctor'),
                 SizedBox(height: 10),
-                GestureDetector(
-                  onTap: () async {
-                    showDialog(
-                      context: context,
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(
-                          vertical: 100,
-                        ),
-                        child: Dialog(
-                          backgroundColor: Colors.transparent,
-                          child: Container(
-                            decoration: BoxDecoration(
-                              color: AppColors.white,
-                              borderRadius: BorderRadius.all(
-                                Radius.circular(10),
-                              ),
-                            ),
-                            child: ListView.builder(
-                              itemCount: model.doctors.length,
-                              itemBuilder: (BuildContext context, int index) {
-                                return _buildDoctorTile(
-                                  model,
-                                  model.doctors[index],
-                                );
-                              },
-                            ),
-                          ),
-                        ),
-                      ),
-                    );
-                  },
-                  child: Container(
-                    margin: EdgeInsets.only(right: 10, bottom: 10),
-                    width: MediaQuery.of(context).size.width,
-                    padding: EdgeInsets.symmetric(horizontal: 15, vertical: 15),
-                    decoration: BoxDecoration(
-                      color: AppColors.white,
-                      borderRadius: BorderRadius.all(
-                        Radius.circular(8),
-                      ),
-                      boxShadow: [
-                        BoxShadow(
-                          color: AppColors.greyShade8,
-                          offset: Offset(0, 1),
-                          blurRadius: 2,
-                        ),
-                      ],
-                    ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Row(
-                          children: [
-                            CircleAvatar(
-                              child: Text(
-                                AppBarWidget.getInitials(
-                                  name: model.doctor.fullName,
-                                  limitTo: 2,
-                                ),
-                              ),
-                            ),
-                            SizedBox(width: 10),
-                            Text(
-                              model.doctor.fullName,
-                              style: TextStyle(fontSize: 15),
-                            ),
-                          ],
-                        ),
-                        Icon(Icons.keyboard_arrow_down)
-                      ],
-                    ),
-                  ),
-                ),
+                _buildDoctorSelectField(context, model),
                 SizedBox(height: 10),
                 Text('Date'),
                 SizedBox(height: 10),
@@ -146,12 +80,12 @@ class _NewAppointmentPageState extends State<NewAppointmentPage> {
                       firstDate: DateTime.now(),
                       lastDate: DateTime(2100),
                       helpText: 'Select Appointment Date',
-                      // selectableDayPredicate: (date) {
-                      //   var day = UtilService.getDay(date).toLowerCase();
-                      //   return model.doctor.daysAvailable
-                      //       .toLowerCase()
-                      //       .contains(day.toLowerCase());
-                      // },
+                      selectableDayPredicate: (date) {
+                        var day = UtilService.getDay(date).toLowerCase();
+                        return model.doctor.daysAvailable
+                            .toLowerCase()
+                            .contains(day.toLowerCase());
+                      },
                     );
                     model.onDateSelected(date);
                   },
@@ -222,7 +156,7 @@ class _NewAppointmentPageState extends State<NewAppointmentPage> {
                   ],
                 ),
                 SizedBox(height: 30),
-                appointmentDiscription(),
+                appointmentDescription(model),
                 SizedBox(height: 40),
                 ButtonWidget(
                   busy: model.busy,
@@ -234,6 +168,180 @@ class _NewAppointmentPageState extends State<NewAppointmentPage> {
               ],
             ),
           ),
+        ),
+      ),
+    );
+  }
+
+  _buildDoctorSelectField(BuildContext context, AppointmentViewModel model) {
+    return GestureDetector(
+      onTap: () async {
+        showDialog(
+          context: context,
+          child: Padding(
+            padding: const EdgeInsets.symmetric(
+              vertical: 100,
+            ),
+            child: Dialog(
+              backgroundColor: Colors.transparent,
+              child: Container(
+                decoration: BoxDecoration(
+                  color: AppColors.white,
+                  borderRadius: BorderRadius.all(
+                    Radius.circular(10),
+                  ),
+                ),
+                child: ListView.builder(
+                  itemCount: model.doctors.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    return _buildDoctorTile(
+                      model,
+                      model.doctors[index],
+                    );
+                  },
+                ),
+              ),
+            ),
+          ),
+        );
+      },
+      child: Container(
+        margin: EdgeInsets.only(right: 10, bottom: 10),
+        width: MediaQuery.of(context).size.width,
+        padding: EdgeInsets.symmetric(horizontal: 15, vertical: 15),
+        decoration: BoxDecoration(
+          color: AppColors.white,
+          borderRadius: BorderRadius.all(
+            Radius.circular(8),
+          ),
+          boxShadow: [
+            BoxShadow(
+              color: AppColors.greyShade8,
+              offset: Offset(0, 1),
+              blurRadius: 2,
+            ),
+          ],
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Row(
+              children: [
+                CircleAvatar(
+                  child: Text(
+                    AppBarWidget.getInitials(
+                      name: model.doctor.fullName,
+                      limitTo: 2,
+                    ),
+                  ),
+                ),
+                SizedBox(width: 10),
+                Text(
+                  model.doctor.fullName,
+                  style: TextStyle(fontSize: 15),
+                ),
+              ],
+            ),
+            Icon(Icons.keyboard_arrow_down)
+          ],
+        ),
+      ),
+    );
+  }
+
+  GestureDetector _buildDepartmentSelectField(
+      BuildContext context, AppointmentViewModel model) {
+    return GestureDetector(
+      onTap: () async {
+        showDialog(
+          context: context,
+          child: Padding(
+            padding: const EdgeInsets.symmetric(
+              vertical: 100,
+            ),
+            child: Dialog(
+              backgroundColor: Colors.transparent,
+              child: Container(
+                decoration: BoxDecoration(
+                  color: AppColors.white,
+                  borderRadius: BorderRadius.all(
+                    Radius.circular(10),
+                  ),
+                ),
+                child: ListView.builder(
+                  itemCount: model.departments.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    return _buildDepartmentTile(
+                      model,
+                      model.departments[index],
+                    );
+                  },
+                ),
+              ),
+            ),
+          ),
+        );
+      },
+      child: Container(
+        margin: EdgeInsets.only(right: 10, bottom: 10),
+        width: MediaQuery.of(context).size.width,
+        padding: EdgeInsets.symmetric(horizontal: 15, vertical: 15),
+        decoration: BoxDecoration(
+          color: AppColors.white,
+          borderRadius: BorderRadius.all(
+            Radius.circular(8),
+          ),
+          boxShadow: [
+            BoxShadow(
+              color: AppColors.greyShade8,
+              offset: Offset(0, 1),
+              blurRadius: 2,
+            ),
+          ],
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Row(
+              children: [
+                CircleAvatar(
+                  child: Text(
+                    AppBarWidget.getInitials(
+                      name: model.department.name,
+                      limitTo: 1,
+                    ),
+                  ),
+                ),
+                SizedBox(width: 10),
+                Text(
+                  model.department.name,
+                  style: TextStyle(fontSize: 15),
+                ),
+              ],
+            ),
+            Icon(Icons.keyboard_arrow_down)
+          ],
+        ),
+      ),
+    );
+  }
+
+  _buildDepartmentTile(AppointmentViewModel model, Department department) {
+    return GestureDetector(
+      onTap: () {
+        Navigator.pop(context);
+        model.onDepartmentSelected(department);
+      },
+      child: Container(
+        margin: EdgeInsets.symmetric(vertical: 1),
+        child: ListTile(
+          leading: CircleAvatar(
+            child: Text(department.name),
+          ),
+          title: Text(department.name),
+        ),
+        decoration: BoxDecoration(
+          color: Colors.black12,
         ),
       ),
     );
@@ -262,22 +370,15 @@ class _NewAppointmentPageState extends State<NewAppointmentPage> {
     );
   }
 
-  appointmentDiscription(){
-  return InputWidget(
-      text: 'Full Name',
+  appointmentDescription(AppointmentViewModel model) {
+    return InputWidget(
+      text: 'Description',
       iconSize: 15.0,
-      // controller: model.fullName,
-      inputPrefixIcon: FeatherIcons.user,
-      onSaved: (String fullName) {
-        // return model.fullName.text = fullName;
-      },
-      validator: (String fullName) {
-        if (fullName.isEmpty) return 'Full name is required';
-        return null;
-      },
+      isTextArea: true,
+      controller: model.descriptionController,
+      inputPrefixIcon: FeatherIcons.paperclip,
     );
   }
-
 }
 
 class TimeButtonWidget extends StatelessWidget {

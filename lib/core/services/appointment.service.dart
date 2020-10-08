@@ -132,4 +132,5 @@ class AppointmentService extends BaseService {
 
     return Result(isSuccessful: false, message: 'Something went wrong');
  }
+
 }

@@ -18,7 +18,7 @@ class InputWidget extends StatelessWidget {
   final TextInputType inputType;
   final bool disabled;
   final IconData inputPrefixIcon; 
-   final int maxlines;
+  final int maxlines;
 
   InputWidget({
     Key key,
@@ -35,7 +35,7 @@ class InputWidget extends StatelessWidget {
     this.inputPrefixIcon,
     this.inputType,
     this.newValue,
-    this.maxlines = 1,
+    this.maxlines ,
     this.disabled = false,
     this.isTextArea = false, 
   }) : super(key: key);

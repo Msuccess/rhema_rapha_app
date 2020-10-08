@@ -6,6 +6,7 @@ import 'package:rhema_rapha_app/assets/styles/colors.dart';
 import 'package:rhema_rapha_app/core/models/appointment.model.dart';
 import 'package:rhema_rapha_app/core/models/doctor.model.dart';
 import 'package:rhema_rapha_app/core/models/patient.model.dart';
+import 'package:rhema_rapha_app/core/services/util.service.dart';
 import 'package:rhema_rapha_app/core/view_models/appointment.viewmodel.dart';
 import 'package:rhema_rapha_app/views/widgets/appbar.widget.dart';
 import 'package:rhema_rapha_app/views/widgets/base.widget.dart';
@@ -128,6 +129,7 @@ class ViewAppointmentPage extends StatelessWidget {
                           ],
                         ),
                       ),
+                      
                       Container(
                         width: MediaQuery.of(context).size.width,
                         decoration: BoxDecoration(
@@ -211,7 +213,12 @@ class ViewAppointmentPage extends StatelessWidget {
                     SizedBox(height: 10),
                     Text('Name:  ' + patient.fullName),
                     SizedBox(height: 10),
-                    Text('Date of Birth:  ' + patient.dateOfBirth),
+                    Text(
+                      'Date of Birth:  ' +
+                          UtilService.formatDate(
+                            DateTime.parse(patient.dateOfBirth),
+                          ),
+                    ),
                     SizedBox(height: 10),
                     Text('Phone:  ' + patient.phonenumber),
                     SizedBox(height: 10),
@@ -272,7 +279,7 @@ class ViewAppointmentPage extends StatelessWidget {
                     // ),
                     SizedBox(height: 20),
                     Text(
-                      appointment.date,
+                      UtilService.formatDate(DateTime.parse(appointment.date)),
                     ),
                     SizedBox(height: 10),
                     Text(
