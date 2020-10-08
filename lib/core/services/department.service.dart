@@ -5,7 +5,6 @@ import 'package:rhema_rapha_app/core/message/result.model.dart';
 import 'package:rhema_rapha_app/core/models/department.model.dart';
 import 'package:rhema_rapha_app/core/services/base.service.dart';
 
-
 class DepartmentService extends BaseService {
   Future<Result<List<Department>>> getDepartments() async {
     var url = EndPoints.getDepartmentUrl();
@@ -33,7 +32,7 @@ class DepartmentService extends BaseService {
 
     return Result(
       isSuccessful: false,
-      message: 'Something went wrong',
+      message: 'Please Check Your Connection',
     );
   }
 
@@ -47,7 +46,7 @@ class DepartmentService extends BaseService {
 
       var parsedDepartment = Department.fromJson(data['data']);
       print(parsedDepartment);
-      
+
       return Result(
           data: parsedDepartment, isSuccessful: true, message: data['message']);
     }

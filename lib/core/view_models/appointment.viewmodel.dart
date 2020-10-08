@@ -58,8 +58,12 @@ class AppointmentViewModel extends BaseViewModel {
   Future<Result> getDepartments() async {
     setBusy(true);
     Result result = await _departmentService.getDepartments();
-    departments = result.data;
 
+    departments = result.data
+        .where((Department element) => element.doctor.length != 0)
+        .toList();
+
+    // TODO: show pop up if there are no doctors in all departmet and return to home
     department = department.name == '' ? departments[0] : Department.initial();
 
     getDepartmentDoctors(department.doctor);
@@ -108,7 +112,8 @@ class AppointmentViewModel extends BaseViewModel {
     setBusy(true);
     Result<List<Doctor>> result = await _doctorService.getDoctors();
     doctors = result.data;
-    doctor = doctor.fullName == '' ? doctors[0] : Doctor.initial();
+
+    doctor = doctors[0];
 
     appointmentTimes = doctor.timesAvailable.split(',').toList();
     time = appointmentTimes[0];
@@ -145,6 +150,7 @@ class AppointmentViewModel extends BaseViewModel {
   void onDoctorSelected(Doctor newDoctor) {
     doctor = newDoctor;
     appointmentTimes = newDoctor.timesAvailable.split(',').toList();
+    _setInitialDate(newDoctor);
     notifyListeners();
   }
 
@@ -157,7 +163,7 @@ class AppointmentViewModel extends BaseViewModel {
   }
 
   getDepartmentDoctors(List<Doctor> doctors) {
-    doctor = doctor.fullName == '' ? doctors[0] : Doctor.initial();
+    doctor = doctors[0];
 
     appointmentTimes = doctor.timesAvailable.split(',').toList();
     time = appointmentTimes[0];
@@ -205,8 +211,10 @@ class AppointmentViewModel extends BaseViewModel {
     setBusy(false);
   }
 
-  setDayAvailable(DateTime date) {
+  setDaysAvailable(DateTime date) {
     var day = UtilService.getDay(date).toLowerCase();
-    return doctor.daysAvailable.toLowerCase().contains(day.toLowerCase());
+    var days = doctor.daysAvailable.toLowerCase();
+    var available = days.contains(day);
+    return available;
   }
 }

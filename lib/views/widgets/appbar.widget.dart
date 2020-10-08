@@ -49,7 +49,7 @@ class AppBarWidget {
     var buffer = StringBuffer();
     var split = name.split(' ');
     for (var i = 0; i < (limitTo ?? split.length); i++) {
-      buffer.write(split[i][0]);
+      if (split[i][0] != null || split[i].isNotEmpty) buffer.write(split[i][0]);
     }
 
     return buffer.toString();

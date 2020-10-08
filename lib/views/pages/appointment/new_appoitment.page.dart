@@ -54,13 +54,12 @@ class _NewAppointmentPageState extends State<NewAppointmentPage> {
         body: SingleChildScrollView(
           child: Container(
             width: MediaQuery.of(context).size.width,
-            height: MediaQuery.of(context).size.height,
             padding: EdgeInsets.symmetric(horizontal: 20),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 SizedBox(height: 10),
-                Text('Description'),
+                Text('Department'),
                 SizedBox(height: 10),
                 _buildDepartmentSelectField(context, model),
                 SizedBox(height: 10),
@@ -80,11 +79,8 @@ class _NewAppointmentPageState extends State<NewAppointmentPage> {
                       firstDate: DateTime.now(),
                       lastDate: DateTime(2100),
                       helpText: 'Select Appointment Date',
-                      selectableDayPredicate: (date) {
-                        var day = UtilService.getDay(date).toLowerCase();
-                        return model.doctor.daysAvailable
-                            .toLowerCase()
-                            .contains(day.toLowerCase());
+                      selectableDayPredicate: (DateTime date) {
+                        return model.setDaysAvailable(date);
                       },
                     );
                     model.onDateSelected(date);
@@ -155,16 +151,17 @@ class _NewAppointmentPageState extends State<NewAppointmentPage> {
                     ),
                   ],
                 ),
-                SizedBox(height: 30),
+                SizedBox(height: 10),
                 appointmentDescription(model),
-                SizedBox(height: 40),
+                SizedBox(height: 20),
                 ButtonWidget(
                   busy: model.busy,
                   text: 'Submit',
                   onPressed: () {
                     model.onAppointmentSubmit(context);
                   },
-                )
+                ),
+                SizedBox(height: 20),
               ],
             ),
           ),
@@ -336,7 +333,12 @@ class _NewAppointmentPageState extends State<NewAppointmentPage> {
         margin: EdgeInsets.symmetric(vertical: 1),
         child: ListTile(
           leading: CircleAvatar(
-            child: Text(department.name),
+            child: Text(
+              AppBarWidget.getInitials(
+                name: department.name,
+                limitTo: 1,
+              ),
+            ),
           ),
           title: Text(department.name),
         ),

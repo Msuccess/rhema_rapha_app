@@ -29,7 +29,7 @@ class AppointmentService extends BaseService {
       return Result(isSuccessful: false, data: data, message: '');
     }
 
-    return Result(isSuccessful: false, message: 'Something went wrong');
+    return Result(isSuccessful: false, message: 'Please Check Your Connection');
   }
 
   Future<Result<Appointment>> save(Appointment appointment) async {
