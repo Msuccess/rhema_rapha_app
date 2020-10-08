@@ -340,6 +340,12 @@ class _NewAppointmentPageState extends State<NewAppointmentPage> {
               ),
             ),
           ),
+          trailing: Icon(
+            Icons.check_circle,
+            color: department.id == model.department.id
+                ? AppColors.primaryColor
+                : Colors.transparent,
+          ),
           title: Text(department.name),
         ),
         decoration: BoxDecoration(
@@ -362,6 +368,12 @@ class _NewAppointmentPageState extends State<NewAppointmentPage> {
             child: Text(
               AppBarWidget.getInitials(name: doctor.fullName, limitTo: 2),
             ),
+          ),
+          trailing: Icon(
+            Icons.check_circle,
+            color: doctor.id == model.doctor.id
+                ? AppColors.primaryColor
+                : Colors.transparent,
           ),
           title: Text(doctor.fullName),
         ),
