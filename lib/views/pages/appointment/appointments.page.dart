@@ -4,9 +4,9 @@ import 'package:provider/provider.dart';
 import 'package:rhema_rapha_app/assets/styles/colors.dart';
 import 'package:rhema_rapha_app/core/models/appointment.model.dart';
 import 'package:rhema_rapha_app/core/routes/routes.dart';
+import 'package:rhema_rapha_app/core/services/util.service.dart';
 import 'package:rhema_rapha_app/core/view_models/appointment.viewmodel.dart';
 import 'package:rhema_rapha_app/views/widgets/base.widget.dart';
-import 'package:rhema_rapha_app/views/widgets/button.widget.dart';
 
 class AppointmentPage extends StatelessWidget {
   @override
@@ -15,6 +15,7 @@ class AppointmentPage extends StatelessWidget {
       model: AppointmentViewModel(
         appointmentService: Provider.of(context),
         doctorService: Provider.of(context),
+        departmentService: Provider.of(context),
       ),
       onModelReady: (AppointmentViewModel model) async {
         await model.getAppointments();
@@ -32,37 +33,43 @@ class AppointmentPage extends StatelessWidget {
           },
           child: Icon(FeatherIcons.plus),
         ),
-        backgroundColor: Color(0xFFE5E5E5),
         body: Container(
           width: MediaQuery.of(context).size.width,
           height: MediaQuery.of(context).size.height,
           child: Column(
             children: [
-              model.appointments.length != 0
-                  ? Row(
-                      children: [
-                        Expanded(
-                          child: Padding(
-                            padding:
-                                const EdgeInsets.fromLTRB(10.0, 20.0, 5.0, 0),
-                            child: ButtonWidget(
-                              text: 'Upcoming',
-                            ),
-                          ),
-                        ),
-                        Expanded(
-                          child: Padding(
-                            padding:
-                                const EdgeInsets.fromLTRB(5.0, 20.0, 10.0, 0),
-                            child: ButtonWidget(
-                              text: 'Past',
-                              invert: true,
-                            ),
-                          ),
-                        ),
-                      ],
-                    )
-                  : Container(),
+              // model.appointments.length != 0
+              //     ? Row(
+              //         children: [
+              //           Expanded(
+              //             child: Padding(
+              //               padding:
+              //                   const EdgeInsets.fromLTRB(10.0, 20.0, 5.0, 0),
+              //               child: ButtonWidget(
+              //                 text: 'Upcoming',
+              //                 onPressed: () {
+              //                   model.filterAppointments('next');
+              //                 },
+              //                 invert: model.filterTypee == 'next',
+              //               ),
+              //             ),
+              //           ),
+              //           Expanded(
+              //             child: Padding(
+              //               padding:
+              //                   const EdgeInsets.fromLTRB(5.0, 20.0, 10.0, 0),
+              //               child: ButtonWidget(
+              //                 text: 'Past',
+              //                 invert: model.filterTypee == 'prev',
+              //                 onPressed: () {
+              //                   model.filterAppointments('prev');
+              //                 },
+              //               ),
+              //             ),
+              //           ),
+              //         ],
+              //       )
+              //     : Container(),
               SizedBox(height: 20.0),
               model.busy && model.appointments.length == 0
                   ? Expanded(
@@ -164,7 +171,7 @@ class AppointmentTile extends StatelessWidget {
                   ),
                 ),
                 Text(
-                  appointment.date,
+                  UtilService.formatDate(DateTime.parse(appointment.date)),
                   style: TextStyle(fontSize: 15.0),
                 ),
               ],

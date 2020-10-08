@@ -11,7 +11,7 @@ class AppBarWidget {
   ) {
     var initials = getInitials(name: fullName, limitTo: 2);
     return AppBar(
-      elevation: 0,
+      elevation: 1,
       backgroundColor: AppColors.whiteShade2,
       actions: <Widget>[
         Icon(

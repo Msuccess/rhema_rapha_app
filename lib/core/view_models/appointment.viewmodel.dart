@@ -5,46 +5,122 @@ import 'package:flutter/material.dart';
 import 'package:rhema_rapha_app/core/constants/localkeys.dart';
 import 'package:rhema_rapha_app/core/message/result.model.dart';
 import 'package:rhema_rapha_app/core/models/appointment.model.dart';
+import 'package:rhema_rapha_app/core/models/department.model.dart';
 import 'package:rhema_rapha_app/core/models/doctor.model.dart';
 import 'package:rhema_rapha_app/core/services/appointment.service.dart';
+import 'package:rhema_rapha_app/core/services/department.service.dart';
 import 'package:rhema_rapha_app/core/services/doctor.service.dart';
 import 'package:rhema_rapha_app/core/services/util.service.dart';
 import 'package:rhema_rapha_app/core/view_models/base.viewmodel.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class AppointmentViewModel extends BaseViewModel {
   AppointmentService _appointmentService;
   DoctorService _doctorService;
+  DepartmentService _departmentService;
+
+  Department department = Department.initial();
+  List<Doctor> doctors = List<Doctor>();
+  List<Department> departments = List<Department>();
+
   Doctor doctor = Doctor.initial();
   DateTime date = DateTime.now();
   String type = 'Voice call';
   String time = '8:00AM';
 
   List<Appointment> appointments = List<Appointment>();
-  List<Doctor> doctors = List<Doctor>();
+  List<Appointment> origianlAppointments = List<Appointment>();
 
   List<String> appointmentTimes = [];
 
-  AppointmentViewModel({
-    @required AppointmentService appointmentService,
-    @required DoctorService doctorService,
-  })  : _appointmentService = appointmentService,
+  TextEditingController descriptionController = TextEditingController();
+
+  var filterTypee = 'next';
+
+  AppointmentViewModel(
+      {@required AppointmentService appointmentService,
+      @required DoctorService doctorService,
+      @required DepartmentService departmentService})
+      : _appointmentService = appointmentService,
+        _departmentService = departmentService,
         _doctorService = doctorService;
 
   Future<Result> getAppointments() async {
     setBusy(true);
     var result = await _appointmentService.getAll();
     appointments = result.isSuccessful ? result.data : [];
+    //filterAppointments(filterTypee);
     setBusy(false);
     return result;
   }
 
-  Future<Result> getDoctors() async {
+  Future<Result> getDepartments() async {
+    setBusy(true);
+    Result result = await _departmentService.getDepartments();
+    departments = result.data;
+
+    department = department.name == '' ? departments[0] : Department.initial();
+
+    getDepartmentDoctors(department.doctor);
+    setBusy(false);
+
+    return result;
+  }
+
+  void filterAppointments(String filterType) {
+    filterTypee = filterType;
+    if (filterType == 'next') {
+      appointments = origianlAppointments
+          .where(
+            (appointment) => DateTime.parse(appointment.date).isAfter(
+              DateTime.now().subtract(
+                Duration(days: 1),
+              ),
+            ),
+          )
+          .toList();
+    }
+
+    if (filterType == 'prev') {
+      filterTypee = filterType;
+      appointments = origianlAppointments
+          .where(
+            (appointment) => DateTime.parse(appointment.date).isBefore(
+              DateTime.now(),
+            ),
+          )
+          .toList();
+    }
+  }
+
+  Future<void> makePhoneCall(String phoneNumber) async {
+    try {
+      if (await canLaunch('tel:$phoneNumber')) {
+        await launch(phoneNumber);
+      }
+    } catch (e) {
+      throw 'Could not launch $e';
+    }
+  }
+
+  Future<Result> getDoctors(Doctor doctor) async {
     setBusy(true);
     Result<List<Doctor>> result = await _doctorService.getDoctors();
     doctors = result.data;
     doctor = doctor.fullName == '' ? doctors[0] : Doctor.initial();
+
     appointmentTimes = doctor.timesAvailable.split(',').toList();
+    time = appointmentTimes[0];
+    _setInitialDate(doctor);
+
+    setBusy(false);
+    return result;
+  }
+
+  Future<Result> cancelBookedAppointment(String id) async {
+    setBusy(true);
+    var result = await _appointmentService.cancelAppointment(id);
     setBusy(false);
     return result;
   }
@@ -72,6 +148,38 @@ class AppointmentViewModel extends BaseViewModel {
     notifyListeners();
   }
 
+  void onDepartmentSelected(Department newDepartment) {
+    department = newDepartment;
+    doctors = newDepartment.doctor;
+
+    getDepartmentDoctors(doctors);
+    notifyListeners();
+  }
+
+  getDepartmentDoctors(List<Doctor> doctors) {
+    doctor = doctor.fullName == '' ? doctors[0] : Doctor.initial();
+
+    appointmentTimes = doctor.timesAvailable.split(',').toList();
+    time = appointmentTimes[0];
+    _setInitialDate(doctor);
+
+    setBusy(false);
+  }
+
+  void _setInitialDate(doctor) {
+    date = DateTime.now();
+    var validDay = doctor.daysAvailable
+        .toLowerCase()
+        .contains(UtilService.getDay(date).toLowerCase());
+
+    while (!validDay) {
+      date = date.add(Duration(days: 1));
+      validDay = doctor.daysAvailable
+          .toLowerCase()
+          .contains(UtilService.getDay(date).toLowerCase());
+    }
+  }
+
   void onAppointmentSubmit(BuildContext context) async {
     setBusy(true);
     var sp = await SharedPreferences.getInstance();
@@ -80,7 +188,7 @@ class AppointmentViewModel extends BaseViewModel {
       appointmentDay: UtilService.getDay(date),
       appointmentTime: time,
       date: date.toIso8601String(),
-      description: '',
+      description: descriptionController.text ?? '',
       type: type,
       patientId: userId,
       doctorId: doctor.id,
@@ -95,5 +203,10 @@ class AppointmentViewModel extends BaseViewModel {
       UtilService.showErrorToast(result.message);
     }
     setBusy(false);
+  }
+
+  setDayAvailable(DateTime date) {
+    var day = UtilService.getDay(date).toLowerCase();
+    return doctor.daysAvailable.toLowerCase().contains(day.toLowerCase());
   }
 }

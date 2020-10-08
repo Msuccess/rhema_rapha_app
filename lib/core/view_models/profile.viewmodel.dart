@@ -15,7 +15,6 @@ enum SingingCharacter { Male, Female }
 class ProfileViewModel extends BaseViewModel {
   bool isBusy = false;
   PatientService _patientService;
-  AuthService _authService;
   Patient patient;
 
   TextEditingController _fullNameController = TextEditingController();
@@ -40,8 +39,7 @@ class ProfileViewModel extends BaseViewModel {
 
   ProfileViewModel(
       {@required PatientService patientService, AuthService authService})
-      : _authService = authService,
-        _patientService = patientService;
+      : _patientService = patientService;
 
   Future<Result> getPatient() async {
     setBusy(true);
@@ -77,7 +75,6 @@ class ProfileViewModel extends BaseViewModel {
       height: _heightController.value.text,
       gender: _genderController.text,
     );
-
 
     Result result = await _patientService.updatePatient(newPatient);
     if (result.isSuccessful == true) {
