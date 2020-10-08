@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:rhema_rapha_app/assets/styles/colors.dart';
 import 'package:rhema_rapha_app/core/models/doctor.model.dart';
@@ -57,7 +56,9 @@ class _NewAppointmentPageState extends State<NewAppointmentPage> {
               children: [
                 SizedBox(height: 10),
                 Text('Doctor'),
-                SizedBox(height: 10),
+                SizedBox(
+                  height: 10,
+                ),
                 GestureDetector(
                   onTap: () async {
                     showDialog(
