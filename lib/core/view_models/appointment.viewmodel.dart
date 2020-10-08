@@ -115,8 +115,7 @@ class AppointmentViewModel extends BaseViewModel {
 
     doctor = doctors[0];
 
-    appointmentTimes = doctor.timesAvailable.split(',').toList();
-    time = appointmentTimes[0];
+    _setInitialTime(doctor);
     _setInitialDate(doctor);
 
     setBusy(false);
@@ -150,6 +149,7 @@ class AppointmentViewModel extends BaseViewModel {
   void onDoctorSelected(Doctor newDoctor) {
     doctor = newDoctor;
     appointmentTimes = newDoctor.timesAvailable.split(',').toList();
+    _setInitialTime(doctor);
     _setInitialDate(newDoctor);
     notifyListeners();
   }
@@ -168,6 +168,7 @@ class AppointmentViewModel extends BaseViewModel {
     appointmentTimes = doctor.timesAvailable.split(',').toList();
     time = appointmentTimes[0];
     _setInitialDate(doctor);
+    _setInitialTime(doctor);
 
     setBusy(false);
   }
@@ -184,6 +185,11 @@ class AppointmentViewModel extends BaseViewModel {
           .toLowerCase()
           .contains(UtilService.getDay(date).toLowerCase());
     }
+  }
+
+  void _setInitialTime(doctor) {
+    appointmentTimes = doctor.timesAvailable.split(',').toList();
+    time = appointmentTimes[0];
   }
 
   void onAppointmentSubmit(BuildContext context) async {
