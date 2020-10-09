@@ -25,19 +25,10 @@ class AppBarWidget {
             borderRadius: BorderRadius.all(
               Radius.circular(13),
             ),
-            child: avatar != null
-                ? Container(
-                    height: 40,
-                    width: 40,
-                    decoration: BoxDecoration(
-                      color: Theme.of(context).backgroundColor,
-                    ),
-                    child: Image.asset(avatar, fit: BoxFit.fill),
-                  )
-                : CircleAvatar(
-                    backgroundColor: randomColor(),
-                    child: Text(initials),
-                  ),
+            child: CircleAvatar(
+              backgroundColor: randomColor(),
+              child: Text(initials),
+            ),
           ),
         )
       ],

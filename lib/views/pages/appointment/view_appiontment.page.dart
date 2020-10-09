@@ -146,7 +146,7 @@ class ViewAppointmentPage extends StatelessWidget {
                           child: SizedBox(height: 30),
                         ),
                       ),
-                      buildVisitingTimeSection(appointment),
+                      buildVisitingTimeSection(appointment, model),
                       buildPatientInfoTimeSection(patient),
                       buildDescriptionSection(context, appointment),
                     ],
@@ -202,44 +202,46 @@ class ViewAppointmentPage extends StatelessWidget {
               Icon(FeatherIcons.user, color: AppColors.green),
               Padding(
                 padding: const EdgeInsets.only(left: 10.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'Patient Information',
-                      style:
-                          TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
-                    ),
-                    SizedBox(height: 10),
-                    Text('Name:  ' + patient.fullName),
-                    SizedBox(height: 10),
-                    Text(
-                      'Date of Birth:  ' +
-                          UtilService.formatDate(
-                            DateTime.parse(patient.dateOfBirth),
-                          ),
-                    ),
-                    SizedBox(height: 10),
-                    Text('Phone:  ' + patient.phonenumber),
-                    SizedBox(height: 10),
-                    Text('Email:  ' + patient.email),
-                    SizedBox(height: 10),
-                    Text('Gender:  ' + patient.gender),
-                    SizedBox(height: 10),
-                    Text('Address:  ' + patient.address),
-                    SizedBox(height: 20),
-                    Text(
-                      'Medical Details',
-                      style:
-                          TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
-                    ),
-                    SizedBox(height: 10),
-                    Text('Height:  ' + patient.height),
-                    SizedBox(height: 10),
-                    Text('BloodType:  ' + patient.bloodType),
-                    SizedBox(height: 10),
-                    Text('BloodPressure:  ' + patient.bloodPressure),
-                  ],
+                child: Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Patient Information',
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold, fontSize: 20),
+                      ),
+                      SizedBox(height: 10),
+                      Text('Name:  ' + patient.fullName),
+                      SizedBox(height: 10),
+                      Text(
+                        'Date of Birth:  ' +
+                            UtilService.formatDate(
+                              DateTime.parse(patient.dateOfBirth),
+                            ),
+                      ),
+                      SizedBox(height: 10),
+                      Text('Phone:  ' + patient.phonenumber),
+                      SizedBox(height: 10),
+                      Text('Email:  ' + patient.email),
+                      SizedBox(height: 10),
+                      Text('Gender:  ' + patient.gender),
+                      SizedBox(height: 10),
+                      Text('Address:  ' + patient.address),
+                      SizedBox(height: 20),
+                      Text(
+                        'Medical Details',
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold, fontSize: 14),
+                      ),
+                      SizedBox(height: 10),
+                      Text('Height:  ' + patient.height),
+                      SizedBox(height: 10),
+                      Text('BloodType:  ' + patient.bloodType),
+                      SizedBox(height: 10),
+                      Text('BloodPressure:  ' + patient.bloodPressure),
+                    ],
+                  ),
                 ),
               ),
             ],
@@ -249,7 +251,8 @@ class ViewAppointmentPage extends StatelessWidget {
     );
   }
 
-  buildVisitingTimeSection(Appointment appointment) {
+  buildVisitingTimeSection(
+      Appointment appointment, AppointmentViewModel model) {
     return Padding(
       padding: const EdgeInsets.all(20.0),
       child: Row(
@@ -270,13 +273,6 @@ class ViewAppointmentPage extends StatelessWidget {
                       style:
                           TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
                     ),
-                    // SizedBox(height: 20),
-                    // Text(
-                    //   'Morning',
-                    //   style: TextStyle(
-                    //     color: Colors.black45,
-                    //   ),
-                    // ),
                     SizedBox(height: 20),
                     Text(
                       UtilService.formatDate(DateTime.parse(appointment.date)),
@@ -295,7 +291,7 @@ class ViewAppointmentPage extends StatelessWidget {
             ],
           ),
           FlatButton(
-            onPressed: () {},
+            onPressed: () => model.cancelAppointment(appointment.id),
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(18.0),
             ),
