@@ -64,6 +64,7 @@ class AppointmentViewModel extends BaseViewModel {
         .toList();
 
     // TODO: show pop up if there are no doctors in all departmet and return to home
+
     department = department.name == '' ? departments[0] : Department.initial();
 
     getDepartmentDoctors(department.doctor);
@@ -96,6 +97,15 @@ class AppointmentViewModel extends BaseViewModel {
           )
           .toList();
     }
+  }
+
+  Future<Result> cancelAppointment(String id) async {
+    setBusy(true);
+    var result = await _appointmentService.cancelAppointment(id);
+    appointments = result.isSuccessful ? result.data : [];
+    //filterAppointments(filterTypee);
+    setBusy(false);
+    return result;
   }
 
   Future<void> makePhoneCall(String phoneNumber) async {

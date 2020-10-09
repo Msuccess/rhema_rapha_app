@@ -3,9 +3,11 @@ import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:provider/provider.dart';
 import 'package:rhema_rapha_app/assets/styles/colors.dart';
 import 'package:rhema_rapha_app/core/models/doctor.model.dart';
+import 'package:rhema_rapha_app/core/routes/routes.dart';
 import 'package:rhema_rapha_app/core/view_models/doctordetails.viewmodel.dart';
 import 'package:rhema_rapha_app/views/widgets/appbar.widget.dart';
 import 'package:rhema_rapha_app/views/widgets/base.widget.dart';
+import 'package:rhema_rapha_app/views/widgets/button.widget.dart';
 import 'package:rhema_rapha_app/views/widgets/detailstile.widget.dart';
 import 'package:rhema_rapha_app/views/widgets/random_color.widget.dart';
 
@@ -52,7 +54,7 @@ class _DoctorDetailsPageState extends State<DoctorDetailsPage> {
           ),
           body: Padding(
             padding:
-                const EdgeInsets.symmetric(vertical: 50.0, horizontal: 20.0),
+                const EdgeInsets.symmetric(vertical: 20.0, horizontal: 20.0),
             child: Stack(
               children: [
                 Positioned(
@@ -72,7 +74,7 @@ class _DoctorDetailsPageState extends State<DoctorDetailsPage> {
                           ),
                         ),
                         SizedBox(
-                          height: 20.0,
+                          height: 10.0,
                         ),
                         DetailsTilleWidget(
                           data: doctor.fullName,
@@ -87,7 +89,7 @@ class _DoctorDetailsPageState extends State<DoctorDetailsPage> {
                         DetailsTilleWidget(
                           data: doctor.address,
                           iconData: FeatherIcons.map,
-                          title: "Email Address",
+                          title: "Address",
                         ),
                         DetailsTilleWidget2(
                           data: doctor.daysAvailable,
@@ -111,6 +113,9 @@ class _DoctorDetailsPageState extends State<DoctorDetailsPage> {
                           iconData: FeatherIcons.box,
                           title: "Department",
                         ),
+                        SizedBox(
+                          height: 50.0,
+                        ),
                       ],
                     ),
                   ),
@@ -120,14 +125,13 @@ class _DoctorDetailsPageState extends State<DoctorDetailsPage> {
                     alignment: Alignment.bottomCenter,
                     child: Container(
                       width: MediaQuery.of(context).size.width,
-                      height: 50.0,
-                      child: FlatButton(
-                        onPressed: () => {},
-                        child: Text(
-                          "Make Appointment",
-                          style: TextStyle(color: Colors.white),
+                      height: 40.0,
+                      child: ButtonWidget(
+                        onPressed: () => Navigator.pushNamed(
+                          context,
+                          RoutePaths.NewAppointment,
                         ),
-                        color: AppColors.primaryColor,
+                        text: "Make Appointment",
                       ),
                     ),
                   ),

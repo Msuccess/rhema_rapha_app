@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:provider/provider.dart';
+
 import 'package:rhema_rapha_app/assets/styles/colors.dart';
+import 'package:rhema_rapha_app/assets/styles/text_style.dart';
 import 'package:rhema_rapha_app/core/models/appointment.model.dart';
 import 'package:rhema_rapha_app/core/routes/routes.dart';
 import 'package:rhema_rapha_app/core/services/util.service.dart';
@@ -38,45 +40,18 @@ class AppointmentPage extends StatelessWidget {
           height: MediaQuery.of(context).size.height,
           child: Column(
             children: [
-              // model.appointments.length != 0
-              //     ? Row(
-              //         children: [
-              //           Expanded(
-              //             child: Padding(
-              //               padding:
-              //                   const EdgeInsets.fromLTRB(10.0, 20.0, 5.0, 0),
-              //               child: ButtonWidget(
-              //                 text: 'Upcoming',
-              //                 onPressed: () {
-              //                   model.filterAppointments('next');
-              //                 },
-              //                 invert: model.filterTypee == 'next',
-              //               ),
-              //             ),
-              //           ),
-              //           Expanded(
-              //             child: Padding(
-              //               padding:
-              //                   const EdgeInsets.fromLTRB(5.0, 20.0, 10.0, 0),
-              //               child: ButtonWidget(
-              //                 text: 'Past',
-              //                 invert: model.filterTypee == 'prev',
-              //                 onPressed: () {
-              //                   model.filterAppointments('prev');
-              //                 },
-              //               ),
-              //             ),
-              //           ),
-              //         ],
-              //       )
-              //     : Container(),
+              Padding(
+                padding: const EdgeInsets.only(top: 20),
+                child: Text(
+                  "Appointments",
+                  style: AppTexts.titlePrimary,
+                ),
+              ),
               SizedBox(height: 20.0),
               model.busy && model.appointments.length == 0
                   ? Expanded(
                       child: Center(
-                        child: CircularProgressIndicator(
-                          backgroundColor: AppColors.primaryColor,
-                        ),
+                        child: CircularProgressIndicator(),
                       ),
                     )
                   : Container(),
@@ -146,6 +121,18 @@ class AppointmentTile extends StatelessWidget {
             borderRadius: BorderRadius.all(
               Radius.circular(12),
             ),
+            boxShadow: <BoxShadow>[
+              BoxShadow(
+                offset: Offset(4, 4),
+                blurRadius: 10,
+                color: AppColors.grey.withOpacity(.2),
+              ),
+              BoxShadow(
+                offset: Offset(-3, 0),
+                blurRadius: 15,
+                color: AppColors.grey.withOpacity(.1),
+              ),
+            ],
           ),
           child: ListTile(
             title: Text(

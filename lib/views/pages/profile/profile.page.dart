@@ -42,7 +42,13 @@ class _ProfilePageState extends State<ProfilePage> {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: <Widget>[
-                      _sectionHeader(),
+                      Padding(
+                        padding: const EdgeInsets.only(top: 20),
+                        child: Text(
+                          "Profile",
+                          style: AppTexts.titlePrimary,
+                        ),
+                      ),
                       SizedBox(height: 30.0),
                       _builFullnameField(model),
                       SizedBox(height: 20.0),

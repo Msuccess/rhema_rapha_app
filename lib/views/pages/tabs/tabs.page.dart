@@ -13,7 +13,6 @@ class TabsPage extends StatefulWidget {
 }
 
 class _TabsPageState extends State<TabsPage> {
-  List<Doctor> doctors = List<Doctor>();
   @override
   Widget build(BuildContext context) {
     return BaseWidget<TabsViewModel>(

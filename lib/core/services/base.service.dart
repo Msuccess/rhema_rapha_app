@@ -129,6 +129,7 @@ class BaseService {
 
   onTimeout() {
     print('************* Connection Failed');
-    UtilService.showErrorToast('Connection Failed');
+    UtilService.showErrorToast('Please Check Your Connection');
+    return null;
   }
 }

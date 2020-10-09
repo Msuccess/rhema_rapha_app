@@ -60,16 +60,18 @@ class AppTexts {
       fontFamily: 'OpenSans');
 
   static const TextStyle buttomText = TextStyle(
-      color: AppColors.white,
-      fontSize: AppSizes.TEXT_SIZE_12,
-      fontWeight: FontWeight.w500,
-      fontFamily: 'OpenSans');
+    color: AppColors.white,
+    fontSize: AppSizes.TEXT_SIZE_12,
+    fontWeight: FontWeight.w500,
+    fontFamily: 'OpenSans',
+  );
 
   static TextStyle inputText = TextStyle(
-      color: AppColors.primaryText,
-      fontSize: AppSizes.TEXT_SIZE_12,
-      fontWeight: FontWeight.normal,
-      fontFamily: 'OpenSans');
+    color: AppColors.primaryText,
+    fontSize: AppSizes.TEXT_SIZE_12,
+    fontWeight: FontWeight.normal,
+    fontFamily: 'OpenSans',
+  );
 
   static const TextStyle title = TextStyle(
     color: AppColors.blackShade2,
@@ -77,6 +79,11 @@ class AppTexts {
     fontWeight: FontWeight.w500,
   );
 
+  static const TextStyle titlePrimary = TextStyle(
+    color: AppColors.primaryColor,
+    fontSize: AppSizes.TEXT_SIZE_22,
+    fontWeight: FontWeight.w500,
+  );
 
   static const TextStyle titleNormal = TextStyle(
     color: AppColors.blackShade2,

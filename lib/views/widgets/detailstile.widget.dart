@@ -63,7 +63,8 @@ class DetailsTilleWidget2 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (title == null || data == null) return Container();
-  
+    List<String> appointmentTimes = data.split(',').toList();
+
     return ListTile(
       leading: Container(
         padding: EdgeInsets.all(10.0),
@@ -86,22 +87,56 @@ class DetailsTilleWidget2 extends StatelessWidget {
           color: AppColors.primaryColor,
         ),
       ),
-      title: Text(
-        title,
-        style: AppTexts.normalText,
+      title: Padding(
+        padding: const EdgeInsets.only(bottom: 6.0),
+        child: Text(
+          title,
+          style: AppTexts.normalText,
+        ),
       ),
       subtitle: Row(
         children: <Widget>[
-          formatAppointmentTime(),
+          getDaysList(appointmentTimes),
         ],
       ),
     );
   }
 
-  formatAppointmentTime() {
-    return Text(data, style: AppTexts.titleNormal);
-    // data.split(',').map((element) {
-      
-    // }).toList();
+  getDaysList(List<String> appointmentDays) {
+    return Expanded(
+      child: Wrap(
+        children: appointmentDays.map((x) {
+          return DayContainerWidget(appointmentTime: x);
+        }).toList(),
+      ),
+    );
+  }
+}
+
+class DayContainerWidget extends StatelessWidget {
+  final String appointmentTime;
+  const DayContainerWidget({
+    Key key,
+    this.appointmentTime,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: EdgeInsets.only(right: 10, bottom: 10),
+      padding: EdgeInsets.all(8.0),
+      decoration: BoxDecoration(
+        color: AppColors.blackShade9,
+        borderRadius: BorderRadius.all(
+          Radius.circular(8),
+        ),
+      ),
+      child: Text(
+        appointmentTime,
+        style: TextStyle(
+          color: AppColors.white,
+        ),
+      ),
+    );
   }
 }
