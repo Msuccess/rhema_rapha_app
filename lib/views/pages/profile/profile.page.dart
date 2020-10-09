@@ -80,21 +80,6 @@ class _ProfilePageState extends State<ProfilePage> {
     );
   }
 
-  _sectionHeader() {
-    return Column(
-      children: [
-        Container(
-          alignment: Alignment.center,
-          padding: EdgeInsets.symmetric(vertical: 10.0),
-          child: Text(
-            'Update profile',
-            style: AppTexts.h20,
-          ),
-        ),
-      ],
-    );
-  }
-
   Widget _buildEmailField(ProfileViewModel model) {
     print(model.email.text);
     return InputWidget(

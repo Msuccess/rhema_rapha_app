@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+
 import 'package:rhema_rapha_app/assets/styles/colors.dart';
-import 'package:rhema_rapha_app/core/models/doctor.model.dart';
 import 'package:rhema_rapha_app/core/view_models/tabs.viewmodel.dart';
 import 'package:rhema_rapha_app/views/pages/home/home.widget.dart';
 import 'package:rhema_rapha_app/views/widgets/appbar.widget.dart';
