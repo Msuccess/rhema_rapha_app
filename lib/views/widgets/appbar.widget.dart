@@ -24,27 +24,28 @@ class AppBarWidget {
           child: GestureDetector(
             onTap: () {
               showModalBottomSheet<void>(
-                context: context,
-                builder: (BuildContext context) {
-                  return Container(
-                    height: 200,
-                    color: Colors.amber,
-                    child: Center(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        mainAxisSize: MainAxisSize.min,
+                  context: context,
+                  builder: (BuildContext bc) {
+                    return Container(
+                      child: new Wrap(
                         children: <Widget>[
-                          const Text('Modal BottomSheet'),
-                          ElevatedButton(
-                            child: const Text('Close BottomSheet'),
-                            onPressed: () => Navigator.pop(context),
-                          )
+                          ListTile(
+                            leading: Icon(FeatherIcons.user),
+                            title: new Text('Profile'),
+                            onTap: () => {},
+                          ),
+                          Divider(
+                            color: AppColors.primaryColor,
+                          ),
+                          ListTile(
+                            leading: Icon(FeatherIcons.logIn),
+                            title: new Text('Log Out'),
+                            onTap: () => {},
+                          ),
                         ],
                       ),
-                    ),
-                  );
-                },
-              );
+                    );
+                  });
             },
             child: CircleAvatar(
               backgroundColor: randomColor(),
