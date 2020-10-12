@@ -9,7 +9,6 @@ import 'package:oktoast/oktoast.dart';
 import 'package:rhema_rapha_app/assets/styles/colors.dart';
 import 'package:rhema_rapha_app/assets/styles/sizes.dart';
 
-
 class UtilService {
   Future<Map<String, dynamic>> decodeJwtToken(String token) async {
     var tokenBase64Url = token.split('.')[1];
@@ -37,6 +36,34 @@ class UtilService {
     );
   }
 
+  static void showAlertDialog(BuildContext context) {
+    Widget cancelButton = FlatButton(
+      child: Text("Cancel"),
+      onPressed: () {},
+    );
+    Widget continueButton = FlatButton(
+      child: Text("Continue"),
+      onPressed: () {},
+    );
+
+    AlertDialog alert = AlertDialog(
+      title: Text("AlertDialog"),
+      content: Text(
+          "Would you like to continue learning how to use Flutter alerts?"),
+      actions: [
+        cancelButton,
+        continueButton,
+      ],
+    );
+
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return alert;
+      },
+    );
+  }
+
   static void showErrorToast(String message) {
     showToast(
       message,
@@ -54,8 +81,6 @@ class UtilService {
     );
   }
 
-
-  
   static String formatDate(DateTime date) {
     if (date == null) date = DateTime.now();
     final formatter = new DateFormat('EEEE, MMMM dd, yyyy');
@@ -65,6 +90,12 @@ class UtilService {
   static String getDay(DateTime date) {
     if (date == null) date = DateTime.now();
     final formatter = new DateFormat('EEEE');
+    return formatter.format(date);
+  }
+
+  static String formatShortDate(DateTime date) {
+    if (date == null) date = DateTime.now();
+    final formatter = new DateFormat('MMMM dd, yyyy');
     return formatter.format(date);
   }
 }

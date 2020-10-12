@@ -7,6 +7,7 @@ import 'package:rhema_rapha_app/core/message/result.model.dart';
 import 'package:rhema_rapha_app/core/models/appointment.model.dart';
 import 'package:rhema_rapha_app/core/models/department.model.dart';
 import 'package:rhema_rapha_app/core/models/doctor.model.dart';
+import 'package:rhema_rapha_app/core/routes/routes.dart';
 import 'package:rhema_rapha_app/core/services/appointment.service.dart';
 import 'package:rhema_rapha_app/core/services/department.service.dart';
 import 'package:rhema_rapha_app/core/services/doctor.service.dart';
@@ -99,10 +100,11 @@ class AppointmentViewModel extends BaseViewModel {
     }
   }
 
-  Future<Result> cancelAppointment(String id) async {
+  Future<Result> cancelAppointment(BuildContext context, String id) async {
     setBusy(true);
     var result = await _appointmentService.cancelAppointment(id);
     appointments = result.isSuccessful ? result.data : [];
+
     //filterAppointments(filterTypee);
     setBusy(false);
     return result;

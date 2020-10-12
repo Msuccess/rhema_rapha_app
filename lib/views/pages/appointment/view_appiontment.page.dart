@@ -6,10 +6,12 @@ import 'package:rhema_rapha_app/assets/styles/colors.dart';
 import 'package:rhema_rapha_app/core/models/appointment.model.dart';
 import 'package:rhema_rapha_app/core/models/doctor.model.dart';
 import 'package:rhema_rapha_app/core/models/patient.model.dart';
-import 'package:rhema_rapha_app/core/services/util.service.dart';
 import 'package:rhema_rapha_app/core/view_models/appointment.viewmodel.dart';
 import 'package:rhema_rapha_app/views/widgets/appbar.widget.dart';
 import 'package:rhema_rapha_app/views/widgets/base.widget.dart';
+import 'package:rhema_rapha_app/views/widgets/descriptionsection.widget.dart';
+import 'package:rhema_rapha_app/views/widgets/patientinfo.widget.dart';
+import 'package:rhema_rapha_app/views/widgets/visitingtime.widget.dart';
 
 class ViewAppointmentPage extends StatelessWidget {
   final arguments;
@@ -146,163 +148,17 @@ class ViewAppointmentPage extends StatelessWidget {
                           child: SizedBox(height: 30),
                         ),
                       ),
-                      buildVisitingTimeSection(appointment, model),
-                      buildPatientInfoTimeSection(patient),
-                      buildDescriptionSection(context, appointment),
+                      VisitingTimeWidget(
+                        appointment: appointment,
+                        model: model,
+                      ),
+                      PatientInfomationWidget(patient: patient),
+                      DescriptionSectionWidget(appointment: appointment),
                     ],
                   ),
                 ),
         );
       },
-    );
-  }
-
-  buildDescriptionSection(context, Appointment appointment) {
-    return Padding(
-      padding: const EdgeInsets.all(20.0),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Icon(FeatherIcons.user, color: Colors.transparent),
-          Padding(
-            padding: const EdgeInsets.only(left: 10.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  'Discription',
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 20,
-                  ),
-                ),
-                SizedBox(height: 10),
-                Container(
-                  width: MediaQuery.of(context).size.width * .7,
-                  child: Text(appointment.description),
-                ),
-              ],
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  buildPatientInfoTimeSection(Patient patient) {
-    return Padding(
-      padding: const EdgeInsets.all(20.0),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Icon(FeatherIcons.user, color: AppColors.green),
-              Padding(
-                padding: const EdgeInsets.only(left: 10.0),
-                child: Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        'Patient Information',
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: 20),
-                      ),
-                      SizedBox(height: 10),
-                      Text('Name:  ' + patient.fullName),
-                      SizedBox(height: 10),
-                      Text(
-                        'Date of Birth:  ' +
-                            UtilService.formatDate(
-                              DateTime.parse(patient.dateOfBirth),
-                            ),
-                      ),
-                      SizedBox(height: 10),
-                      Text('Phone:  ' + patient.phonenumber),
-                      SizedBox(height: 10),
-                      Text('Email:  ' + patient.email),
-                      SizedBox(height: 10),
-                      Text('Gender:  ' + patient.gender),
-                      SizedBox(height: 10),
-                      Text('Address:  ' + patient.address),
-                      SizedBox(height: 20),
-                      Text(
-                        'Medical Details',
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: 14),
-                      ),
-                      SizedBox(height: 10),
-                      Text('Height:  ' + patient.height),
-                      SizedBox(height: 10),
-                      Text('BloodType:  ' + patient.bloodType),
-                      SizedBox(height: 10),
-                      Text('BloodPressure:  ' + patient.bloodPressure),
-                    ],
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ],
-      ),
-    );
-  }
-
-  buildVisitingTimeSection(
-      Appointment appointment, AppointmentViewModel model) {
-    return Padding(
-      padding: const EdgeInsets.all(20.0),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Icon(FeatherIcons.clock, color: AppColors.green),
-              Padding(
-                padding: const EdgeInsets.only(left: 10.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'Appointment Time',
-                      style:
-                          TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
-                    ),
-                    SizedBox(height: 20),
-                    Text(
-                      UtilService.formatDate(DateTime.parse(appointment.date)),
-                    ),
-                    SizedBox(height: 10),
-                    Text(
-                      appointment.appointmentTime,
-                      style: TextStyle(
-                          color: AppColors.primaryColor,
-                          fontWeight: FontWeight.w500,
-                          fontSize: 16),
-                    ),
-                  ],
-                ),
-              ),
-            ],
-          ),
-          FlatButton(
-            onPressed: () => model.cancelAppointment(appointment.id),
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(18.0),
-            ),
-            color: AppColors.redShade5,
-            child: Text(
-              'Cancel',
-              style: TextStyle(color: AppColors.white),
-            ),
-          )
-        ],
-      ),
     );
   }
 }

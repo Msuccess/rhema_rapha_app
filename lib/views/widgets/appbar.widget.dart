@@ -21,10 +21,31 @@ class AppBarWidget {
         ),
         Padding(
           padding: EdgeInsets.symmetric(horizontal: 20.0),
-          child: ClipRRect(
-            borderRadius: BorderRadius.all(
-              Radius.circular(13),
-            ),
+          child: GestureDetector(
+            onTap: () {
+              showModalBottomSheet<void>(
+                context: context,
+                builder: (BuildContext context) {
+                  return Container(
+                    height: 200,
+                    color: Colors.amber,
+                    child: Center(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        mainAxisSize: MainAxisSize.min,
+                        children: <Widget>[
+                          const Text('Modal BottomSheet'),
+                          ElevatedButton(
+                            child: const Text('Close BottomSheet'),
+                            onPressed: () => Navigator.pop(context),
+                          )
+                        ],
+                      ),
+                    ),
+                  );
+                },
+              );
+            },
             child: CircleAvatar(
               backgroundColor: randomColor(),
               child: Text(initials),

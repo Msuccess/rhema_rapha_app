@@ -39,11 +39,19 @@ class AppTexts {
     fontWeight: FontWeight.w400,
   );
   static TextStyle normalText = TextStyle(
-      color: AppColors.primaryText,
-      letterSpacing: .5,
-      fontSize: AppSizes.TEXT_SIZE_12,
-      fontWeight: FontWeight.normal,
-      fontFamily: 'OpenSans');
+    color: AppColors.primaryText,
+    letterSpacing: .5,
+    fontSize: AppSizes.TEXT_SIZE_12,
+    fontWeight: FontWeight.normal,
+    fontFamily: 'OpenSans',
+  );
+
+  static TextStyle h5 = TextStyle(
+    color: AppColors.primaryText,
+    fontSize: AppSizes.TEXT_SIZE_14,
+    fontWeight: FontWeight.normal,
+    fontFamily: 'OpenSans',
+  );
 
   static TextStyle h20 = TextStyle(
       color: AppColors.primaryText,
