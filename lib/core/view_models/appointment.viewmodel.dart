@@ -3,11 +3,11 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 
 import 'package:rhema_rapha_app/core/constants/localkeys.dart';
+import 'package:rhema_rapha_app/views/pages/tabs/tabs.page.dart';
 import 'package:rhema_rapha_app/core/message/result.model.dart';
 import 'package:rhema_rapha_app/core/models/appointment.model.dart';
 import 'package:rhema_rapha_app/core/models/department.model.dart';
 import 'package:rhema_rapha_app/core/models/doctor.model.dart';
-import 'package:rhema_rapha_app/core/routes/routes.dart';
 import 'package:rhema_rapha_app/core/services/appointment.service.dart';
 import 'package:rhema_rapha_app/core/services/department.service.dart';
 import 'package:rhema_rapha_app/core/services/doctor.service.dart';
@@ -104,10 +104,17 @@ class AppointmentViewModel extends BaseViewModel {
     setBusy(true);
     var result = await _appointmentService.cancelAppointment(id);
     appointments = result.isSuccessful ? result.data : [];
-if(result.isSuccessful == true){
-Navigator.of(context).pop;
-}
-    //filterAppointments(filterTypee);
+    if (result.isSuccessful == true) {
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => TabsPage(),
+        ),
+      );
+    } else {
+      setBusy(false);
+      UtilService.showErrorToast(result.message);
+    }
     setBusy(false);
     return result;
   }
@@ -132,13 +139,6 @@ Navigator.of(context).pop;
     _setInitialTime(doctor);
     _setInitialDate(doctor);
 
-    setBusy(false);
-    return result;
-  }
-
-  Future<Result> cancelBookedAppointment(String id) async {
-    setBusy(true);
-    var result = await _appointmentService.cancelAppointment(id);
     setBusy(false);
     return result;
   }
