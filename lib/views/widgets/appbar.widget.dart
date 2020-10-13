@@ -31,7 +31,7 @@ class AppBarWidget {
                       child: new Wrap(
                         children: <Widget>[
                           ListTile(
-                            leading: new Icon(FeatherIcons.logOut),
+                            leading: Icon(FeatherIcons.logIn),
                             title: new Text('Log Out'),
                             onTap: () => {},
                           ),
