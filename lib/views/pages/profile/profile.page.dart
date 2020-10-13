@@ -198,7 +198,7 @@ class _ProfilePageState extends State<ProfilePage> {
   Widget _builGenderField(ProfileViewModel model) {
     return SelectInputField(
       text: "Gender",
-      onSaved: (String gender) {
+      onSaved: (gender) {
         print(gender);
         return model.gender.text = gender;
       },

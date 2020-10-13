@@ -10,6 +10,7 @@ import 'package:rhema_rapha_app/views/pages/doctor/doctor.page.dart';
 import 'package:rhema_rapha_app/views/pages/doctor/doctordetails.page.dart';
 import 'package:rhema_rapha_app/views/pages/home/home.page.dart';
 import 'package:rhema_rapha_app/views/pages/onboarding.dart';
+import 'package:rhema_rapha_app/views/pages/profile/profile.page.dart';
 import 'package:rhema_rapha_app/views/pages/splashscreen.dart';
 import 'package:rhema_rapha_app/views/pages/tabs/tabs.page.dart';
 
@@ -27,6 +28,7 @@ class RoutePaths {
   static const NewAppointment = "NewAppointment";
   static const ViewAppointment = "ViewAppointment";
   static const DepartmentDetails = "DepartmentDetails";
+  static const Profile = "Profile";
 }
 
 class RouterPath {
@@ -123,6 +125,12 @@ class RouterPath {
         );
         break;
 
+      case RoutePaths.Profile:
+        return PageTransition(
+          child: ProfilePage(),
+          type: PageTransitionType.leftToRightWithFade,
+        );
+        break;
       default:
         return MaterialPageRoute(
           builder: (_) => Scaffold(

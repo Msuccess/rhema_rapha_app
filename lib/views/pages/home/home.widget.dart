@@ -14,6 +14,8 @@ class HeaderWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    if (name == null) return SizedBox.shrink();
+
     return Padding(
       padding: EdgeInsets.all(16),
       child: Column(
@@ -52,7 +54,8 @@ class HomeBottomWidgets extends StatelessWidget {
           children: [
             Icon(
               FeatherIcons.calendar,
-              color: Colors.white,size: 20.0,
+              color: Colors.white,
+              size: 20.0,
             ),
             SizedBox(
               width: 8.0,
@@ -198,7 +201,7 @@ class BottomTabBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return BottomNavigationBar(
       showSelectedLabels: true,
-       showUnselectedLabels: true,
+      showUnselectedLabels: true,
       selectedLabelStyle: TextStyle(
         fontWeight: FontWeight.w600,
       ),

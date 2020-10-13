@@ -104,7 +104,9 @@ class AppointmentViewModel extends BaseViewModel {
     setBusy(true);
     var result = await _appointmentService.cancelAppointment(id);
     appointments = result.isSuccessful ? result.data : [];
-
+if(result.isSuccessful == true){
+Navigator.of(context).pop;
+}
     //filterAppointments(filterTypee);
     setBusy(false);
     return result;

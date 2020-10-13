@@ -16,6 +16,7 @@ class ProfileViewModel extends BaseViewModel {
   bool isBusy = false;
   PatientService _patientService;
   Patient patient;
+  String genderValue;
 
   TextEditingController _fullNameController = TextEditingController();
   TextEditingController _dateOfBirthController = TextEditingController();
@@ -81,10 +82,9 @@ class ProfileViewModel extends BaseViewModel {
       var sharedPreferences = await SharedPreferences.getInstance();
       sharedPreferences.setBool(PROFILE_UPDATE, true);
 
-      return await Navigator.pushNamedAndRemoveUntil(
+      return await Navigator.pushNamed(
         context,
-        RoutePaths.Tabs,
-        (_) => false,
+        RoutePaths.Home,
       );
     } else {
       setBusy(false);

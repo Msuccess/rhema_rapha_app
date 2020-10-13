@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:rhema_rapha_app/assets/styles/colors.dart';
+import 'package:rhema_rapha_app/core/routes/routes.dart';
 import 'package:rhema_rapha_app/views/widgets/random_color.widget.dart';
 
 class AppBarWidget {
@@ -24,27 +25,20 @@ class AppBarWidget {
           child: GestureDetector(
             onTap: () {
               showModalBottomSheet<void>(
-                context: context,
-                builder: (BuildContext context) {
-                  return Container(
-                    height: 200,
-                    color: Colors.amber,
-                    child: Center(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        mainAxisSize: MainAxisSize.min,
+                  context: context,
+                  builder: (BuildContext bc) {
+                    return Container(
+                      child: new Wrap(
                         children: <Widget>[
-                          const Text('Modal BottomSheet'),
-                          ElevatedButton(
-                            child: const Text('Close BottomSheet'),
-                            onPressed: () => Navigator.pop(context),
-                          )
+                          ListTile(
+                            leading: new Icon(FeatherIcons.logOut),
+                            title: new Text('Log Out'),
+                            onTap: () => {},
+                          ),
                         ],
                       ),
-                    ),
-                  );
-                },
-              );
+                    );
+                  });
             },
             child: CircleAvatar(
               backgroundColor: randomColor(),

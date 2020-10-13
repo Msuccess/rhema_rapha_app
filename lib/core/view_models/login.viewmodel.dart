@@ -4,7 +4,7 @@ import 'package:rhema_rapha_app/core/models/signin.model.dart';
 import 'package:rhema_rapha_app/core/services/authservice.dart';
 import 'package:rhema_rapha_app/core/view_models/base.viewmodel.dart';
 
-class LoginViewModel extends BaseViewModel{
+class LoginViewModel extends BaseViewModel {
   bool obs = false;
   bool authenticated = false;
   bool isAuthenticating = false;
@@ -21,7 +21,6 @@ class LoginViewModel extends BaseViewModel{
   Future<void> isUserAuthenticated() async {
     isAuthenticated = await AuthService.isAuthenticated();
   }
-
 
   Future<Result> signin(SignIn user) async {
     setBusy(true);
@@ -41,5 +40,10 @@ class LoginViewModel extends BaseViewModel{
     notifyListeners();
   }
 
-  
+  Future<bool> hasToken() async {
+    setBusy(true);
+    bool result = await AuthService.isAuthenticated();
+    setBusy(false);
+    return result;
+  }
 }

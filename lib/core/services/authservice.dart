@@ -20,7 +20,7 @@ class AuthService {
     return true;
   }
 
-   static Future<bool> isOnboarded() async {
+  static Future<bool> isOnboarded() async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     var onboarding = sharedPreferences.getBool(ONBOARDING);
     if (onboarding == null) return false;
@@ -63,7 +63,8 @@ class AuthService {
         return Result(isSuccessful: false, data: data, message: errorMessage);
       }
 
-      return Result(isSuccessful: false, message: 'Please Check Your Connection');
+      return Result(
+          isSuccessful: false, message: 'Please Check Your Connection');
     } catch (e) {
       print(e);
       return null;
@@ -128,17 +129,6 @@ class AuthService {
     return false;
   }
 
-  // Future<bool> signout() async {
-  //   SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-  //   var email = await getUserLoggedEmail();
-  //   var seenUpdate = sharedPreferences.getBool(SEENUPDATE);
-  //   sharedPreferences.clear();
-  //   sharedPreferences.setBool(ONBOARDING, true);
-  //   sharedPreferences.setString(EMAIL, email);
-  //   sharedPreferences.setBool(SEENUPDATE, seenUpdate);
-  //   return true;
-  // }
-
   Future<String> getToken() async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     bool exits = sharedPreferences.containsKey(AUTHDATA);
@@ -179,7 +169,6 @@ class AuthService {
 
     return email;
   }
-
 
   onTimeout() {
     print('************* Connection Failed');
