@@ -8,6 +8,7 @@ class AppBarWidget {
     String fullName,
     String titleText,
     BuildContext context,
+    Function onLogOut,
   ) {
     var initials = getInitials(name: fullName, limitTo: 2);
     return AppBar(
@@ -28,23 +29,7 @@ class AppBarWidget {
         Padding(
           padding: EdgeInsets.symmetric(horizontal: 20.0),
           child: GestureDetector(
-            onTap: () {
-              showModalBottomSheet<void>(
-                  context: context,
-                  builder: (BuildContext bc) {
-                    return Container(
-                      child: new Wrap(
-                        children: <Widget>[
-                          ListTile(
-                            leading: Icon(FeatherIcons.logIn),
-                            title: new Text('Log Out'),
-                            onTap: () => {},
-                          ),
-                        ],
-                      ),
-                    );
-                  });
-            },
+            onTap: () => onLogOut,
             child: CircleAvatar(
               backgroundColor: randomColor(),
               child: Text(initials),

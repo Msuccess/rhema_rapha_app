@@ -71,15 +71,15 @@ class _LoginPageState extends State<LoginPage> {
                                       SizedBox(height: 32.0),
                                       _buildPasswordField(model),
                                       SizedBox(height: 20.0),
-                                      FlatButton(
-                                        onPressed: () => Navigator.pushNamed(
-                                            context, RoutePaths.Splash),
-                                        child: Text(
-                                          'Forgot Password',
-                                          style: TextStyle(
-                                              color: AppColors.primaryText),
-                                        ),
-                                      ),
+                                      // FlatButton(
+                                      //   onPressed: () => Navigator.pushNamed(
+                                      //       context, RoutePaths.Splash),
+                                      //   child: Text(
+                                      //     'Forgot Password',
+                                      //     style: TextStyle(
+                                      //         color: AppColors.primaryText),
+                                      //   ),
+                                      // ),
                                       Column(
                                         children: <Widget>[
                                           ButtonWidget(
