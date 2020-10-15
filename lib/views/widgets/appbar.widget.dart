@@ -1,18 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:rhema_rapha_app/assets/styles/colors.dart';
-import 'package:rhema_rapha_app/core/routes/routes.dart';
 import 'package:rhema_rapha_app/views/widgets/random_color.widget.dart';
 
 class AppBarWidget {
   static PreferredSizeWidget appBarWidget(
     String fullName,
-    String avatar,
+    String titleText,
     BuildContext context,
   ) {
     var initials = getInitials(name: fullName, limitTo: 2);
     return AppBar(
       elevation: 1,
+      title: titleText == ""
+          ? SizedBox.shrink()
+          : Text(
+              titleText,
+              style: TextStyle(color: AppColors.primaryColor),
+            ),
       backgroundColor: AppColors.whiteShade2,
       actions: <Widget>[
         Icon(

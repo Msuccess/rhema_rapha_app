@@ -3,7 +3,6 @@ import 'package:rhema_rapha_app/core/constants/localkeys.dart';
 import 'package:rhema_rapha_app/core/message/result.model.dart';
 import 'package:rhema_rapha_app/core/models/patient.dto.dart';
 import 'package:rhema_rapha_app/core/models/patient.model.dart';
-import 'package:rhema_rapha_app/core/routes/routes.dart';
 import 'package:rhema_rapha_app/core/services/authservice.dart';
 import 'package:rhema_rapha_app/core/services/patient.service.dart';
 import 'package:rhema_rapha_app/core/services/util.service.dart';
@@ -78,19 +77,27 @@ class ProfileViewModel extends BaseViewModel {
     );
 
     Result result = await _patientService.updatePatient(newPatient);
+
     if (result.isSuccessful == true) {
       var sharedPreferences = await SharedPreferences.getInstance();
       sharedPreferences.setBool(PROFILE_UPDATE, true);
 
-      return await Navigator.pushNamed(
-        context,
-        RoutePaths.Home,
-      );
+      UtilService.showSuccessToast('Profile Update Successfull');
     } else {
       setBusy(false);
-      UtilService.showErrorToast('Error updating profile');
+      UtilService.showErrorToast('Error Updating profile');
     }
     setBusy(false);
+  }
+
+  onGenderSelect(String newGender) {
+    gender.text = newGender;
+    notifyListeners();
+  }
+
+  onDateOfBirthSelect(String newDateOfBirth) {
+    dateOfBirth.text = newDateOfBirth;
+    notifyListeners();
   }
 
   void init() {

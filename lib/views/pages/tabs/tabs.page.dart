@@ -26,9 +26,9 @@ class _TabsPageState extends State<TabsPage> {
         if (model.userDetails.isEmpty) return SizedBox.shrink();
 
         var fullname = model.userDetails['fullName'];
-        var avatar = model.userDetails['avatar'];
+        String titleText = "";
         return Scaffold(
-          appBar: AppBarWidget.appBarWidget(fullname, avatar, context),
+          appBar: AppBarWidget.appBarWidget(fullname, titleText, context),
           body: model.buildPage(model.selectedIndex),
           backgroundColor: AppColors.whiteShade2,
           bottomNavigationBar: BottomTabBar(

@@ -49,114 +49,105 @@ class ViewAppointmentPage extends StatelessWidget {
               style: TextStyle(color: AppColors.primaryColor),
             ),
           ),
-          body: model.busy
-              ? Align(
-                  alignment: Alignment.center,
-                  child: CircularProgressIndicator(
-                    valueColor: new AlwaysStoppedAnimation<Color>(
-                      AppColors.primaryColor,
+          body: SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                SizedBox(height: 30),
+                Padding(
+                  padding: const EdgeInsets.only(left: 20.0),
+                  child: Text('Voice call appointment',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 20,
+                      )),
+                ),
+                Container(
+                  margin: EdgeInsets.symmetric(vertical: 1),
+                  child: ListTile(
+                    leading: CircleAvatar(
+                      child: Text(
+                        AppBarWidget.getInitials(
+                            name: doctor?.fullName, limitTo: 2),
+                      ),
+                    ),
+                    title: Text(doctor?.fullName),
+                  ),
+                ),
+                SizedBox(height: 30),
+                Container(
+                  padding: EdgeInsets.all(30),
+                  decoration: BoxDecoration(
+                    color: AppColors.primaryColor,
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(40),
+                      topRight: Radius.circular(40),
                     ),
                   ),
-                )
-              : SingleChildScrollView(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      SizedBox(height: 30),
-                      Padding(
-                        padding: const EdgeInsets.only(left: 20.0),
-                        child: Text('Voice call appointment',
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 20,
-                            )),
-                      ),
-                      Container(
-                        margin: EdgeInsets.symmetric(vertical: 1),
-                        child: ListTile(
-                          leading: CircleAvatar(
-                            child: Text(
-                              AppBarWidget.getInitials(
-                                  name: doctor?.fullName, limitTo: 2),
-                            ),
-                          ),
-                          title: Text(doctor?.fullName),
-                        ),
-                      ),
-                      SizedBox(height: 30),
-                      Container(
-                        padding: EdgeInsets.all(30),
-                        decoration: BoxDecoration(
-                          color: AppColors.primaryColor,
-                          borderRadius: BorderRadius.only(
-                            topLeft: Radius.circular(40),
-                            topRight: Radius.circular(40),
-                          ),
-                        ),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            GestureDetector(
-                              onTap: () {
-                                print(doctor?.phonenumber);
-                                model.makePhoneCall(doctor?.phonenumber);
-                              },
-                              child: Container(
-                                padding: EdgeInsets.all(20),
-                                decoration: BoxDecoration(
-                                  color: AppColors.primaryDisableColor,
-                                  borderRadius: BorderRadius.all(
-                                    Radius.circular(12),
-                                  ),
-                                ),
-                                child: Icon(
-                                  FeatherIcons.phone,
-                                  color: AppColors.white,
-                                ),
-                              ),
-                            ),
-                            SizedBox(width: 10),
-                            Container(
-                              padding: EdgeInsets.all(20),
-                              decoration: BoxDecoration(
-                                color: AppColors.primaryDisableColor,
-                                borderRadius: BorderRadius.all(
-                                  Radius.circular(12),
-                                ),
-                              ),
-                              child: Icon(
-                                FeatherIcons.user,
-                                color: AppColors.white,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      Container(
-                        width: MediaQuery.of(context).size.width,
-                        decoration: BoxDecoration(
-                          color: AppColors.primaryColor,
-                        ),
+                      GestureDetector(
+                        onTap: () {
+                          print(doctor?.phonenumber);
+                          model.makePhoneCall(doctor?.phonenumber);
+                        },
                         child: Container(
+                          padding: EdgeInsets.all(20),
                           decoration: BoxDecoration(
-                            color: AppColors.white,
-                            borderRadius: BorderRadius.only(
-                              topLeft: Radius.circular(70),
-                              topRight: Radius.circular(70),
+                            color: AppColors.primaryDisableColor,
+                            borderRadius: BorderRadius.all(
+                              Radius.circular(12),
                             ),
                           ),
-                          child: SizedBox(height: 30),
+                          child: Icon(
+                            FeatherIcons.phone,
+                            color: AppColors.white,
+                          ),
                         ),
                       ),
-                      VisitingTimeWidget(
-                        appointment: appointment,
-                        model: model,
+                      SizedBox(width: 10),
+                      Container(
+                        padding: EdgeInsets.all(20),
+                        decoration: BoxDecoration(
+                          color: AppColors.primaryDisableColor,
+                          borderRadius: BorderRadius.all(
+                            Radius.circular(12),
+                          ),
+                        ),
+                        child: Icon(
+                          FeatherIcons.user,
+                          color: AppColors.white,
+                        ),
                       ),
-                      PatientInfomationWidget(patient: patient),
-                      DescriptionSectionWidget(appointment: appointment),
                     ],
                   ),
                 ),
+                Container(
+                  width: MediaQuery.of(context).size.width,
+                  decoration: BoxDecoration(
+                    color: AppColors.primaryColor,
+                  ),
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: AppColors.white,
+                      borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(70),
+                        topRight: Radius.circular(70),
+                      ),
+                    ),
+                    child: SizedBox(height: 30),
+                  ),
+                ),
+                VisitingTimeWidget(
+                  appointment: appointment,
+                  model: model,
+                ),
+                PatientInfomationWidget(patient: patient),
+                DescriptionSectionWidget(appointment: appointment),
+              ],
+            ),
+          ),
         );
       },
     );

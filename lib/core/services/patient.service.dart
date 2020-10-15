@@ -43,21 +43,14 @@ class PatientService extends BaseService {
     var userId = sharedPreferences.getString(USER_ID);
     var url = EndPoints.getPatientUrl();
 
-    var res = await putRequest("$url/$userId", newPatient.patientDtoToJson(newPatient));
+    var res = await putRequest(
+        "$url/$userId", newPatient.patientDtoToJson(newPatient));
 
-    if (res != null && (res.statusCode == 200 || res.statusCode == 201)) {
-      var decodedData = jsonDecode(res.body);
-      var data = decodedData['data'];
+    if (res != null && res.statusCode == 201) {
+      getPatientsById();
 
-      SharedPreferences sharedPreferences =
-          await SharedPreferences.getInstance();
-
-      sharedPreferences.setString(AUTHDATA, jsonEncode(data));
-      sharedPreferences.setString(USER_ID, jsonEncode(data['id']));
       return Result(
         isSuccessful: true,
-        data: data,
-        message: data['message'],
       );
     }
 

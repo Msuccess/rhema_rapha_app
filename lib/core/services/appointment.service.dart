@@ -117,9 +117,9 @@ class AppointmentService extends BaseService {
 
   Future<Result<Appointment>> cancelAppointment(String appointmentId) async {
     var res =
-        await getRequest(EndPoints.getAppointmentUrl() + '/' + appointmentId);
+        await put(EndPoints.getAppointmentUrl() + '/cancel/' + appointmentId);
 
-    if (res != null && res.statusCode == 200) {
+    if (res != null && res.statusCode == 201) {
       return Result<Appointment>(
           isSuccessful: true, data: null, message: 'successfully');
     }

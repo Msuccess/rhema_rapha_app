@@ -3,13 +3,14 @@ import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:provider/provider.dart';
 
 import 'package:rhema_rapha_app/assets/styles/text_style.dart';
+import 'package:rhema_rapha_app/assets/styles/colors.dart';
 import 'package:rhema_rapha_app/core/constants/regex.constants.dart';
 import 'package:rhema_rapha_app/core/view_models/profile.viewmodel.dart';
 import 'package:rhema_rapha_app/views/widgets/base.widget.dart';
 import 'package:rhema_rapha_app/views/widgets/button.widget.dart';
 import 'package:rhema_rapha_app/views/widgets/datepicker.widget.dart';
 import 'package:rhema_rapha_app/views/widgets/input.widget.dart';
-import 'package:rhema_rapha_app/views/widgets/selectInput.widget.dart';
+// import 'package:rhema_rapha_app/views/widgets/selectInput.widget.dart';
 
 class ProfilePage extends StatefulWidget {
   @override
@@ -84,6 +85,7 @@ class _ProfilePageState extends State<ProfilePage> {
     print(model.email.text);
     return InputWidget(
       text: 'Email',
+      disabled: true,
       iconSize: 15.0,
       inputPrefixIcon: FeatherIcons.mail,
       inputType: TextInputType.emailAddress,
@@ -184,9 +186,7 @@ class _ProfilePageState extends State<ProfilePage> {
   Widget _builDateBirthField(ProfileViewModel model) {
     return InputDateTimeField(
       text: 'Date of Birth',
-      onSaved: (DateTime dateOfBirth) {
-        model.dateOfBirth.text = dateOfBirth.toString();
-      },
+      onSaved: (dateOfBirth) => model.onDateOfBirthSelect(dateOfBirth),
       currentDate: DateTime.parse(model.dateOfBirth.text),
       validator: (DateTime dateOfBirth) {
         if (dateOfBirth == null) return 'Date of Birth is required';
@@ -196,12 +196,50 @@ class _ProfilePageState extends State<ProfilePage> {
   }
 
   Widget _builGenderField(ProfileViewModel model) {
-    return SelectInputField(
-      text: "Gender",
-      onSaved: (gender) {
-        print(gender);
-        return model.gender.text = gender;
-      },
+    var _gender = [
+      "Male",
+      "Female",
+      "Others",
+    ];
+
+    return InputDecorator(
+      decoration: InputDecoration(
+        prefixIcon: Icon(
+          FeatherIcons.users,
+          size: 20.0,
+        ),
+        border: OutlineInputBorder(),
+        labelText: "Gender",
+        labelStyle: TextStyle(
+          color: AppColors.blackShade6,
+          fontSize: 15,
+          fontWeight: FontWeight.w200,
+        ),
+        fillColor: AppColors.whiteShade2,
+        errorBorder: OutlineInputBorder(
+          gapPadding: 3,
+          borderSide: BorderSide(
+            color: AppColors.dangerColor,
+            width: 2,
+          ),
+        ),
+      ),
+      isEmpty: model.gender.text == '',
+      child: DropdownButtonHideUnderline(
+        child: DropdownButton<String>(
+          value: model.gender.text,
+          isDense: true,
+          onChanged: (gender) => model.onGenderSelect(gender),
+          items: _gender.map(
+            (String value) {
+              return DropdownMenuItem<String>(
+                value: value,
+                child: Text(value),
+              );
+            },
+          ).toList(),
+        ),
+      ),
     );
   }
 

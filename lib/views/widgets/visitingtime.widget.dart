@@ -53,16 +53,43 @@ class VisitingTimeWidget extends StatelessWidget {
               ),
             ],
           ),
-          FlatButton(
-            onPressed: () => model.cancelAppointment(context, appointment.id),
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(18.0),
-            ),
-            color: AppColors.redShade5,
-            child: Text(
-              'Cancel',
-              style: TextStyle(color: AppColors.white),
-            ),
+          Row(
+            children: [
+              FlatButton(
+                onPressed: () async {
+                  var result = await model.cancelAppointment(
+                    context,
+                    appointment.id,
+                  );
+
+                  if (result.isSuccessful == true) {
+                    UtilService.showSuccessToast(result.message);
+                    Navigator.pop(context);
+                  } else {
+                    UtilService.showSuccessToast(
+                        "Error Cancelling Appointment");
+                  }
+                },
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(18.0),
+                ),
+                color: AppColors.redShade5,
+                child: Text(
+                  'Cancel',
+                  style: TextStyle(color: AppColors.white),
+                ),
+              ),
+              model.busy
+                  ? Padding(
+                      padding: const EdgeInsets.only(left: 5.0),
+                      child: SizedBox(
+                        width: 20,
+                        height: 20,
+                        child: CircularProgressIndicator(),
+                      ),
+                    )
+                  : Container(),
+            ],
           )
         ],
       ),

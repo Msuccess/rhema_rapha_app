@@ -104,10 +104,6 @@ class AppointmentViewModel extends BaseViewModel {
     setBusy(true);
     var result = await _appointmentService.cancelAppointment(id);
     appointments = result.isSuccessful ? result.data : [];
-if(result.isSuccessful == true){
-Navigator.of(context).pop;
-}
-    //filterAppointments(filterTypee);
     setBusy(false);
     return result;
   }
@@ -132,13 +128,6 @@ Navigator.of(context).pop;
     _setInitialTime(doctor);
     _setInitialDate(doctor);
 
-    setBusy(false);
-    return result;
-  }
-
-  Future<Result> cancelBookedAppointment(String id) async {
-    setBusy(true);
-    var result = await _appointmentService.cancelAppointment(id);
     setBusy(false);
     return result;
   }
