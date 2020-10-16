@@ -1,6 +1,7 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'package:rhema_rapha_app/core/constants/localkeys.dart';
 import 'package:rhema_rapha_app/views/pages/tabs/tabs.page.dart';
@@ -13,8 +14,6 @@ import 'package:rhema_rapha_app/core/services/department.service.dart';
 import 'package:rhema_rapha_app/core/services/doctor.service.dart';
 import 'package:rhema_rapha_app/core/services/util.service.dart';
 import 'package:rhema_rapha_app/core/view_models/base.viewmodel.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 class AppointmentViewModel extends BaseViewModel {
   AppointmentService _appointmentService;
