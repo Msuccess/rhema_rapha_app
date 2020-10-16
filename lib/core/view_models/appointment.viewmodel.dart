@@ -3,7 +3,6 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 
 import 'package:rhema_rapha_app/core/constants/localkeys.dart';
-import 'package:rhema_rapha_app/views/pages/tabs/tabs.page.dart';
 import 'package:rhema_rapha_app/core/message/result.model.dart';
 import 'package:rhema_rapha_app/core/models/appointment.model.dart';
 import 'package:rhema_rapha_app/core/models/department.model.dart';
