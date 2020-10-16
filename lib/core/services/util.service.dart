@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:oktoast/oktoast.dart';
 import 'package:rhema_rapha_app/assets/styles/colors.dart';
 import 'package:rhema_rapha_app/assets/styles/sizes.dart';
+import 'package:rhema_rapha_app/core/view_models/appointment.viewmodel.dart';
 
 class UtilService {
   Future<Map<String, dynamic>> decodeJwtToken(String token) async {
@@ -36,23 +37,48 @@ class UtilService {
     );
   }
 
-  static void showAlertDialog(BuildContext context) {
+  static void showAlertDialog(
+      BuildContext context, AppointmentViewModel model, String id) {
     Widget cancelButton = FlatButton(
-      child: Text("Cancel"),
-      onPressed: () {},
+      child: Text(
+        "Cancel",
+        style: TextStyle(
+          color: AppColors.dangerColor,
+        ),
+      ),
+      onPressed: () => Navigator.pop(context, false),
     );
+
     Widget continueButton = FlatButton(
-      child: Text("Continue"),
-      onPressed: () {},
+      child: Text(
+        "OK",
+        style: TextStyle(
+          color: AppColors.primaryColor,
+        ),
+      ),
+      onPressed: () async {
+        var result = await model.cancelAppointment(
+          context,
+          id,
+        );
+
+        if (result.isSuccessful == true) {
+          UtilService.showSuccessToast(
+            "Appointment  Cancelled Successfully",
+          );
+          Navigator.pop(context);
+        } else {
+          UtilService.showSuccessToast("Error Cancelling Appointment");
+        }
+      },
     );
 
     AlertDialog alert = AlertDialog(
-      title: Text("AlertDialog"),
-      content: Text(
-          "Would you like to continue learning how to use Flutter alerts?"),
+      title: Text("Cancel Appointment"),
+      content: Text("Would you like to cancel this appointment?"),
       actions: [
-        cancelButton,
         continueButton,
+        cancelButton,
       ],
     );
 

@@ -116,18 +116,18 @@ class AppointmentService extends BaseService {
   }
 
   Future<Result<Appointment>> cancelAppointment(String appointmentId) async {
-    var res =
-        await put(EndPoints.getAppointmentUrl() + '/cancel/' + appointmentId);
+    // var res =
+    //     await put(EndPoints.getAppointmentUrl() + '/cancel/' + appointmentId);
 
-    if (res != null && res.statusCode == 201) {
-      return Result<Appointment>(
-          isSuccessful: true, data: null, message: 'successfully');
-    }
+    // if (res != null && res.statusCode == 201) {
+    //   return Result<Appointment>(
+    //       isSuccessful: true, data: null, message: 'successfully');
+    // }
 
-    if (res != null && res.statusCode == 400) {
-      var data = jsonDecode(res.body);
-      return Result(isSuccessful: false, data: data, message: '');
-    }
+    // if (res != null && res.statusCode == 400) {
+    //   var data = jsonDecode(res.body);
+    //   return Result(isSuccessful: false, data: data, message: '');
+    // }
 
     return Result(isSuccessful: false, message: 'Something went wrong');
   }

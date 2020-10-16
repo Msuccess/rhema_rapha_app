@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:provider/provider.dart';
 import 'package:rhema_rapha_app/assets/styles/colors.dart';
 import 'package:rhema_rapha_app/assets/styles/text_style.dart';
@@ -100,22 +99,15 @@ class _DepartmentDetailsPageState extends State<DepartmentDetailsPage> {
                                             : DoctorTile(doctor: doctor);
                                       }).toList(),
                                     )
-                                  : Expanded(
-                                      child: Center(
-                                        child: Column(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          children: [
-                                            Icon(
-                                              FontAwesomeIcons
-                                              color: Colors.black12,
-                                              size: 100,
-                                            ),
-                                            SizedBox(height: 20.0),
-                                            Text(
-                                                'You don\'t have any appointments yet'),
-                                          ],
+                                  : Padding(
+                                      padding: const EdgeInsets.only(
+                                        top: 30.0,
+                                      ),
+                                      child: Align(
+                                        child: Text(
+                                          'No doctors in this department',
                                         ),
+                                        alignment: Alignment.center,
                                       ),
                                     ),
                             ],

@@ -107,9 +107,10 @@ class AppointmentViewModel extends BaseViewModel {
   }
 
   Future<void> makePhoneCall(String phoneNumber) async {
+    String telScheme = 'tel:$phoneNumber';
     try {
-      if (await canLaunch('tel:$phoneNumber')) {
-        await launch(phoneNumber);
+      if (await canLaunch(telScheme)) {
+        await launch(telScheme);
       }
     } catch (e) {
       throw 'Could not launch $e';
@@ -210,6 +211,7 @@ class AppointmentViewModel extends BaseViewModel {
     print(jsonEncode(appointment));
     var result = await _appointmentService.save(appointment);
     if (result.isSuccessful) {
+      getAppointments();
       UtilService.showSuccessToast(result.message);
       Navigator.pop(context);
     } else {
