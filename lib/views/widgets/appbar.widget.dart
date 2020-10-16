@@ -1,18 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:rhema_rapha_app/assets/styles/colors.dart';
-import 'package:rhema_rapha_app/core/routes/routes.dart';
 import 'package:rhema_rapha_app/views/widgets/random_color.widget.dart';
 
 class AppBarWidget {
   static PreferredSizeWidget appBarWidget(
     String fullName,
-    String avatar,
+    String titleText,
     BuildContext context,
+    Function onLogOut,
   ) {
     var initials = getInitials(name: fullName, limitTo: 2);
     return AppBar(
       elevation: 1,
+      title: titleText == ""
+          ? SizedBox.shrink()
+          : Text(
+              titleText,
+              style: TextStyle(color: AppColors.primaryColor),
+            ),
       backgroundColor: AppColors.whiteShade2,
       actions: <Widget>[
         Icon(
@@ -23,23 +29,7 @@ class AppBarWidget {
         Padding(
           padding: EdgeInsets.symmetric(horizontal: 20.0),
           child: GestureDetector(
-            onTap: () {
-              showModalBottomSheet<void>(
-                  context: context,
-                  builder: (BuildContext bc) {
-                    return Container(
-                      child: new Wrap(
-                        children: <Widget>[
-                          ListTile(
-                            leading: Icon(FeatherIcons.logIn),
-                            title: new Text('Log Out'),
-                            onTap: () => {},
-                          ),
-                        ],
-                      ),
-                    );
-                  });
-            },
+            onTap: () => onLogOut,
             child: CircleAvatar(
               backgroundColor: randomColor(),
               child: Text(initials),

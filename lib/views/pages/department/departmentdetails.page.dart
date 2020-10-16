@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:provider/provider.dart';
 import 'package:rhema_rapha_app/assets/styles/colors.dart';
 import 'package:rhema_rapha_app/assets/styles/text_style.dart';
@@ -82,18 +83,41 @@ class _DepartmentDetailsPageState extends State<DepartmentDetailsPage> {
                                   ),
                                 ],
                               ),
-                              SizedBox(height: 20.0,),
-                              Padding(
-                                padding: const EdgeInsets.symmetric(horizontal: 15.0,vertical: 10.0),
-                                child: Text("Doctors Available", style: AppTexts.title),
+                              SizedBox(
+                                height: 20.0,
                               ),
-                              Column(
-                                children: doctors.map((doctor) {
-                                  return doctor == null
-                                      ? SizedBox.shrink()
-                                      : DoctorTile(doctor: doctor);
-                                }).toList(),
-                              )
+                              Padding(
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 15.0, vertical: 10.0),
+                                child: Text("Doctors Available",
+                                    style: AppTexts.title),
+                              ),
+                              !model.busy && doctors.length == 0
+                                  ? Column(
+                                      children: doctors.map((doctor) {
+                                        return doctor == null
+                                            ? SizedBox.shrink()
+                                            : DoctorTile(doctor: doctor);
+                                      }).toList(),
+                                    )
+                                  : Expanded(
+                                      child: Center(
+                                        child: Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: [
+                                            Icon(
+                                              FontAwesomeIcons
+                                              color: Colors.black12,
+                                              size: 100,
+                                            ),
+                                            SizedBox(height: 20.0),
+                                            Text(
+                                                'You don\'t have any appointments yet'),
+                                          ],
+                                        ),
+                                      ),
+                                    ),
                             ],
                           ),
                         ),

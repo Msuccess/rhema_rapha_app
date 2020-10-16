@@ -22,7 +22,7 @@ class UtilService {
   static void showSuccessToast(String message) {
     showToast(
       message,
-      duration: Duration(seconds: 3),
+      duration: Duration(seconds: 5),
       position: ToastPosition(
         align: Alignment.bottomCenter,
       ),

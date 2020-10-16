@@ -4,7 +4,6 @@ import 'package:url_launcher/url_launcher.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'package:rhema_rapha_app/core/constants/localkeys.dart';
-import 'package:rhema_rapha_app/views/pages/tabs/tabs.page.dart';
 import 'package:rhema_rapha_app/core/message/result.model.dart';
 import 'package:rhema_rapha_app/core/models/appointment.model.dart';
 import 'package:rhema_rapha_app/core/models/department.model.dart';
@@ -103,17 +102,6 @@ class AppointmentViewModel extends BaseViewModel {
     setBusy(true);
     var result = await _appointmentService.cancelAppointment(id);
     appointments = result.isSuccessful ? result.data : [];
-    if (result.isSuccessful == true) {
-      Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => TabsPage(),
-        ),
-      );
-    } else {
-      setBusy(false);
-      UtilService.showErrorToast(result.message);
-    }
     setBusy(false);
     return result;
   }

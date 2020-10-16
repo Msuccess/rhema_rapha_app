@@ -41,4 +41,8 @@ class TabsViewModel extends BaseViewModel {
     userDetails = await _authService.getUserDetails();
     notifyListeners();
   }
+
+  logOut() {
+    print('LOgout');
+  }
 }

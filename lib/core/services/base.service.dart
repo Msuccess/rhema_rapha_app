@@ -127,6 +127,31 @@ class BaseService {
     }
   }
 
+  Future<http.Response> put(url) async {
+    try {
+      var token = await getHearders();
+      final response = await http.put(url, headers: {
+        HttpHeaders.authorizationHeader: 'Bearer $token',
+        'Content-Type': 'application/json; charset=UTF-8',
+      }).timeout(
+        const Duration(seconds: timeoutSeconds),
+        onTimeout: () => onTimeout(),
+      );
+
+      print('>>>>>>>>>>> get begins');
+      print(url);
+      if (response != null) {
+        print(response.statusCode);
+        print(response.body);
+      }
+      print('>>>>>>>>>>> get ends');
+      return response;
+    } catch (e) {
+      print(e);
+      return null;
+    }
+  }
+
   onTimeout() {
     print('************* Connection Failed');
     UtilService.showErrorToast('Please Check Your Connection');

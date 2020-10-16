@@ -11,7 +11,7 @@ class SelectInputField extends StatelessWidget {
     Key key,
     @required this.text,
     this.onSaved,
-    this.selectedValue = "Male",
+    this.selectedValue,
   }) : super(key: key);
 
   @override
@@ -50,12 +50,14 @@ class SelectInputField extends StatelessWidget {
           value: selectedValue,
           isDense: true,
           onChanged: (selectedValue) => onSaved(selectedValue),
-          items: _gender.map((String value) {
-            return DropdownMenuItem<String>(
-              value: value,
-              child: Text(value),
-            );
-          }).toList(),
+          items: _gender.map(
+            (String value) {
+              return DropdownMenuItem<String>(
+                value: value,
+                child: Text(value),
+              );
+            },
+          ).toList(),
         ),
       ),
     );
