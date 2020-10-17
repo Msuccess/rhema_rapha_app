@@ -57,8 +57,8 @@ class UtilService {
         ),
       ),
       onPressed: () async {
+        Navigator.pop(context, false);
         var result = await model.cancelAppointment(
-          context,
           id,
         );
 

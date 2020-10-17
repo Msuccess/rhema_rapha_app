@@ -98,7 +98,7 @@ class AppointmentViewModel extends BaseViewModel {
     }
   }
 
-  Future<Result> cancelAppointment(BuildContext context, String id) async {
+  Future<Result> cancelAppointment(String id) async {
     setBusy(true);
     var result = await _appointmentService.cancelAppointment(id);
     appointments = result.isSuccessful ? result.data : [];

@@ -6,7 +6,8 @@ import 'package:rhema_rapha_app/core/models/appointment.model.dart';
 import 'package:rhema_rapha_app/core/services/base.service.dart';
 
 class AppointmentService extends BaseService {
-  Future<Result<List<Appointment>>> getAll() async {
+  Future<Result<List<Appointment>>> getAll(
+      [bool fromAppointment = false]) async {
     var res = await getRequest(EndPoints.getAppointmentUrl());
 
     if (res != null && res.statusCode == 200) {
@@ -17,11 +18,19 @@ class AppointmentService extends BaseService {
           .map((appointment) => Appointment.fromJson(appointment))
           .toList();
 
-      return Result<List<Appointment>>(
-        isSuccessful: true,
-        data: parsedAppointments,
-        message: 'successfully',
-      );
+      if (fromAppointment) {
+        return Result<List<Appointment>>(
+          isSuccessful: true,
+          data: parsedAppointments,
+          message: 'Appointment saved successfully',
+        );
+      } else {
+        return Result<List<Appointment>>(
+          isSuccessful: true,
+          data: parsedAppointments,
+          message: 'Action Successfully',
+        );
+      }
     }
 
     if (res != null && res.statusCode == 400) {
@@ -41,11 +50,13 @@ class AppointmentService extends BaseService {
       var data = jsonDecode(res.body);
       var appointment = data['data'] as dynamic;
       var parsedAppointment = Appointment.fromJson(appointment);
+      getAll(true);
 
       return Result<Appointment>(
-          isSuccessful: true,
-          data: parsedAppointment,
-          message: 'Appointment saved successfully');
+        isSuccessful: true,
+        data: parsedAppointment,
+        message: 'Appointment saved successfully',
+      );
     }
 
     if (res != null && res.statusCode == 400) {

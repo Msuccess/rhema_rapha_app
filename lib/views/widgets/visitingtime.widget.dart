@@ -20,11 +20,9 @@ class VisitingTimeWidget extends StatelessWidget {
       padding: const EdgeInsets.all(20.0),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Row(
             crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Icon(FeatherIcons.clock, color: AppColors.green),
               Padding(
@@ -56,11 +54,10 @@ class VisitingTimeWidget extends StatelessWidget {
               ),
             ],
           ),
-          SizedBox(
-            width: 10.0,
-          ),
           Expanded(
             child: Row(
+              crossAxisAlignment: CrossAxisAlignment.end,
+              mainAxisAlignment: MainAxisAlignment.end,
               children: [
                 FlatButton(
                   onPressed: () async {

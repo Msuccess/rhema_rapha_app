@@ -109,7 +109,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
     if (result.data['user']) {
       Navigator.pushNamedAndRemoveUntil(
         context,
-        RoutePaths.Home,
+        RoutePaths.Tabs,
         (_) => false,
       );
       return;
