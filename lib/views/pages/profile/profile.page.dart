@@ -227,7 +227,7 @@ class _ProfilePageState extends State<ProfilePage> {
       isEmpty: model.gender.text == '',
       child: DropdownButtonHideUnderline(
         child: DropdownButton<String>(
-          value: model.gender.text,
+          value: model.gender.text == "" ? _gender[0] : model.gender.text,
           isDense: true,
           onChanged: (gender) => model.onGenderSelect(gender),
           items: _gender.map(
