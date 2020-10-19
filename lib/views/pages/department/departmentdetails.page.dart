@@ -91,7 +91,7 @@ class _DepartmentDetailsPageState extends State<DepartmentDetailsPage> {
                                 child: Text("Doctors Available",
                                     style: AppTexts.title),
                               ),
-                              !model.busy && doctors.length == 0
+                              !model.busy && doctors.length != 0
                                   ? Column(
                                       children: doctors.map((doctor) {
                                         return doctor == null
