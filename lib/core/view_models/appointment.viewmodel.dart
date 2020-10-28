@@ -106,7 +106,7 @@ class AppointmentViewModel extends BaseViewModel {
     }
   }
 
-  Future<Result> cancelAppointment(BuildContext context, String id) async {
+  Future<Result> cancelAppointment(String id) async {
     setBusy(true);
     var result = await _appointmentService.cancelAppointment(id);
     appointments = result.isSuccessful ? result.data : [];
@@ -227,7 +227,7 @@ class AppointmentViewModel extends BaseViewModel {
     if (result.isSuccessful) {
       getAppointments();
       UtilService.showSuccessToast(result.message);
-      Navigator.pop(context);
+      // Navigator.pop(context);
     } else {
       UtilService.showErrorToast(result.message);
     }

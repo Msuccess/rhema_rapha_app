@@ -24,77 +24,78 @@ class _DoctorTileState extends State<DoctorTile> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(10.0),
-      child: Material(
-        borderRadius: BorderRadius.all(
-          Radius.circular(20),
-        ),
-        child: InkWell(
-          borderRadius: BorderRadius.all(
-            Radius.circular(20),
-          ),
-          onTap: () {
-            Navigator.pushNamed(
-              context,
-              RoutePaths.DoctorDetails,
-              arguments: widget.doctor,
-            );
-          },
-          child: Container(
-            width: MediaQuery.of(context).size.width,
-            padding: EdgeInsets.all(20),
-            margin: EdgeInsets.all(5),
-            decoration: BoxDecoration(
-              color: Colors.white,
+          padding: const EdgeInsets.all(10.0),
+          child: Material(
+            borderRadius: BorderRadius.all(
+              Radius.circular(20),
+            ),
+            child: InkWell(
               borderRadius: BorderRadius.all(
                 Radius.circular(20),
               ),
-              boxShadow: [
-                BoxShadow(
-                  offset: Offset(4, 4),
-                  blurRadius: 10,
-                  color: AppColors.grey.withOpacity(.2),
-                ),
-                BoxShadow(
-                  offset: Offset(-3, 0),
-                  blurRadius: 15,
-                  color: AppColors.grey.withOpacity(.1),
-                )
-              ],
-            ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Row(
-                  children: [
-                    CircleAvatar(
-                      child: Text('RE'),
+              onTap: () {
+                Navigator.pushNamed(
+                  context,
+                  RoutePaths.DoctorDetails,
+                  arguments: widget.doctor,
+                );
+              },
+              child: Container(
+                width: MediaQuery.of(context).size.width,
+                padding: EdgeInsets.all(20),
+                margin: EdgeInsets.all(5),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.all(
+                    Radius.circular(20),
+                  ),
+                  boxShadow: [
+                    BoxShadow(
+                      offset: Offset(4, 4),
+                      blurRadius: 10,
+                      color: AppColors.grey.withOpacity(.2),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 10.0),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            widget.doctor.fullName,
-                            style: AppTexts.title,
-                          ),
-                          SizedBox(height: 5),
-                          Text(
-                            widget.doctor.phonenumber,
-                            style: AppTexts.h6,
-                          ),
-                        ],
-                      ),
-                    ),
+                    BoxShadow(
+                      offset: Offset(-3, 0),
+                      blurRadius: 15,
+                      color: AppColors.grey.withOpacity(.1),
+                    )
                   ],
                 ),
-                Icon(Icons.keyboard_arrow_right_outlined)
-              ],
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Row(
+                      children: [
+                        CircleAvatar(
+                          child: Text('RE'),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(left: 10.0),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                widget.doctor.fullName,
+                                style: AppTexts.title,
+                              ),
+                              SizedBox(height: 5),
+                              Text(
+                                widget.doctor.phonenumber,
+                                style: AppTexts.h6,
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                    Icon(Icons.keyboard_arrow_right_outlined)
+                  ],
+                ),
+              ),
             ),
           ),
-        ),
-      ),
-    );
+        ) ??
+        SizedBox.shrink();
   }
 }

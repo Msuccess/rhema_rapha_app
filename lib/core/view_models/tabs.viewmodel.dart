@@ -18,6 +18,7 @@ class TabsViewModel extends BaseViewModel {
   }) : _authService = authService;
 
   int _selectedIndex = 0;
+  bool signOUt;
 
   int get selectedIndex => _selectedIndex;
 
@@ -37,12 +38,13 @@ class TabsViewModel extends BaseViewModel {
     );
   }
 
+  Future<bool> logout() async {
+    bool result = await _authService.signout();
+    return result;
+  }
+
   void getUserDetail() async {
     userDetails = await _authService.getUserDetails();
     notifyListeners();
-  }
-
-  logOut() {
-    print('LOgout');
   }
 }

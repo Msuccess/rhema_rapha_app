@@ -167,7 +167,7 @@ class AuthService {
     var tempEmail = sharedPreferences.getString(EMAIL);
     var email = jsonDecode(tempEmail);
 
-    return email;
+    return email['email'];
   }
 
   onTimeout() {

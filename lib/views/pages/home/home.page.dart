@@ -28,7 +28,7 @@ class _HomePageState extends State<HomePage> {
       },
       builder: (BuildContext context, HomeViewModel model, Widget child) {
         if (model.userDetails.isEmpty) return SizedBox.shrink();
-        // if (model.doctors.isEmpty) return SizedBox.shrink();
+        if (model.doctors.isEmpty) return SizedBox.shrink();
         var fullname = model.userDetails['fullName'];
         return SafeArea(
           child: model.busy
