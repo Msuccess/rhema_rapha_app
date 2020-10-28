@@ -14,6 +14,13 @@ import 'package:rhema_rapha_app/core/services/util.service.dart';
 import 'package:rhema_rapha_app/views/widgets/input.widget.dart';
 
 class NewAppointmentPage extends StatefulWidget {
+  final Doctor arguments;
+
+  const NewAppointmentPage({
+    Key key,
+    this.arguments,
+  }) : super(key: key);
+
   @override
   _NewAppointmentPageState createState() => _NewAppointmentPageState();
 }
@@ -28,6 +35,7 @@ class _NewAppointmentPageState extends State<NewAppointmentPage> {
         doctorService: Provider.of(context),
       ),
       onModelReady: (AppointmentViewModel model) async {
+        model.setParamDoctor(widget.arguments);
         await model.getDepartments();
       },
       builder: (
@@ -147,14 +155,14 @@ class _NewAppointmentPageState extends State<NewAppointmentPage> {
                   Row(
                     children: [
                       AppointmentType(
-                        name: 'Voice call',
-                        isCall: true,
+                        name: 'Visit',
+                        isCall: false,
                         selectedType: model.type,
                         onSelect: (type) => model.onTypeSelect(type),
                       ),
                       AppointmentType(
-                        name: 'Visit',
-                        isCall: false,
+                        name: 'Voice call',
+                        isCall: true,
                         selectedType: model.type,
                         onSelect: (type) => model.onTypeSelect(type),
                       ),
@@ -164,7 +172,7 @@ class _NewAppointmentPageState extends State<NewAppointmentPage> {
                   appointmentDescription(model),
                   SizedBox(height: 20),
                   ButtonWidget(
-                    // busy: model.busy,
+                    busy: model.busy,
                     text: 'Submit',
                     onPressed: () {
                       model.onAppointmentSubmit(context);
@@ -320,9 +328,12 @@ class _NewAppointmentPageState extends State<NewAppointmentPage> {
                   ),
                 ),
                 SizedBox(width: 10),
-                Text(
-                  model.department.name,
-                  style: TextStyle(fontSize: 15),
+                Container(
+                  width: MediaQuery.of(context).size.width,
+                  child: Text(
+                    model.department.name,
+                    style: TextStyle(fontSize: 15),
+                  ),
                 ),
               ],
             ),

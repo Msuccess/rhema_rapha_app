@@ -15,7 +15,6 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  List<Doctor> doctors = List<Doctor>();
   @override
   Widget build(BuildContext context) {
     return BaseWidget<HomeViewModel>(
@@ -31,7 +30,6 @@ class _HomePageState extends State<HomePage> {
         if (model.userDetails.isEmpty) return SizedBox.shrink();
         // if (model.doctors.isEmpty) return SizedBox.shrink();
         var fullname = model.userDetails['fullName'];
-        doctors = model.doctors;
         return SafeArea(
           child: model.busy
               ? Align(
@@ -54,7 +52,7 @@ class _HomePageState extends State<HomePage> {
                           ],
                         ),
                       ),
-                      buildDoctorList()
+                      buildDoctorList(model)
                     ],
                   ),
                 ),
@@ -63,7 +61,7 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  buildDoctorList() {
+  buildDoctorList(HomeViewModel model) {
     return SliverList(
       delegate: SliverChildListDelegate(
         [
@@ -82,24 +80,29 @@ class _HomePageState extends State<HomePage> {
                     Navigator.pushNamed(
                       context,
                       RoutePaths.Doctor,
-                      arguments: doctors,
+                      arguments: model.doctors,
                     );
                   },
                 ),
               ],
             ),
           ),
-          getdoctorWidgetList()
+          getdoctorWidgetList(model)
         ],
       ),
     );
   }
 
-  getdoctorWidgetList() {
+  getdoctorWidgetList(HomeViewModel model) {
     return Column(
-      children: doctors.take(5).map((x) {
-        return DoctorTile(doctor: x);
-      }).toList(),
+      children: <Widget>[
+        SizedBox(height: 10),
+        ...model.doctors.take(5).toList().asMap().entries.map((e) {
+          return DoctorTile(
+            doctor: e.value,
+          );
+        }).toList(),
+      ],
     );
   }
 }

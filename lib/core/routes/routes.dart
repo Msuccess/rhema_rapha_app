@@ -43,7 +43,7 @@ class RouterPath {
 
       case RoutePaths.NewAppointment:
         return PageTransition(
-          child: NewAppointmentPage(),
+          child: NewAppointmentPage(arguments: settings.arguments),
           type: PageTransitionType.leftToRightWithFade,
         );
         break;

@@ -25,7 +25,7 @@ class AppointmentViewModel extends BaseViewModel {
 
   Doctor doctor = Doctor.initial();
   DateTime date = DateTime.now();
-  String type = 'Voice call';
+  String type = 'Visit';
   String time = '8:00AM';
 
   List<Appointment> appointments = List<Appointment>();
@@ -36,6 +36,8 @@ class AppointmentViewModel extends BaseViewModel {
   TextEditingController descriptionController = TextEditingController();
 
   var filterTypee = 'next';
+
+  Doctor paramDoctor;
 
   AppointmentViewModel(
       {@required AppointmentService appointmentService,
@@ -64,7 +66,13 @@ class AppointmentViewModel extends BaseViewModel {
 
     // TODO: show pop up if there are no doctors in all departmet and return to home
 
-    department = department.name == '' ? departments[0] : Department.initial();
+    if (paramDoctor == null) {
+      department =
+          department.name == '' ? departments[0] : Department.initial();
+    } else {
+      department = departments.firstWhere(
+          (department) => department.id == paramDoctor.departmentId);
+    }
 
     getDepartmentDoctors(department.doctor);
     setBusy(false);
@@ -165,7 +173,11 @@ class AppointmentViewModel extends BaseViewModel {
   }
 
   getDepartmentDoctors(List<Doctor> doctors) {
-    doctor = doctors[0];
+    if (paramDoctor == null) {
+      doctor = doctors[0];
+    } else {
+      doctor = doctors.firstWhere((doctor) => doctor.id == paramDoctor.id);
+    }
 
     appointmentTimes = doctor.timesAvailable.split(',').toList();
     time = appointmentTimes[0];
@@ -203,13 +215,15 @@ class AppointmentViewModel extends BaseViewModel {
       appointmentTime: time,
       date: date.toIso8601String(),
       description: descriptionController.text ?? '',
-      type: type,
+      type: type == 'Voice call' ? 'voice' : 'visit',
       patientId: userId,
       doctorId: doctor.id,
     );
 
     print(jsonEncode(appointment));
+
     var result = await _appointmentService.save(appointment);
+
     if (result.isSuccessful) {
       getAppointments();
       UtilService.showSuccessToast(result.message);
@@ -225,5 +239,9 @@ class AppointmentViewModel extends BaseViewModel {
     var days = doctor.daysAvailable.toLowerCase();
     var available = days.contains(day);
     return available;
+  }
+
+  void setParamDoctor(Doctor doctor) {
+    paramDoctor = doctor;
   }
 }

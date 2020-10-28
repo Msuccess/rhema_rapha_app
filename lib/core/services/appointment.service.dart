@@ -51,9 +51,10 @@ class AppointmentService extends BaseService {
     if (res != null && res.statusCode == 400) {
       var data = jsonDecode(res.body);
       return Result(
-          isSuccessful: false,
-          data: data,
-          message: 'Appointment failed to save');
+        isSuccessful: false,
+        data: null,
+        message: data['message'],
+      );
     }
 
     return Result(isSuccessful: false, message: 'Something went wrong');

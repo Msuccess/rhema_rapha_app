@@ -54,7 +54,7 @@ class ProfileViewModel extends BaseViewModel {
     _bloodPressureController.text = patient.bloodPressure;
     _bloodTypeController.text = patient.bloodType;
     _heightController.text = patient.height;
-    _genderController.text = patient.gender;
+    _genderController.text = patient.gender == null ? '' : patient.gender;
 
     setBusy(false);
     return result;

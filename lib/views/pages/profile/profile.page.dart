@@ -28,7 +28,7 @@ class _ProfilePageState extends State<ProfilePage> {
         authService: Provider.of(context),
       ),
       onModelReady: (ProfileViewModel model) async {
-        model.getPatient();
+        await model.getPatient();
       },
       builder: (BuildContext context, ProfileViewModel model, Widget child) {
         if (model.patient == null) return SizedBox.shrink();
@@ -197,6 +197,7 @@ class _ProfilePageState extends State<ProfilePage> {
 
   Widget _builGenderField(ProfileViewModel model) {
     var _gender = [
+      "",
       "Male",
       "Female",
       "Others",
@@ -227,7 +228,7 @@ class _ProfilePageState extends State<ProfilePage> {
       isEmpty: model.gender.text == '',
       child: DropdownButtonHideUnderline(
         child: DropdownButton<String>(
-          value: model.gender.text,
+          value: model.gender.text.isEmpty ? "" : model.gender.text,
           isDense: true,
           onChanged: (gender) => model.onGenderSelect(gender),
           items: _gender.map(

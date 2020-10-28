@@ -130,6 +130,7 @@ class _DoctorDetailsPageState extends State<DoctorDetailsPage> {
                         onPressed: () => Navigator.pushNamed(
                           context,
                           RoutePaths.NewAppointment,
+                          arguments: doctor,
                         ),
                         text: "Make Appointment",
                       ),
