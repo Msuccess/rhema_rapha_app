@@ -213,7 +213,7 @@ class AppointmentViewModel extends BaseViewModel {
     if (result.isSuccessful) {
       getAppointments();
       UtilService.showSuccessToast(result.message);
-      Navigator.pop(context);
+      // Navigator.pop(context);
     } else {
       UtilService.showErrorToast(result.message);
     }

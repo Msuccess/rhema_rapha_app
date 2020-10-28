@@ -29,7 +29,7 @@ class _HomePageState extends State<HomePage> {
       },
       builder: (BuildContext context, HomeViewModel model, Widget child) {
         if (model.userDetails.isEmpty) return SizedBox.shrink();
-        // if (model.doctors.isEmpty) return SizedBox.shrink();
+        if (model.doctors.isEmpty) return SizedBox.shrink();
         var fullname = model.userDetails['fullName'];
         doctors = model.doctors;
         return SafeArea(
@@ -67,6 +67,7 @@ class _HomePageState extends State<HomePage> {
     return SliverList(
       delegate: SliverChildListDelegate(
         [
+          
           Padding(
             padding: EdgeInsets.symmetric(horizontal: 16),
             child: Row(
@@ -95,10 +96,11 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  getdoctorWidgetList() {
+  getdoctorWidgetList() { 
+     if (doctors.isEmpty) return SizedBox.shrink();   
     return Column(
-      children: doctors.take(5).map((x) {
-        return DoctorTile(doctor: x);
+      children: doctors.map((x) {
+              return  DoctorTile(doctor: x);
       }).toList(),
     );
   }
