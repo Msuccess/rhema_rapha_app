@@ -68,7 +68,10 @@ class _DoctorTileState extends State<DoctorTile> {
                     Row(
                       children: [
                         CircleAvatar(
-                          child: Text('RE'),
+                          child: Icon(
+                            Icons.account_circle_outlined,
+                            color: AppColors.white,
+                          ),
                         ),
                         Padding(
                           padding: const EdgeInsets.only(left: 10.0),
@@ -97,5 +100,16 @@ class _DoctorTileState extends State<DoctorTile> {
           ),
         ) ??
         SizedBox.shrink();
+  }
+
+  static String getInitials({String name, int limitTo}) {
+    if (name == null || name == '') return '';
+    var buffer = StringBuffer();
+    var split = name.split(' ');
+    for (var i = 0; i < (limitTo ?? split.length); i++) {
+      if (split[i][0] != null || split[i].isNotEmpty) buffer.write(split[i][0]);
+    }
+
+    return buffer.toString();
   }
 }

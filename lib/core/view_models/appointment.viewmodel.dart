@@ -225,11 +225,16 @@ class AppointmentViewModel extends BaseViewModel {
     var result = await _appointmentService.save(appointment);
 
     if (result.isSuccessful) {
-      getAppointments();
-      UtilService.showSuccessToast(result.message);
-      // Navigator.pop(context);
+      var res = await getAppointments();
+
+      if (res.isSuccessful) {
+        UtilService.showSuccessToast(result.message);
+        Navigator.pop(context);
+        setBusy(false);
+      }
     } else {
       UtilService.showErrorToast(result.message);
+      setBusy(false);
     }
     setBusy(false);
   }

@@ -243,11 +243,9 @@ class _NewAppointmentPageState extends State<NewAppointmentPage> {
             Row(
               children: [
                 CircleAvatar(
-                  child: Text(
-                    AppBarWidget.getInitials(
-                      name: model.doctor.fullName,
-                      limitTo: 2,
-                    ),
+                  child: Icon(
+                    Icons.account_circle_outlined,
+                    color: AppColors.white,
                   ),
                 ),
                 SizedBox(width: 10),
@@ -317,25 +315,28 @@ class _NewAppointmentPageState extends State<NewAppointmentPage> {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Row(
-              children: [
-                CircleAvatar(
-                  child: Text(
-                    AppBarWidget.getInitials(
-                      name: model.department.name,
-                      limitTo: 1,
+            Expanded(
+              child: Row(
+                children: [
+                  CircleAvatar(
+                    child: Icon(
+                      Icons.business_center_outlined,
+                      color: AppColors.white,
                     ),
                   ),
-                ),
-                SizedBox(width: 10),
-                Container(
-                  width: MediaQuery.of(context).size.width,
-                  child: Text(
-                    model.department.name,
-                    style: TextStyle(fontSize: 15),
+                  SizedBox(width: 10),
+                  Expanded(
+                    child: Container(
+                      width: MediaQuery.of(context).size.width,
+                      child: Text(
+                        model.department.name,
+                        style: TextStyle(fontSize: 15),
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
             Icon(Icons.keyboard_arrow_down)
           ],
@@ -353,21 +354,16 @@ class _NewAppointmentPageState extends State<NewAppointmentPage> {
       child: Container(
         margin: EdgeInsets.symmetric(vertical: 1),
         child: ListTile(
-          leading: CircleAvatar(
-            child: Text(
-              AppBarWidget.getInitials(
-                name: department.name,
-                limitTo: 1,
-              ),
-            ),
-          ),
           trailing: Icon(
             Icons.check_circle,
             color: department.id == model.department.id
                 ? AppColors.primaryColor
                 : Colors.transparent,
           ),
-          title: Text(department.name),
+          title: Text(
+            department.name,
+            overflow: TextOverflow.ellipsis,
+          ),
         ),
         decoration: BoxDecoration(
           color: Colors.black12,
@@ -386,10 +382,10 @@ class _NewAppointmentPageState extends State<NewAppointmentPage> {
         margin: EdgeInsets.symmetric(vertical: 1),
         child: ListTile(
           leading: CircleAvatar(
-            child: Text(
-              AppBarWidget.getInitials(name: doctor.fullName, limitTo: 2),
-            ),
-          ),
+              child: Icon(
+            Icons.account_circle_outlined,
+            color: AppColors.white,
+          )),
           trailing: Icon(
             Icons.check_circle,
             color: doctor.id == model.doctor.id

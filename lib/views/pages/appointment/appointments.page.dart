@@ -168,16 +168,16 @@ class AppointmentTile extends StatelessWidget {
                 CircleAvatar(
                   backgroundColor: Colors.blue,
                   radius: 30.0,
-                  child: Text(
-                    'RT',
-                    style: TextStyle(color: AppColors.white),
+                  child: Icon(
+                    Icons.account_circle_outlined,
+                    color: AppColors.white,
                   ),
                 ),
                 Positioned(
                   bottom: 0,
                   right: 0,
                   child: AppointmentTypeIcon(
-                    isCall: appointment.type != 'Visit',
+                    isCall: appointment.type == 'voice',
                   ),
                 ),
               ],
