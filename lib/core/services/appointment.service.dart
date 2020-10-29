@@ -6,8 +6,7 @@ import 'package:rhema_rapha_app/core/models/appointment.model.dart';
 import 'package:rhema_rapha_app/core/services/base.service.dart';
 
 class AppointmentService extends BaseService {
-  Future<Result<List<Appointment>>> getAll(
-      [bool fromAppointment = false]) async {
+  Future<Result<List<Appointment>>> getAll() async {
     var res = await getRequest(EndPoints.getAppointmentUrl());
 
     if (res != null && res.statusCode == 200) {
@@ -18,24 +17,22 @@ class AppointmentService extends BaseService {
           .map((appointment) => Appointment.fromJson(appointment))
           .toList();
 
-      if (fromAppointment) {
-        return Result<List<Appointment>>(
-          isSuccessful: true,
-          data: parsedAppointments,
-          message: 'Appointment saved successfully',
-        );
-      } else {
-        return Result<List<Appointment>>(
-          isSuccessful: true,
-          data: parsedAppointments,
-          message: 'Action Successfully',
-        );
-      }
+      return Result<List<Appointment>>(
+        isSuccessful: true,
+        data: parsedAppointments,
+        message: 'Action Successfully',
+      );
     }
 
     if (res != null && res.statusCode == 400) {
       var data = jsonDecode(res.body);
       return Result(isSuccessful: false, data: data, message: '');
+    }
+
+    if (res != null && res.statusCode == 500) {
+      var data = jsonDecode(res.body);
+      return Result(
+          isSuccessful: false, data: data, message: 'Server side error');
     }
 
     return Result(isSuccessful: false, message: 'Please Check Your Connection');
@@ -47,14 +44,9 @@ class AppointmentService extends BaseService {
     var res = await postRequest(EndPoints.getAppointmentUrl(), appointmentJson);
 
     if (res != null && res.statusCode == 201) {
-      var data = jsonDecode(res.body);
-      var appointment = data['data'] as dynamic;
-      var parsedAppointment = Appointment.fromJson(appointment);
-      getAll(true);
-
       return Result<Appointment>(
         isSuccessful: true,
-        data: parsedAppointment,
+        data: null,
         message: 'Appointment saved successfully',
       );
     }
@@ -67,7 +59,6 @@ class AppointmentService extends BaseService {
         message: data['message'],
       );
     }
-
     return Result(isSuccessful: false, message: 'Something went wrong');
   }
 
