@@ -7,7 +7,6 @@ import 'package:rhema_rapha_app/core/models/department.model.dart';
 import 'package:rhema_rapha_app/core/models/doctor.model.dart';
 import 'package:rhema_rapha_app/core/view_models/appointment.viewmodel.dart';
 import 'package:rhema_rapha_app/views/pages/appointment/appointments.page.dart';
-import 'package:rhema_rapha_app/views/widgets/appbar.widget.dart';
 import 'package:rhema_rapha_app/views/widgets/base.widget.dart';
 import 'package:rhema_rapha_app/views/widgets/button.widget.dart';
 import 'package:rhema_rapha_app/core/services/util.service.dart';
@@ -192,8 +191,7 @@ class _NewAppointmentPageState extends State<NewAppointmentPage> {
     return GestureDetector(
       onTap: () async {
         showDialog(
-          context: context,
-          child: Padding(
+          builder: (context) => Padding(
             padding: const EdgeInsets.symmetric(
               vertical: 100,
             ),
@@ -217,7 +215,7 @@ class _NewAppointmentPageState extends State<NewAppointmentPage> {
                 ),
               ),
             ),
-          ),
+          ), context: context,
         );
       },
       child: Container(
@@ -267,8 +265,7 @@ class _NewAppointmentPageState extends State<NewAppointmentPage> {
     return GestureDetector(
       onTap: () async {
         showDialog(
-          context: context,
-          child: Padding(
+          builder: (context) => Padding(
             padding: const EdgeInsets.symmetric(
               vertical: 100,
             ),
@@ -292,7 +289,7 @@ class _NewAppointmentPageState extends State<NewAppointmentPage> {
                 ),
               ),
             ),
-          ),
+          ), context: context,
         );
       },
       child: Container(

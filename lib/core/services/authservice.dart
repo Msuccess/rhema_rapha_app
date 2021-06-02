@@ -31,7 +31,8 @@ class AuthService {
     try {
       var baseurl = EndPoints.getBaseUrl();
 
-      var res = await post('$baseurl/auth/login', body: user.toJson()).timeout(
+      var url = Uri.parse('$baseurl/auth/login');
+      var res = await post(url, body: user.toJson()).timeout(
         const Duration(seconds: timeoutSeconds),
         onTimeout: () => onTimeout(),
       );
@@ -73,8 +74,9 @@ class AuthService {
 
   Future<Result> signup(User user) async {
     var baseurl = EndPoints.getBaseUrl();
+    var url = Uri.parse('$baseurl/auth/register');
     var body = user.toJson();
-    var res = await post('$baseurl/auth/register', body: body).timeout(
+    var res = await post(url, body: body).timeout(
       const Duration(seconds: timeoutSeconds),
       onTimeout: () => onTimeout(),
     );
@@ -118,7 +120,9 @@ class AuthService {
 
   Future<bool> changePassword(String email) async {
     var baseurl = EndPoints.getBaseUrl();
-    var res = await post('$baseurl/rest-auth/password/change/').timeout(
+    var url = Uri.parse('$baseurl/rest-auth/password/change/');
+
+    var res = await post(url).timeout(
       const Duration(seconds: timeoutSeconds),
       onTimeout: () => onTimeout(),
     );
