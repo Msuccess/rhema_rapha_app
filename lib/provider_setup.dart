@@ -13,7 +13,6 @@ List<SingleChildWidget> providers = [
   ...uiConsumableProviders,
 ];
 
-
 List<SingleChildWidget> independentServices = [
   Provider.value(value: AuthService()),
   Provider.value(value: DoctorService()),
